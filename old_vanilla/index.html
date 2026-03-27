@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyJinan Help Center — AI Assistant</title>
+    <meta name="description" content="Get instant answers about the MyJinan e-commerce platform. Ask anything about products, orders, settings, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+            </div>
+            <div class="header-text">
+                <h1>MyJinan Help Center</h1>
+                <span class="header-subtitle">AI-Powered Documentation Assistant</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>Online</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Chat Container -->
+    <main class="chat-container">
+        <!-- Welcome Message -->
+        <div class="chat-messages" id="chatMessages">
+            <div class="welcome-section">
+                <div class="welcome-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <defs>
+                            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6366f1"/>
+                                <stop offset="100%" style="stop-color:#a855f7"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </div>
+                <h2 class="welcome-title">How can I help you today?</h2>
+                <p class="welcome-desc">Ask me anything about the MyJinan platform — products, orders, settings, reports, and more.</p>
+                
+                <div class="suggested-questions">
+                    <button class="suggestion-chip" onclick="askSuggestion(this)">
+                        <span class="chip-icon">📦</span>
+                        How do I add a new product?
+                    </button>
+                    <button class="suggestion-chip" onclick="askSuggestion(this)">
+                        <span class="chip-icon">📂</span>
+                        How to create categories?
+                    </button>
+                    <button class="suggestion-chip" onclick="askSuggestion(this)">
+                        <span class="chip-icon">🛒</span>
+                        How to manage orders?
+                    </button>
+                    <button class="suggestion-chip" onclick="askSuggestion(this)">
+                        <span class="chip-icon">⚙️</span>
+                        How to set up business settings?
+                    </button>
+                    <button class="suggestion-chip" onclick="askSuggestion(this)">
+                        <span class="chip-icon">📊</span>
+                        How to view sales reports?
+                    </button>
+                    <button class="suggestion-chip" onclick="askSuggestion(this)">
+                        <span class="chip-icon">👥</span>
+                        How to manage employees?
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <div class="input-wrapper">
+                <textarea 
+                    id="userInput" 
+                    placeholder="Ask about products, orders, settings, reports..." 
+                    rows="1"
+                    onkeydown="handleKeyDown(event)"
+                    oninput="autoResize(this)"
+                ></textarea>
+                <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+            <p class="input-hint">Powered by Google Gemini AI · Knowledge base covers all MyJinan modules</p>
+        </div>
+    </main>
+
+    <script src="knowledge.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
