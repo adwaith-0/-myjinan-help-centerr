@@ -1,1 +1,87 @@
 @import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════
+   MYJINAN HELP CENTER — Custom styles for Tailwind-based UI
+   Only adds classes not achievable with Tailwind utilities
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Flow Step Blocks (Step 1, Step 2...) ── */
+.flow-step-block {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 6px 0;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 3px solid rgba(245, 158, 11, 0.6);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.flow-step-block:hover {
+  background: rgba(0, 0, 0, 0.22);
+  border-left-color: rgba(245, 158, 11, 0.9);
+}
+
+.flow-step-num {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.4), rgba(249, 115, 22, 0.4));
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #fbbf24;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.flow-step-text {
+  flex: 1;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+/* ── Navigation Breadcrumb Pills ── */
+.nav-crumbs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  margin: 2px 0;
+}
+
+.nav-pill {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 5px;
+  background: rgba(245, 158, 11, 0.12);
+  color: #fcd34d;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.nav-arrow {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 11px;
+  margin: 0 1px;
+}
+
+/* ── Callout Cards (Pro Tip, Expected Result, etc.) ── */
+.callout-card {
+  backdrop-filter: blur(4px);
+}
