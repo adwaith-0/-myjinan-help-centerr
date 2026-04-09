@@ -583,7 +583,7 @@ export default function GradientChatApp() {
 
   return (
     <div className="flex flex-col w-full h-screen bg-[radial-gradient(125%_125%_at_50%_101%,rgba(245,87,2,1)_10.5%,rgba(245,120,2,1)_16%,rgba(245,140,2,1)_17.5%,rgba(245,170,100,1)_25%,rgba(238,174,202,1)_40%,rgba(202,179,214,1)_65%,rgba(148,201,233,1)_100%)]">
-      {/* Top bar — Settings + Reset */}
+      {/* Top bar — Settings (left) + Reset + Logo (right) */}
       <div className="fixed top-4 left-4 z-50">
         <button
           onClick={() => setShowApiKeyModal(true)}
@@ -593,20 +593,27 @@ export default function GradientChatApp() {
           API Key
         </button>
       </div>
-      <AnimatePresence>
-        {hasMessages && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            onClick={handleReset}
-            className="fixed top-4 right-4 z-50 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white/80 hover:text-white hover:bg-black/30 transition-all text-xs font-medium"
-          >
-            <RotateCcw className="w-3 h-3" />
-            New chat
-          </motion.button>
-        )}
-      </AnimatePresence>
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+        <AnimatePresence>
+          {hasMessages && (
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              onClick={handleReset}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white/80 hover:text-white hover:bg-black/30 transition-all text-xs font-medium"
+            >
+              <RotateCcw className="w-3 h-3" />
+              New chat
+            </motion.button>
+          )}
+        </AnimatePresence>
+        <img
+          src="/myjinan-logo.png"
+          alt="MyJinan"
+          className="w-10 h-10 rounded-xl bg-white/90 backdrop-blur-md border border-white/20 shadow-lg object-contain p-0.5"
+        />
+      </div>
 
       {/* Messages area */}
       <div
