@@ -323,31 +323,38 @@ function ResponseWithInlineImages({
     // Distribute images between paragraphs
     const interval = Math.max(1, Math.floor(paragraphs.length / (images.length + 1)));
     let imgI = 0;
+    const imgAssignments: (number | null)[] = [];
+    paragraphs.forEach((_para, i) => {
+      if (imgI < images.length && (i + 1) % interval === 0) {
+        imgAssignments.push(imgI);
+        imgI++;
+      } else {
+        imgAssignments.push(null);
+      }
+    });
+    const finalImgI = imgI;
+
     return (
       <div>
         {paragraphs.map((para, i) => {
           const html = i === 0 ? para + "</p>" : "<p" + para + (i < paragraphs.length - 1 ? "</p>" : "");
-          const showImage = imgI < images.length && (i + 1) % interval === 0;
-          const currentImg = showImage ? images[imgI] : null;
-          const currentImgIndex = imgI; // capture before increment!
-          if (showImage) imgI++;
+          const assignedIdx = imgAssignments[i];
           return (
             <div key={i}>
               <div
                 className="text-sm leading-relaxed [&_strong]:text-white"
                 dangerouslySetInnerHTML={{ __html: html }}
               />
-              {currentImg && (
-                <InlineImageCard image={currentImg} onClick={() => onImageClick(images, currentImgIndex)} />
+              {assignedIdx !== null && images[assignedIdx] && (
+                <InlineImageCard image={images[assignedIdx]} onClick={() => onImageClick(images, assignedIdx)} />
               )}
             </div>
           );
         })}
         {/* Show any remaining images */}
-        {imgI < images.length && images.slice(imgI).map((img, i) => {
-          const idx = imgI + i;
-          return <InlineImageCard key={`r${i}`} image={img} onClick={() => onImageClick(images, idx)} />;
-        })}
+        {finalImgI < images.length && images.slice(finalImgI).map((img, i) => (
+          <InlineImageCard key={`r${i}`} image={img} onClick={() => onImageClick(images, finalImgI + i)} />
+        ))}
       </div>
     );
   }
