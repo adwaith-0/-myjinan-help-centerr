@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { PromptInputBox } from "@/components/ui/ai-prompt-box";
-import { sendToGemini, clearHistory, type GeminiResponse } from "@/lib/gemini";
+import { sendToGemini, clearHistory, type GeminiResponse, setApiKey, getStoredApiKey } from "@/lib/gemini";
 import { type DocImage } from "@/lib/image-registry";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, RotateCcw, X, ChevronLeft, ChevronRight, Info, ZoomIn } from "lucide-react";
+import { Sparkles, RotateCcw, X, ChevronLeft, ChevronRight, Info, ZoomIn, Settings, ExternalLink, Key, Check, Trash2 } from "lucide-react";
 
 // ── Types ──
 interface ChatMessage {
@@ -343,6 +343,134 @@ function ResponseWithInlineImages({
 }
 
 // ═══════════════════════════════════════════════════════════════
+//  API KEY MODAL — Popup to enter/update Gemini API key
+// ═══════════════════════════════════════════════════════════════
+
+function ApiKeyModal({ onClose }: { onClose: () => void }) {
+  const [key, setKey] = useState(getStoredApiKey());
+  const [saved, setSaved] = useState(false);
+
+  const handleSave = () => {
+    setApiKey(key);
+    setSaved(true);
+    setTimeout(() => {
+      setSaved(false);
+      onClose();
+    }, 1200);
+  };
+
+  const handleClear = () => {
+    setKey("");
+    setApiKey("");
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.9, opacity: 0, y: 20 }}
+        className="relative w-full max-w-md mx-4 rounded-2xl bg-[#1a1a2e]/95 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="px-5 pt-5 pb-3 border-b border-white/5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500/30 to-orange-500/30 flex items-center justify-center">
+                <Key className="w-4 h-4 text-amber-400" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-white">API Key Settings</h3>
+                <p className="text-[11px] text-white/40">Configure your Gemini API key</p>
+              </div>
+            </div>
+            <button onClick={onClose} className="w-7 h-7 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/50 hover:text-white transition-all">
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Body */}
+        <div className="px-5 py-4 space-y-4">
+          {/* Instructions */}
+          <div className="rounded-xl bg-amber-500/8 border border-amber-500/15 px-3.5 py-3">
+            <p className="text-xs text-white/70 leading-relaxed mb-2">
+              To use this assistant, you need a <strong className="text-white">Gemini API key</strong>. Follow these steps:
+            </p>
+            <ol className="text-xs text-white/60 space-y-1 ml-3 list-decimal">
+              <li>Visit Google AI Studio (link below)</li>
+              <li>Sign in with your Google account</li>
+              <li>Click <strong className="text-white/80">"Get API Key"</strong> → <strong className="text-white/80">"Create API Key"</strong></li>
+              <li>Copy the key and paste it below</li>
+            </ol>
+            <a
+              href="https://aistudio.google.com/apikey"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-500/15 border border-blue-500/25 text-blue-300 hover:text-blue-200 hover:bg-blue-500/25 transition-all text-xs font-medium"
+            >
+              <ExternalLink className="w-3 h-3" />
+              Open Google AI Studio
+            </a>
+          </div>
+
+          {/* Key input */}
+          <div>
+            <label className="text-[11px] font-semibold text-white/50 uppercase tracking-wider mb-1.5 block">API Key</label>
+            <div className="relative">
+              <input
+                type="password"
+                value={key}
+                onChange={(e) => setKey(e.target.value)}
+                placeholder="Paste your Gemini API key here..."
+                className="w-full px-3.5 py-2.5 rounded-xl bg-black/30 border border-white/10 text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-amber-500/40 focus:ring-1 focus:ring-amber-500/20 transition-all font-mono"
+              />
+              {key && (
+                <button
+                  onClick={handleClear}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-md bg-white/5 hover:bg-red-500/20 flex items-center justify-center text-white/30 hover:text-red-400 transition-all"
+                >
+                  <Trash2 className="w-3 h-3" />
+                </button>
+              )}
+            </div>
+            <p className="text-[10px] text-white/30 mt-1.5">Your key is stored locally in your browser and never sent to any server except Google's API.</p>
+          </div>
+
+          {/* Actions */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleSave}
+              disabled={!key.trim()}
+              className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm font-semibold hover:from-amber-400 hover:to-orange-400 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg shadow-amber-500/20"
+            >
+              {saved ? (
+                <><Check className="w-4 h-4" /> Saved!</>
+              ) : (
+                <><Key className="w-3.5 h-3.5" /> Save Key</>
+              )}
+            </button>
+            <button
+              onClick={onClose}
+              className="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/60 text-sm hover:bg-white/10 hover:text-white transition-all"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
 //  MAIN APP — Original gradient design preserved
 // ═══════════════════════════════════════════════════════════════
 
@@ -350,6 +478,7 @@ export default function GradientChatApp() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [lightbox, setLightbox] = useState<{ images: DocImage[]; index: number } | null>(null);
+  const [showApiKeyModal, setShowApiKeyModal] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -397,7 +526,16 @@ export default function GradientChatApp() {
 
   return (
     <div className="flex flex-col w-full h-screen bg-[radial-gradient(125%_125%_at_50%_101%,rgba(245,87,2,1)_10.5%,rgba(245,120,2,1)_16%,rgba(245,140,2,1)_17.5%,rgba(245,170,100,1)_25%,rgba(238,174,202,1)_40%,rgba(202,179,214,1)_65%,rgba(148,201,233,1)_100%)]">
-      {/* Reset button */}
+      {/* Top bar — Settings + Reset */}
+      <div className="fixed top-4 left-4 z-50">
+        <button
+          onClick={() => setShowApiKeyModal(true)}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white/80 hover:text-white hover:bg-black/30 transition-all text-xs font-medium"
+        >
+          <Settings className="w-3 h-3" />
+          API Key
+        </button>
+      </div>
       <AnimatePresence>
         {hasMessages && (
           <motion.button
@@ -514,6 +652,13 @@ export default function GradientChatApp() {
             total={lightbox.images.length}
             currentIndex={lightbox.index}
           />
+        )}
+      </AnimatePresence>
+
+      {/* API Key Settings Modal */}
+      <AnimatePresence>
+        {showApiKeyModal && (
+          <ApiKeyModal onClose={() => setShowApiKeyModal(false)} />
         )}
       </AnimatePresence>
     </div>

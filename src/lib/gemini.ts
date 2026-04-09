@@ -8,6 +8,25 @@ const CONFIG = {
   THINKING_BUDGET: 8192,
 };
 
+// ── API Key Management (localStorage > env var) ──
+const API_KEY_STORAGE_KEY = "myjinan_gemini_api_key";
+
+export function getApiKey(): string {
+  return localStorage.getItem(API_KEY_STORAGE_KEY) || CONFIG.GEMINI_API_KEY;
+}
+
+export function setApiKey(key: string) {
+  if (key.trim()) {
+    localStorage.setItem(API_KEY_STORAGE_KEY, key.trim());
+  } else {
+    localStorage.removeItem(API_KEY_STORAGE_KEY);
+  }
+}
+
+export function getStoredApiKey(): string {
+  return localStorage.getItem(API_KEY_STORAGE_KEY) || "";
+}
+
 // ═══════════════════════════════════════════════════════════════
 //  SYSTEM PROMPT — Optimized for flowchart-style, structured,
 //  image-aware documentation responses
@@ -134,11 +153,16 @@ export interface GeminiResponse {
 
 // ── Main API call with thinking mode ──
 export async function sendToGemini(userQuestion: string): Promise<GeminiResponse> {
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    throw new Error("No API key configured. Click the ⚙️ icon to add your Gemini API key.");
+  }
+
   const url =
     "https://generativelanguage.googleapis.com/v1beta/models/" +
     CONFIG.MODEL +
     ":generateContent?key=" +
-    CONFIG.GEMINI_API_KEY;
+    apiKey;
 
   const recentHistory = conversationHistory.slice(-10);
 
