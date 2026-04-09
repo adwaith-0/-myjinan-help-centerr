@@ -329,6 +329,7 @@ function ResponseWithInlineImages({
           const html = i === 0 ? para + "</p>" : "<p" + para + (i < paragraphs.length - 1 ? "</p>" : "");
           const showImage = imgI < images.length && (i + 1) % interval === 0;
           const currentImg = showImage ? images[imgI] : null;
+          const currentImgIndex = imgI; // capture before increment!
           if (showImage) imgI++;
           return (
             <div key={i}>
@@ -337,15 +338,16 @@ function ResponseWithInlineImages({
                 dangerouslySetInnerHTML={{ __html: html }}
               />
               {currentImg && (
-                <InlineImageCard image={currentImg} onClick={() => onImageClick(images, imgI - 1)} />
+                <InlineImageCard image={currentImg} onClick={() => onImageClick(images, currentImgIndex)} />
               )}
             </div>
           );
         })}
         {/* Show any remaining images */}
-        {imgI < images.length && images.slice(imgI).map((img, i) => (
-          <InlineImageCard key={`r${i}`} image={img} onClick={() => onImageClick(images, imgI + i)} />
-        ))}
+        {imgI < images.length && images.slice(imgI).map((img, i) => {
+          const idx = imgI + i;
+          return <InlineImageCard key={`r${i}`} image={img} onClick={() => onImageClick(images, idx)} />;
+        })}
       </div>
     );
   }
