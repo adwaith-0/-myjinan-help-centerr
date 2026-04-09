@@ -292,13 +292,61 @@ function ResponseWithInlineImages({
     markers.push({ marker: match[0], stepNum: parseInt(match[1]) });
   }
 
-  // If no step markers found, just render text only (no separate image section)
+  // If no step markers found, distribute images between paragraphs
   if (markers.length === 0) {
+    if (!images.length) {
+      return (
+        <div
+          className="text-sm leading-relaxed [&_strong]:text-white"
+          dangerouslySetInnerHTML={{ __html: htmlContent }}
+        />
+      );
+    }
+
+    // Split HTML at paragraph boundaries and inject images between them
+    const paragraphs = htmlContent.split(/<\/p>\s*<p/);
+    if (paragraphs.length <= 1) {
+      // Single block of text — show images after it
+      return (
+        <div>
+          <div
+            className="text-sm leading-relaxed [&_strong]:text-white"
+            dangerouslySetInnerHTML={{ __html: htmlContent }}
+          />
+          {images.map((img, i) => (
+            <InlineImageCard key={i} image={img} onClick={() => onImageClick(images, i)} />
+          ))}
+        </div>
+      );
+    }
+
+    // Distribute images between paragraphs
+    const interval = Math.max(1, Math.floor(paragraphs.length / (images.length + 1)));
+    let imgI = 0;
     return (
-      <div
-        className="text-sm leading-relaxed [&_strong]:text-white"
-        dangerouslySetInnerHTML={{ __html: htmlContent }}
-      />
+      <div>
+        {paragraphs.map((para, i) => {
+          const html = i === 0 ? para + "</p>" : "<p" + para + (i < paragraphs.length - 1 ? "</p>" : "");
+          const showImage = imgI < images.length && (i + 1) % interval === 0;
+          const currentImg = showImage ? images[imgI] : null;
+          if (showImage) imgI++;
+          return (
+            <div key={i}>
+              <div
+                className="text-sm leading-relaxed [&_strong]:text-white"
+                dangerouslySetInnerHTML={{ __html: html }}
+              />
+              {currentImg && (
+                <InlineImageCard image={currentImg} onClick={() => onImageClick(images, imgI - 1)} />
+              )}
+            </div>
+          );
+        })}
+        {/* Show any remaining images */}
+        {imgI < images.length && images.slice(imgI).map((img, i) => (
+          <InlineImageCard key={`r${i}`} image={img} onClick={() => onImageClick(images, imgI + i)} />
+        ))}
+      </div>
     );
   }
 
