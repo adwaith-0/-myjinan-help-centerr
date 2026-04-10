@@ -3,7 +3,8 @@ import { PromptInputBox } from "@/components/ui/ai-prompt-box";
 import { sendToGemini, clearHistory, type GeminiResponse, setApiKey, getStoredApiKey } from "@/lib/gemini";
 import { type DocImage } from "@/lib/image-registry";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, RotateCcw, X, ChevronLeft, ChevronRight, Info, ZoomIn, Settings, ExternalLink, Key, Check, Trash2 } from "lucide-react";
+import { Sparkles, RotateCcw, X, ChevronLeft, ChevronRight, Info, ZoomIn, Settings, ExternalLink, Key, Check, Trash2, BookOpen } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 // ── Types ──
 interface ChatMessage {
@@ -532,6 +533,7 @@ function ApiKeyModal({ onClose }: { onClose: () => void }) {
 // ═══════════════════════════════════════════════════════════════
 
 export default function GradientChatApp() {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [lightbox, setLightbox] = useState<{ images: DocImage[]; index: number } | null>(null);
@@ -583,15 +585,17 @@ export default function GradientChatApp() {
 
   return (
     <div className="flex flex-col w-full h-screen bg-[radial-gradient(125%_125%_at_50%_101%,rgba(245,87,2,1)_10.5%,rgba(245,120,2,1)_16%,rgba(245,140,2,1)_17.5%,rgba(245,170,100,1)_25%,rgba(238,174,202,1)_40%,rgba(202,179,214,1)_65%,rgba(148,201,233,1)_100%)]">
-      {/* Top bar — Settings (left) + Reset + Logo (right) */}
-      <div className="fixed top-4 left-4 z-50">
-        <button
-          onClick={() => setShowApiKeyModal(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white/80 hover:text-white hover:bg-black/30 transition-all text-xs font-medium"
-        >
-          <Settings className="w-3 h-3" />
-          API Key
-        </button>
+      {/* Top bar — Logo big (left) | API Key + User Stories (right) */}
+      <div className="fixed top-4 left-4 z-50 flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-[#0f172a]/90 border border-white/15 shadow-xl">
+        <img
+          src="/myjinan-logo.png"
+          alt="MyJinan"
+          className="w-10 h-10 rounded-lg bg-white/95 border border-white/20 object-contain p-0.5"
+        />
+        <div>
+          <p className="text-sm font-bold text-white leading-tight">MyJinan</p>
+          <p className="text-[9px] text-white/40 font-medium">Help Center</p>
+        </div>
       </div>
       <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
         <AnimatePresence>
@@ -601,18 +605,27 @@ export default function GradientChatApp() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               onClick={handleReset}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white/80 hover:text-white hover:bg-black/30 transition-all text-xs font-medium"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#0f172a]/90 border border-white/15 text-white/80 hover:text-white hover:bg-[#1e293b] transition-all text-xs font-semibold shadow-lg"
             >
-              <RotateCcw className="w-3 h-3" />
+              <RotateCcw className="w-3.5 h-3.5" />
               New chat
             </motion.button>
           )}
         </AnimatePresence>
-        <img
-          src="/myjinan-logo.png"
-          alt="MyJinan"
-          className="w-10 h-10 rounded-xl bg-white/90 backdrop-blur-md border border-white/20 shadow-lg object-contain p-0.5"
-        />
+        <button
+          onClick={() => setShowApiKeyModal(true)}
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#0f172a]/90 border border-white/15 text-white/90 hover:text-white hover:bg-[#1e293b] transition-all text-xs font-semibold shadow-lg"
+        >
+          <Settings className="w-3.5 h-3.5" />
+          API Key
+        </button>
+        <button
+          onClick={() => navigate("/user-stories")}
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#0f172a]/90 border border-amber-500/20 text-amber-300 hover:text-amber-200 hover:bg-[#1e293b] transition-all text-xs font-semibold shadow-lg"
+        >
+          <BookOpen className="w-3.5 h-3.5" />
+          User Stories
+        </button>
       </div>
 
       {/* Messages area */}
