@@ -29,8 +29,10 @@ import {
   MessageSquare,
   RotateCcw,
   Zap,
+  Image as ImageIcon,
 } from "lucide-react";
 import userStoriesData from "@/lib/user-stories-data.json";
+import { getSubModuleImages, getModuleImages, type StoryImage } from "@/lib/stories-image-map";
 
 // ── Types ──
 interface UserStory {
@@ -93,6 +95,89 @@ function saveStatuses(data: Record<string, VerifyStatus>) {
 // ═══════════════════════════════════════════════════════════════
 //  STORY CARD — Full card with BIG labeled status buttons
 // ═══════════════════════════════════════════════════════════════
+
+function ImageGallery({ images, accentColor }: { images: StoryImage[]; accentColor: string }) {
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  if (images.length === 0) return null;
+
+  return (
+    <>
+      <div className="flex items-center gap-2 mb-2">
+        <ImageIcon className="w-3.5 h-3.5" style={{ color: accentColor }} />
+        <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: `${accentColor}cc` }}>Screenshots</p>
+      </div>
+      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
+        {images.map((img, i) => (
+          <div
+            key={i}
+            onClick={() => setLightbox(i)}
+            className="shrink-0 cursor-pointer group rounded-lg overflow-hidden border border-white/10 hover:border-white/25 transition-all hover:scale-[1.02]"
+          >
+            <img
+              src={img.url}
+              alt={img.caption}
+              className="w-[180px] h-[110px] object-cover object-top"
+              loading="lazy"
+            />
+            <p className="text-[9px] text-white/40 px-2 py-1.5 bg-black/60 truncate group-hover:text-white/70 transition-colors">{img.caption}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-8"
+            onClick={() => setLightbox(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              className="relative max-w-4xl max-h-[85vh] w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={images[lightbox].url}
+                alt={images[lightbox].caption}
+                className="w-full h-auto max-h-[80vh] object-contain rounded-xl border border-white/10"
+              />
+              <p className="text-center text-sm text-white/60 mt-3">{images[lightbox].caption}</p>
+              <button
+                onClick={() => setLightbox(null)}
+                className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+              {/* Nav arrows */}
+              {lightbox > 0 && (
+                <button
+                  onClick={() => setLightbox(lightbox - 1)}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 border border-white/10 flex items-center justify-center text-white hover:bg-black/80 transition-colors"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                </button>
+              )}
+              {lightbox < images.length - 1 && (
+                <button
+                  onClick={() => setLightbox(lightbox + 1)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 border border-white/10 flex items-center justify-center text-white hover:bg-black/80 transition-colors"
+                >
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+              )}
+              <p className="text-center text-[10px] text-white/30 mt-1">{lightbox + 1} / {images.length}</p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
 
 function StoryCard({
   story,
@@ -243,6 +328,15 @@ function StoryCard({
                   </div>
                 </div>
               )}
+              {/* SubModule Images */}
+              {(() => {
+                const imgs = getSubModuleImages(story.module, story.subModule);
+                return imgs.length > 0 ? (
+                  <div className="mt-2 pt-2 border-t border-white/5">
+                    <ImageGallery images={imgs} accentColor={accentColor} />
+                  </div>
+                ) : null;
+              })()}
             </div>
           </motion.div>
         )}
@@ -355,6 +449,15 @@ function ModuleAccordion({
             className="overflow-hidden"
           >
             <div className="border-t border-white/5 p-4 space-y-3">
+              {/* Module-level image gallery */}
+              {(() => {
+                const moduleImgs = getModuleImages(moduleName);
+                return moduleImgs.length > 0 ? (
+                  <div className="rounded-xl bg-white/[0.02] border border-white/5 p-3 mb-2">
+                    <ImageGallery images={moduleImgs} accentColor={color} />
+                  </div>
+                ) : null;
+              })()}
               {stories.map((story, i) => (
                 <motion.div
                   key={story.ref}

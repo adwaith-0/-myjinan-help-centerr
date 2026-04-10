@@ -62,6 +62,14 @@ const IMAGE_REGISTRY: Record<string, DocImage[]> = {
     { url: "/docs/bm/refund_settings_tab_1773152858972.png", caption: "Refund Settings Tab" },
   ],
 
+  // ── EMPLOYEE MANAGEMENT ──
+  employee_management: [
+    { url: "/docs/em/em_add_employee_form.png", caption: "Add New Employee — General Information Form" },
+    { url: "/docs/em/em_employee_general_info.png", caption: "Employee Form — Name, Zone, Role & Phone" },
+    { url: "/docs/em/em_employee_image_upload.png", caption: "Employee Image Upload — 1:1 Ratio" },
+    { url: "/docs/em/em_employee_list.png", caption: "Employee List — Table View with Search" },
+  ],
+
   // ── BUSINESS MANAGEMENT: Refund ──
   refund: [
     { url: "/docs/bm/refund_settings_tab_1773152858972.png", caption: "Refund Settings Tab" },
@@ -320,6 +328,7 @@ const KEYWORD_MAP: Record<string, string[]> = {
   business_settings: ["business setting", "business config", "general setting", "platform setting", "maintenance mode", "bs-set"],
   vendor_settings: ["vendor setting", "vendor config", "store owner setting", "vendor registration"],
   employee_deliveryman: ["employee", "deliveryman", "delivery boy", "driver", "rider", "add employee", "employee management", "staff", "delivery man", "em-"],
+  employee_management: ["employee list", "add new employee", "employee form", "employee role", "employee invitation", "role management", "access control", "activity audit", "employee table", "employee search"],
   refund: ["refund", "refund reason", "refund policy", "refund setting", "return policy"],
   customer_setup: ["customer setup", "customer config", "wallet", "customer wallet", "loyalty point"],
   priority_setup: ["priority setup", "priority config", "order priority"],
