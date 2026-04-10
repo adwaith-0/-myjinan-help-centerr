@@ -32,7 +32,7 @@ import {
   Image as ImageIcon,
 } from "lucide-react";
 import userStoriesData from "@/lib/user-stories-data.json";
-import { getSubModuleImages, getModuleImages, type StoryImage } from "@/lib/stories-image-map";
+import { getStoryImages, getModuleImages, type StoryImage } from "@/lib/stories-image-map";
 
 // ── Types ──
 interface UserStory {
@@ -328,9 +328,9 @@ function StoryCard({
                   </div>
                 </div>
               )}
-              {/* SubModule Images */}
+              {/* Story-specific Images (by ref ID) */}
               {(() => {
-                const imgs = getSubModuleImages(story.module, story.subModule);
+                const imgs = getStoryImages(story.ref, story.module, story.subModule);
                 return imgs.length > 0 ? (
                   <div className="mt-2 pt-2 border-t border-white/5">
                     <ImageGallery images={imgs} accentColor={accentColor} />
