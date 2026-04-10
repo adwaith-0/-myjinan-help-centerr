@@ -29,7 +29,6 @@ import {
   MessageSquare,
   RotateCcw,
   Zap,
-  Layers,
 } from "lucide-react";
 import userStoriesData from "@/lib/user-stories-data.json";
 
