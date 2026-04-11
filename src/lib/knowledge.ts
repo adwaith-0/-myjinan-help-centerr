@@ -9,16 +9,18 @@ Below is the complete knowledge base covering all modules. Use ONLY this informa
 ### PRODUCT MANAGEMENT
 
 #### Categories
-- **Add New Category**: Product Management → Categories → Add New → Enter name in Default/EN/AR → Upload 1:1 image → Save.
-- **View/Export Categories**: Product Management → Categories → Use Search bar to find → Click Export to download as Excel.
+> ⚠️ **Admin Note**: Category names must be created manually in the admin panel before they can be assigned to any product. If a category does not exist, it will not appear in product forms or bulk imports.
+- **Add New Category**: Product Management → Categories → Category → Add New → Enter name in Default/EN/AR → Upload 1:1 image → Save.
+- **View/Export Categories**: Product Management → Categories → Category → Use Search bar to find → Click Export to download as Excel.
 - **Edit Category**: Product Management → Categories → Click Edit icon next to category → Update name/image → Save.
 - **Enable/Disable Category**: Product Management → Categories → Toggle the Status switch to Enable/Disable.
 - **Delete Category**: Product Management → Categories → Click Delete icon → Confirm deletion (only works if no products linked).
 
 #### Sub Categories
-- **Add Sub Category**: Product Management → Sub Categories → Add New → Select parent category → Enter name in all languages → Save.
-- **View Sub Categories**: Product Management → Sub Categories → Review the list showing each sub-category alongside its parent.
-- **Edit Sub Category**: Product Management → Sub Categories → Click Edit → Change parent category or name → Save.
+> ⚠️ **Admin Note**: Sub-category names must be created manually in the admin panel before they can be assigned to any product. The parent Category must also exist first before a sub-category can be created under it.
+- **Add Sub Category**: Product Management → Categories → Sub Category → Add New → Select parent category → Enter name in all languages → Save.
+- **View Sub Categories**: Product Management → Categories → Sub Category → Review the list showing each sub-category alongside its parent.
+- **Edit Sub Category**: Product Management → Categories → Sub Category → Click Edit → Change parent category or name → Save.
 
 #### Bulk Import (Categories)
 - **Download Template**: Product Management → Bulk Import → Download Template (with or without current data).
@@ -37,6 +39,7 @@ Below is the complete knowledge base covering all modules. Use ONLY this informa
 - **Manage Units**: Product Management → Units → View list → Edit to rename or Delete duplicates.
 
 #### Brands
+> ⚠️ **Admin Note**: Brand names must be created manually in the admin panel before they can be assigned to any product. If a brand does not exist yet, admin must add it first before it appears as a selectable option in product forms or bulk imports.
 - **Add Brand**: Product Management → Brands → Add New → Enter brand name → Upload logo → Save.
 - **Enable/Disable Brand**: Product Management → Brands → Toggle Status switch to Enable/Disable.
 - **Search Brands**: Product Management → Brands → Use Search bar to find specific brands.
@@ -46,6 +49,11 @@ Below is the complete knowledge base covering all modules. Use ONLY this informa
 ### PRODUCT SETUP
 
 #### Add New Product
+> ⚠️ **ADMIN PRE-REQUISITE — IMPORTANT**: Before adding any new product (individually or via bulk import), the following must already exist in the admin panel. If any are missing or new, the admin MUST manually create them first:
+> - **Category**: Product Management → Categories → Category → Add New
+> - **Sub-Category**: Product Management → Categories → Sub Category → Add New
+> - **Brand**: Product Management → Brands → Add New Brand
+> Attempting to add a product without these pre-existing entries will result in the fields being empty or unavailable.
 - **Product Name & Description**: Product Setup → Add New → Fill Name, Short Description, Long Description in Default/EN/AR tabs.
 - **Product Images**: Product Setup → Add New → Upload Product Image (1:1 ratio) → Upload Thumbnail (mandatory). Image requirements: 1:1 aspect ratio, less than 100KB, .jpg or .png format.
 - **Store & Category Assignment**: Product Setup → Add New → Select Store → Select Category → Select Sub-Category → Select Brand.
@@ -77,6 +85,10 @@ Below is the complete knowledge base covering all modules. Use ONLY this informa
 - **Export Reviews**: You can export the entire Review List as an Excel or CSV file.
 
 #### Product Bulk Import
+> ⚠️ **ADMIN PRE-REQUISITE — IMPORTANT**: Before bulk importing products, ensure every Category, Sub-Category, and Brand referenced in the Excel file already exists in the admin panel. Any unrecognised name will cause that row to fail. Create missing entries manually first:
+> - **Category**: Product Management → Categories → Category → Add New
+> - **Sub-Category**: Product Management → Categories → Sub Category → Add New
+> - **Brand**: Product Management → Brands → Add New Brand
 - **Download Template**: Product Management → Bulk Import → Download Template (pre-filled with existing data).
 - **Upload Products**: Product Management → Bulk Import → Choose filled .xls/.xlsx file → Upload.
 - **Important**: Ensure image file names do not exceed 30 characters. For e-commerce items, use 24-hour time format.
