@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import userStoriesData from "@/lib/user-stories-data.json";
 import { getStoryImages, getModuleImages, type StoryImage } from "@/lib/stories-image-map";
-import { ROLES, type RoleDef } from "@/lib/role-config";
+import { ROLES, type RoleDef } from "@/lib/role-config.ts";
 
 // ─── Types ─────────────────────────────────────────────────────
 interface UserStory {
@@ -692,14 +692,14 @@ export default function UserStoriesPage() {
 
   const activeRole = useMemo(()=>{
     if(view==="overview"||view==="all") return null;
-    return ROLES.find(r=>r.id===view)||null;
+    return ROLES.find((r: RoleDef) => r.id===view)||null;
   },[view]);
 
   const roleGrad = (activeRole ? ROLE_GRAD[activeRole.id] || ["#6366f1","#8b5cf6"] : ["#6366f1","#8b5cf6"]) as [string,string];
 
   const scoped = useMemo(()=>{
     if(view==="overview"||view==="all") return stories;
-    const role = ROLES.find(r=>r.id===view);
+    const role = ROLES.find((r: RoleDef) => r.id===view);
     return role ? stories.filter(s=>role.modules.includes(s.module)) : stories;
   },[stories,view]);
 
@@ -790,7 +790,7 @@ export default function UserStoriesPage() {
                 <button className={`us-pill ${view==="all"?"on":""}`} onClick={()=>setView("all")}>
                   <LayoutGrid style={{ width:11,height:11 }} /> All
                 </button>
-                {ROLES.map(r=>{
+                {ROLES.map((r: RoleDef) => {
                   const Icon=ROLE_ICON[r.icon]||User;
                   const [c1]=ROLE_GRAD[r.id]||["#6366f1","#8b5cf6"];
                   const on=view===r.id;
@@ -877,7 +877,7 @@ export default function UserStoriesPage() {
                   </button>
                 </div>
                 <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(320px,1fr))",gap:12 }}>
-                  {ROLES.map((role,i) => (
+                  {ROLES.map((role: RoleDef, i: number) => (
                     <RoleCard key={role.id} role={role} stories={stories} statuses={statuses} onClick={()=>setView(role.id)} idx={i} />
                   ))}
                 </div>
@@ -941,7 +941,7 @@ export default function UserStoriesPage() {
                 {/* Module chips */}
                 {activeRole && (
                   <div style={{ marginTop:18,paddingTop:16,borderTop:"1px solid rgba(255,255,255,0.06)",display:"flex",flexWrap:"wrap",gap:8 }}>
-                    {activeRole.modules.map(mod=>{
+                    {activeRole.modules.map((mod: string) => {
                       const [c1]=MOD_GRAD[mod]||["#6366f1","#8b5cf6"];
                       const Icon=MOD_ICON[mod]||Package;
                       return (
