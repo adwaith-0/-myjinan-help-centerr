@@ -5,7 +5,7 @@ import {
   ChevronDown, ChevronRight, Search, XCircle, Circle,
   ArrowRight, ArrowLeft, X, Package, Settings as SettingsIcon, ShoppingCart,
   BarChart3, Users, Map, Wallet, Megaphone, ClipboardList, Target, DollarSign,
-  Compass, Lightbulb, ClipboardCheck, MessageSquare, RotateCcw, Zap, CheckCircle2, ImageIcon,
+  Compass, Lightbulb, ClipboardCheck, MessageSquare, RotateCcw, CheckCircle2, ImageIcon,
   Shield, LayoutGrid, User, ZoomIn, ZoomOut, SlidersHorizontal, Star, TrendingUp,
 } from "lucide-react";
 import userStoriesData from "@/lib/user-stories-data.json";
@@ -64,7 +64,7 @@ const ROLE_ICON: Record<string, typeof Package> = {
 };
 
 const grad = (colors: [string, string]) => `linear-gradient(135deg,${colors[0]},${colors[1]})`;
-const hex8 = (c: string) => `${c}18`;
+
 
 // ─── CSS Injection ──────────────────────────────────────────────
 const CSS = `
@@ -695,7 +695,7 @@ export default function UserStoriesPage() {
     return ROLES.find(r=>r.id===view)||null;
   },[view]);
 
-  const roleGrad  = activeRole ? ROLE_GRAD[activeRole.id]||["#6366f1","#8b5cf6"] : ["#6366f1","#8b5cf6"];
+  const roleGrad = (activeRole ? ROLE_GRAD[activeRole.id] || ["#6366f1","#8b5cf6"] : ["#6366f1","#8b5cf6"]) as [string,string];
 
   const scoped = useMemo(()=>{
     if(view==="overview"||view==="all") return stories;
@@ -736,7 +736,7 @@ export default function UserStoriesPage() {
 
   const dc = view==="overview" ? gCounts : sCounts;
   const dt = view==="overview" ? gTotal  : sTotal;
-  const dp = view==="overview" ? gPct    : sPct;
+
 
   // Back logic
   function handleBack(){
