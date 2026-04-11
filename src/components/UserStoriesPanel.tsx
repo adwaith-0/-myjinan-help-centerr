@@ -1,176 +1,319 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
-  ChevronDown,
-  ChevronRight,
-  Search,
-  CheckCircle2,
-  XCircle,
-  Circle,
-  ArrowRight,
-  ArrowLeft,
-  Filter,
-  X,
-  Package,
-  Settings as SettingsIcon,
-  ShoppingCart,
-  BarChart3,
-  Users,
-  Map,
-  Wallet,
-  Megaphone,
-  ClipboardList,
-  Target,
-  DollarSign,
-  Compass,
-  Lightbulb,
-  ClipboardCheck,
-  MessageSquare,
-  RotateCcw,
-  Zap,
-  Image as ImageIcon,
+  ChevronDown, ChevronRight, Search, XCircle, Circle,
+  ArrowRight, ArrowLeft, X, Package, Settings as SettingsIcon, ShoppingCart,
+  BarChart3, Users, Map, Wallet, Megaphone, ClipboardList, Target, DollarSign,
+  Compass, Lightbulb, ClipboardCheck, MessageSquare, RotateCcw, Zap, CheckCircle2, ImageIcon,
+  Shield, LayoutGrid, User, ZoomIn, ZoomOut, SlidersHorizontal, Star, TrendingUp,
 } from "lucide-react";
 import userStoriesData from "@/lib/user-stories-data.json";
 import { getStoryImages, getModuleImages, type StoryImage } from "@/lib/stories-image-map";
+import { ROLES, type RoleDef } from "@/lib/role-config";
 
-// ── Types ──
+// ─── Types ─────────────────────────────────────────────────────
 interface UserStory {
-  id: number;
-  module: string;
-  subModule: string;
-  ref: string;
-  businessSolution: string;
-  navigation: string;
-  feature: string;
-  outcome: string;
-  grouping: string;
-  custom: string;
-  setupComments: string;
-  status: string;
-  userComments: string;
-  trainingLink: string;
+  id: number; module: string; subModule: string; ref: string;
+  businessSolution: string; navigation: string; feature: string;
+  outcome: string; grouping: string; custom: string; setupComments: string;
+  status: string; userComments: string; trainingLink: string;
 }
+type Status = "pending" | "working" | "not-working";
 
-type VerifyStatus = "pending" | "verified" | "working" | "not-working";
+// ─── Constants ─────────────────────────────────────────────────
+const STORAGE_KEY = "myjinan-stories-v3";
+const load = (): Record<string, Status> => {
+  try { const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : {}; } catch { return {}; }
+};
+const save = (d: Record<string, Status>) => localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
 
-// ── Module icons ──
-const MODULE_ICONS: Record<string, typeof Package> = {
-  "Product Management": Package,
-  "Business Settings": SettingsIcon,
-  "Order Management": ShoppingCart,
-  "Reports & Analytics": BarChart3,
-  "Employee Management": Users,
-  "Zone & Module Setup": Map,
-  "Financial Operations": DollarSign,
-  "Wallet Management": Wallet,
-  "Advertisement Management": Megaphone,
-  "Item / Inventory Mgmt": ClipboardList,
+const MOD_GRAD: Record<string, [string, string]> = {
+  "Product Management":       ["#f59e0b","#f97316"],
+  "Business Settings":        ["#3b82f6","#6366f1"],
+  "Order Management":         ["#10b981","#06b6d4"],
+  "Reports & Analytics":      ["#8b5cf6","#ec4899"],
+  "Employee Management":      ["#ec4899","#f43f5e"],
+  "Zone & Module Setup":      ["#14b8a6","#3b82f6"],
+  "Financial Operations":     ["#eab308","#f59e0b"],
+  "Wallet Management":        ["#6366f1","#8b5cf6"],
+  "Advertisement Management": ["#ef4444","#f97316"],
+  "Item / Inventory Mgmt":    ["#84cc16","#10b981"],
+  "Marketing & Promotions":   ["#d946ef","#6366f1"],
+};
+const MOD_ICON: Record<string, typeof Package> = {
+  "Product Management": Package, "Business Settings": SettingsIcon,
+  "Order Management": ShoppingCart, "Reports & Analytics": BarChart3,
+  "Employee Management": Users, "Zone & Module Setup": Map,
+  "Financial Operations": DollarSign, "Wallet Management": Wallet,
+  "Advertisement Management": Megaphone, "Item / Inventory Mgmt": ClipboardList,
   "Marketing & Promotions": Target,
 };
-
-const MODULE_COLORS: Record<string, string> = {
-  "Product Management": "#f59e0b",
-  "Business Settings": "#3b82f6",
-  "Order Management": "#10b981",
-  "Reports & Analytics": "#8b5cf6",
-  "Employee Management": "#ec4899",
-  "Zone & Module Setup": "#14b8a6",
-  "Financial Operations": "#eab308",
-  "Wallet Management": "#6366f1",
-  "Advertisement Management": "#ef4444",
-  "Item / Inventory Mgmt": "#84cc16",
-  "Marketing & Promotions": "#d946ef",
+const ROLE_GRAD: Record<string, [string, string]> = {
+  "super-admin":        ["#ef4444","#f97316"],
+  "product-manager":    ["#f59e0b","#ffd200"],
+  "operations-manager": ["#10b981","#00d9f5"],
+  "finance-manager":    ["#eab308","#f59e0b"],
+  "marketing-manager":  ["#d946ef","#f953c6"],
+  "hr-admin":           ["#ec4899","#b91d73"],
+  "platform-admin":     ["#3b82f6","#6366f1"],
+};
+const ROLE_ICON: Record<string, typeof Package> = {
+  Shield, Package, ShoppingCart, DollarSign, Megaphone, Users,
+  Settings: SettingsIcon,
 };
 
-// ── LocalStorage ──
-const STORAGE_KEY = "myjinan-stories-v3";
-function loadStatuses(): Record<string, VerifyStatus> {
-  try { const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : {}; } catch { return {}; }
+const grad = (colors: [string, string]) => `linear-gradient(135deg,${colors[0]},${colors[1]})`;
+const hex8 = (c: string) => `${c}18`;
+
+// ─── CSS Injection ──────────────────────────────────────────────
+const CSS = `
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; }
+
+.us-root {
+  font-family: 'Inter', -apple-system, sans-serif;
+  min-height: 100vh;
+  background: #07091280;
+  position: relative;
+  color: #fff;
+  overflow-x: hidden;
 }
-function saveStatuses(data: Record<string, VerifyStatus>) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+.us-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse 80% 60% at 10% 0%,  #1a0533 0%, transparent 60%),
+              radial-gradient(ellipse 60% 50% at 90% 10%,  #0c1a3a 0%, transparent 55%),
+              radial-gradient(ellipse 70% 80% at 50% 100%, #0d0514 0%, transparent 70%),
+              #070912;
+  background-attachment: fixed;
+}
+
+.us-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle 400px at 15% 50%, rgba(99,102,241,0.08) 0%, transparent 70%),
+    radial-gradient(circle 300px at 80% 20%, rgba(236,72,153,0.06) 0%, transparent 70%),
+    radial-gradient(circle 500px at 60% 70%, rgba(16,185,129,0.04) 0%, transparent 70%);
+  animation: bgPulse 12s ease-in-out infinite alternate;
+}
+
+@keyframes bgPulse {
+  0%   { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.us-wrap { position: relative; z-index: 1; }
+
+/* ── Nav ── */
+.us-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(7,9,18,0.82);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.03), 0 4px 24px rgba(0,0,0,0.4);
+}
+
+/* ── Glass Card ── */
+.us-glass {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 20px;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.us-glass-sm {
+  background: rgba(255,255,255,0.035);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+
+/* ── Module card ── */
+.us-module {
+  background: rgba(255,255,255,0.035);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+.us-module:hover { border-color: rgba(255,255,255,0.14); transform: translateY(-1px); box-shadow: 0 8px 32px rgba(0,0,0,0.35); }
+
+/* ── Story card ── */
+.us-story { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; overflow: hidden; transition: border-color 0.2s, background 0.2s; }
+.us-story.working    { background: rgba(0,245,160,0.05); border-color: rgba(0,245,160,0.2); }
+.us-story.not-working{ background: rgba(239,68,68,0.05);  border-color: rgba(239,68,68,0.22); border-left: 3px solid #ef4444; }
+
+/* ── Status buttons ── */
+.us-sbtn {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 9px 14px; border-radius: 11px; font-size: 12.5px; font-weight: 700;
+  cursor: pointer; font-family: inherit; transition: all 0.2s ease;
+  border: 1px solid rgba(255,255,255,0.09); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.45);
+}
+.us-sbtn:hover { background: rgba(255,255,255,0.09); color: rgba(255,255,255,0.85); transform: scale(1.02); }
+.us-sbtn.working    { background: linear-gradient(135deg,#00f5a0,#10b981); border-color: transparent; color: #082820; box-shadow: 0 0 24px rgba(0,245,160,0.45); }
+.us-sbtn.not-working{ background: linear-gradient(135deg,#ef4444,#b91d2a); border-color: transparent; color: #fff;    box-shadow: 0 0 24px rgba(239,68,68,0.45); }
+
+/* ── Progress bar ── */
+.us-bar { height: 3px; border-radius: 99px; background: rgba(255,255,255,0.07); overflow: hidden; }
+.us-fill { height: 100%; border-radius: 99px; transition: width 0.9s cubic-bezier(.4,0,.2,1); }
+
+/* ── Input ── */
+.us-input {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 12px; color: #fff; font-family: inherit; font-size: 13.5px; width: 100%;
+  transition: all 0.2s ease;
+}
+.us-input::placeholder { color: rgba(255,255,255,0.28); }
+.us-input:focus { outline: none; border-color: rgba(99,102,241,0.5); background: rgba(255,255,255,0.07); box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+
+/* ── Ghost btn ── */
+.us-btn {
+  display: inline-flex; align-items: center; gap: 6px; padding: 9px 15px;
+  border-radius: 11px; font-size: 12.5px; font-weight: 600; cursor: pointer;
+  font-family: inherit; border: 1px solid rgba(255,255,255,0.11);
+  background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6);
+  transition: all 0.2s ease; white-space: nowrap;
+}
+.us-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #fff; transform: translateY(-1px); }
+
+/* ── Nav role pill ── */
+.us-pill {
+  display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px;
+  border-radius: 8px; font-size: 11.5px; font-weight: 700; cursor: pointer;
+  font-family: inherit; border: 1px solid transparent;
+  background: transparent; color: rgba(255,255,255,0.38); transition: all 0.18s ease;
+  white-space: nowrap;
+}
+.us-pill:hover { color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.07); }
+.us-pill.on { color: #fff; background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.16); }
+
+/* ── Role card ── */
+.us-role {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 18px; cursor: pointer; text-align: left; width: 100%;
+  font-family: inherit; transition: all 0.25s ease; overflow: hidden; position: relative;
+  padding: 20px;
+}
+.us-role:hover { border-color: rgba(255,255,255,0.18); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.45); }
+
+/* ── Stat card ── */
+.us-stat { border-radius: 14px; padding: 18px; text-align: center; transition: transform 0.2s ease; }
+.us-stat:hover { transform: translateY(-3px) scale(1.03); }
+
+/* ── Navigation path ── */
+.us-nav-step { font-size: 11px; padding: 4px 10px; border-radius: 7px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+
+/* ── Image thumbnail ── */
+.us-thumb { flex-shrink: 0; cursor: pointer; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: all 0.2s; }
+.us-thumb:hover { border-color: rgba(255,255,255,0.25); transform: scale(1.03); }
+.us-thumb img { display: block; width: 180px; height: 110px; object-fit: cover; object-position: top; }
+.us-thumb-cap { font-size: 9px; color: rgba(255,255,255,0.4); padding: 5px 7px; background: rgba(0,0,0,0.65); margin: 0; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.5); border-radius: 99px; }
+
+/* ── Label above section ── */
+.us-label { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+.us-fadein { animation: fadeUp 0.4s cubic-bezier(.4,0,.2,1) both; }
+`;
+
+// ═══════════════════════════════════════════════════════════════
+//  SVG Ring Progress
+// ═══════════════════════════════════════════════════════════════
+function Ring({ value, size = 128, stroke = 9 }: { value: number; size?: number; stroke?: number }) {
+  const r = (size - stroke) / 2;
+  const circ = 2 * Math.PI * r;
+  const offset = circ - (value / 100) * circ;
+  return (
+    <div style={{ position: "relative", width: size, height: size, flexShrink: 0 }}>
+      <svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
+        <defs>
+          <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#00f5a0" /><stop offset="100%" stopColor="#00d9f5" />
+          </linearGradient>
+        </defs>
+        <circle cx={size/2} cy={size/2} r={r} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth={stroke} />
+        <motion.circle
+          cx={size/2} cy={size/2} r={r} fill="none" stroke="url(#rg)"
+          strokeWidth={stroke} strokeLinecap="round"
+          strokeDasharray={circ}
+          initial={{ strokeDashoffset: circ }}
+          animate={{ strokeDashoffset: offset }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+        />
+      </svg>
+      <div style={{ position:"absolute",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center" }}>
+        <motion.p key={value} initial={{opacity:0,y:6}} animate={{opacity:1,y:0}}
+          style={{ fontSize:22,fontWeight:900,color:"#fff",margin:0,letterSpacing:"-0.03em",lineHeight:1 }}>
+          {value}%
+        </motion.p>
+        <p style={{ fontSize:8.5,color:"rgba(255,255,255,0.35)",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",margin:0 }}>Done</p>
+      </div>
+    </div>
+  );
 }
 
 // ═══════════════════════════════════════════════════════════════
-//  STORY CARD — Full card with BIG labeled status buttons
+//  Lightbox image gallery
 // ═══════════════════════════════════════════════════════════════
-
-function ImageGallery({ images, accentColor }: { images: StoryImage[]; accentColor: string }) {
-  const [lightbox, setLightbox] = useState<number | null>(null);
-  if (images.length === 0) return null;
-
+function Gallery({ images, accent }: { images: StoryImage[]; accent: string }) {
+  const [lb, setLb] = useState<number | null>(null);
+  if (!images.length) return null;
   return (
     <>
-      <div className="flex items-center gap-2 mb-2">
-        <ImageIcon className="w-3.5 h-3.5" style={{ color: accentColor }} />
-        <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: `${accentColor}cc` }}>Screenshots</p>
+      <div style={{ display:"flex",alignItems:"center",gap:6,marginBottom:8 }}>
+        <ImageIcon style={{ width:12,height:12,color:accent }} />
+        <span className="us-label" style={{ color:`${accent}cc` }}>Screenshots</span>
       </div>
-      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
+      <div style={{ display:"flex",gap:8,overflowX:"auto",paddingBottom:4 }}>
         {images.map((img, i) => (
-          <div
-            key={i}
-            onClick={() => setLightbox(i)}
-            className="shrink-0 cursor-pointer group rounded-lg overflow-hidden border border-white/10 hover:border-white/25 transition-all hover:scale-[1.02]"
-          >
-            <img
-              src={img.url}
-              alt={img.caption}
-              className="w-[180px] h-[110px] object-cover object-top"
-              loading="lazy"
-            />
-            <p className="text-[9px] text-white/40 px-2 py-1.5 bg-black/60 truncate group-hover:text-white/70 transition-colors">{img.caption}</p>
+          <div key={i} className="us-thumb" onClick={() => setLb(i)}>
+            <img src={img.url} alt={img.caption} loading="lazy" />
+            <p className="us-thumb-cap">{img.caption}</p>
           </div>
         ))}
       </div>
-
-      {/* Lightbox */}
       <AnimatePresence>
-        {lightbox !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-8"
-            onClick={() => setLightbox(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              className="relative max-w-4xl max-h-[85vh] w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={images[lightbox].url}
-                alt={images[lightbox].caption}
-                className="w-full h-auto max-h-[80vh] object-contain rounded-xl border border-white/10"
-              />
-              <p className="text-center text-sm text-white/60 mt-3">{images[lightbox].caption}</p>
-              <button
-                onClick={() => setLightbox(null)}
-                className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
-              >
-                <X className="w-4 h-4" />
+        {lb !== null && (
+          <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
+            style={{ position:"fixed",inset:0,zIndex:999,background:"rgba(0,0,0,0.93)",display:"flex",alignItems:"center",justifyContent:"center",padding:32 }}
+            onClick={() => setLb(null)}>
+            <motion.div initial={{scale:0.85,opacity:0}} animate={{scale:1,opacity:1}} exit={{scale:0.85,opacity:0}}
+              style={{ position:"relative",maxWidth:920,width:"100%" }} onClick={e=>e.stopPropagation()}>
+              <img src={images[lb].url} alt={images[lb].caption}
+                style={{ width:"100%",maxHeight:"80vh",objectFit:"contain",borderRadius:14,border:"1px solid rgba(255,255,255,0.1)" }} />
+              <p style={{ textAlign:"center",fontSize:12,color:"rgba(255,255,255,0.45)",marginTop:10 }}>{images[lb].caption} · {lb+1}/{images.length}</p>
+              <button onClick={()=>setLb(null)} style={{ position:"absolute",top:-10,right:-10,width:30,height:30,borderRadius:"50%",background:"rgba(255,255,255,0.12)",border:"1px solid rgba(255,255,255,0.18)",color:"#fff",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>
+                <X style={{ width:14,height:14 }} />
               </button>
-              {/* Nav arrows */}
-              {lightbox > 0 && (
-                <button
-                  onClick={() => setLightbox(lightbox - 1)}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 border border-white/10 flex items-center justify-center text-white hover:bg-black/80 transition-colors"
-                >
-                  <ArrowLeft className="w-5 h-5" />
+              {lb > 0 && (
+                <button onClick={()=>setLb(lb-1)} style={{ position:"absolute",left:10,top:"50%",transform:"translateY(-50%)",width:38,height:38,borderRadius:"50%",background:"rgba(0,0,0,0.6)",border:"1px solid rgba(255,255,255,0.12)",color:"#fff",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>
+                  <ArrowLeft style={{ width:18,height:18 }} />
                 </button>
               )}
-              {lightbox < images.length - 1 && (
-                <button
-                  onClick={() => setLightbox(lightbox + 1)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 border border-white/10 flex items-center justify-center text-white hover:bg-black/80 transition-colors"
-                >
-                  <ArrowRight className="w-5 h-5" />
+              {lb < images.length-1 && (
+                <button onClick={()=>setLb(lb+1)} style={{ position:"absolute",right:10,top:"50%",transform:"translateY(-50%)",width:38,height:38,borderRadius:"50%",background:"rgba(0,0,0,0.6)",border:"1px solid rgba(255,255,255,0.12)",color:"#fff",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>
+                  <ArrowRight style={{ width:18,height:18 }} />
                 </button>
               )}
-              <p className="text-center text-[10px] text-white/30 mt-1">{lightbox + 1} / {images.length}</p>
             </motion.div>
           </motion.div>
         )}
@@ -179,164 +322,258 @@ function ImageGallery({ images, accentColor }: { images: StoryImage[]; accentCol
   );
 }
 
-function StoryCard({
-  story,
-  status,
-  onSetStatus,
-  accentColor,
-}: {
-  story: UserStory;
-  status: VerifyStatus;
-  onSetStatus: (s: VerifyStatus) => void;
-  accentColor: string;
+// ═══════════════════════════════════════════════════════════════
+//  Story Card
+// ═══════════════════════════════════════════════════════════════
+
+// Refs that require pre-requisite check warning
+const PREREQ_REFS = new Set([
+  "PM-PRD-001","PM-PRD-002","PM-PRD-003","PM-PRD-004","PM-PRD-005",
+  "PM-PRD-006","PM-PRD-007","PM-PRD-008","PM-PRD-009",
+  "PM-PIB-001","PM-PIB-002",
+  "PM-BIM-001","PM-BIM-002","PM-BIM-003",
+]);
+
+function needsPrereq(story: UserStory): boolean {
+  if (PREREQ_REFS.has(story.ref)) return true;
+  if (story.module !== "Product Management") return false;
+  const sub = (story.subModule || "").toLowerCase();
+  return sub.includes("add new") || sub.includes("bulk import") || sub.includes("product setup");
+}
+
+function StoryCard({ story, status, onSet, g, c }: {
+  story: UserStory; status: Status; onSet: (s: Status) => void;
+  g: string; c: string;
 }) {
-  const [expanded, setExpanded] = useState(false);
-
-  const navSteps = story.navigation
-    ? story.navigation.split("→").map((s) => s.trim()).filter(Boolean)
-    : [];
-
-  // Card background + border based on status
-  const cardStyle =
-    status === "verified"
-      ? "bg-emerald-600/20 border-emerald-500/40 shadow-emerald-500/10"
-      : status === "working"
-      ? "bg-blue-600/20 border-blue-500/40 shadow-blue-500/10"
-      : status === "not-working"
-      ? "bg-red-600/20 border-red-500/40 shadow-red-500/10"
-      : "bg-[#0d1117] border-white/8";
+  const [open, setOpen] = useState(false);
+  const navSteps = story.navigation ? story.navigation.split("→").map(s=>s.trim()).filter(Boolean) : [];
+  const imgs = getStoryImages(story.ref, story.module, story.subModule);
+  const isDark = ["#f59e0b","#ffd200","#eab308","#84cc16"].some(x => c.startsWith(x));
+  const showPrereq = needsPrereq(story);
 
   return (
-    <motion.div
-      layout
-      className={`rounded-xl border ${cardStyle} shadow-lg overflow-hidden transition-colors duration-300`}
-    >
-      {/* Main row */}
-      <div className="p-4">
-        {/* Top: Ref + Feature */}
-        <div className="flex items-start gap-3 mb-3 cursor-pointer" onClick={() => setExpanded(!expanded)}>
-          <span
-            className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-lg shrink-0 mt-0.5"
-            style={{ backgroundColor: `${accentColor}20`, color: accentColor, border: `1px solid ${accentColor}30` }}
-          >
+    <div className={`us-story ${status !== "pending" ? status : ""}`}>
+      <div style={{ padding:"14px 16px" }}>
+        {/* Ref + Feature */}
+        <div style={{ display:"flex",alignItems:"flex-start",gap:10,marginBottom:12,cursor:"pointer" }} onClick={()=>setOpen(!open)}>
+          <span style={{ background:g,borderRadius:8,padding:"3px 10px",fontSize:10,fontWeight:800,
+            color:isDark?"#1a1000":"#fff",letterSpacing:"0.04em",flexShrink:0,marginTop:1 }}>
             {story.ref}
           </span>
-          <p className={`flex-1 text-sm leading-relaxed ${
-            status === "verified" ? "text-white/50 line-through decoration-white/20" : "text-white/90"
-          }`}>
+          <p style={{ flex:1,fontSize:13.5,color:"rgba(255,255,255,0.87)",
+            lineHeight:1.55,margin:0 }}>
             {story.feature}
           </p>
-          <motion.div animate={{ rotate: expanded ? 180 : 0 }} transition={{ duration: 0.15 }} className="shrink-0 mt-1">
-            <ChevronDown className="w-4 h-4 text-white/30" />
+          <motion.div animate={{ rotate:open?180:0 }} transition={{ duration:0.18 }} style={{ flexShrink:0,marginTop:2 }}>
+            <ChevronDown style={{ width:15,height:15,color:"rgba(255,255,255,0.28)" }} />
           </motion.div>
         </div>
 
-        {/* STATUS BUTTONS — BIG and clearly labeled */}
-        <div className="flex items-center gap-2">
-          {/* VERIFIED */}
-          <button
-            onClick={() => onSetStatus(status === "verified" ? "pending" : "verified")}
-            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 ${
-              status === "verified"
-                ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/40 scale-[1.02]"
-                : "bg-white/5 border border-white/10 text-emerald-400 hover:bg-emerald-500/15 hover:border-emerald-500/30 hover:scale-[1.01]"
-            }`}
-          >
-            <CheckCircle2 className="w-4 h-4" />
-            Verified
-          </button>
-
-          {/* WORKING */}
-          <button
-            onClick={() => onSetStatus(status === "working" ? "pending" : "working")}
-            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 ${
-              status === "working"
-                ? "bg-blue-500 text-white shadow-lg shadow-blue-500/40 scale-[1.02]"
-                : "bg-white/5 border border-white/10 text-blue-400 hover:bg-blue-500/15 hover:border-blue-500/30 hover:scale-[1.01]"
-            }`}
-          >
-            <Zap className="w-4 h-4" />
-            Working
-          </button>
-
-          {/* NOT WORKING */}
-          <button
-            onClick={() => onSetStatus(status === "not-working" ? "pending" : "not-working")}
-            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 ${
-              status === "not-working"
-                ? "bg-red-500 text-white shadow-lg shadow-red-500/40 scale-[1.02]"
-                : "bg-white/5 border border-white/10 text-red-400 hover:bg-red-500/15 hover:border-red-500/30 hover:scale-[1.01]"
-            }`}
-          >
-            <XCircle className="w-4 h-4" />
-            Not Working
-          </button>
+        {/* Action buttons */}
+        <div style={{ display:"flex",gap:8 }}>
+          {(["working","not-working"] as Status[]).map(s => (
+            <button key={s} onClick={()=>onSet(status===s?"pending":s)} className={`us-sbtn ${status===s?s:""}`}>
+              {s==="working"     && <CheckCircle2 style={{ width:13,height:13 }} />}
+              {s==="not-working" && <XCircle      style={{ width:13,height:13 }} />}
+              {s==="working"?"Working":"Not Working"}
+            </button>
+          ))}
         </div>
       </div>
 
       {/* Expanded details */}
       <AnimatePresence>
-        {expanded && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden"
-          >
-            <div className="px-4 pb-4 pt-1 border-t border-white/5 space-y-3 mt-1">
-              {story.outcome && (
-                <div className="flex items-start gap-2.5">
-                  <ClipboardCheck className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+        {open && (
+          <motion.div initial={{height:0,opacity:0}} animate={{height:"auto",opacity:1}} exit={{height:0,opacity:0}}
+            transition={{ duration:0.26,ease:[0.4,0,0.2,1] }} style={{ overflow:"hidden" }}>
+            <div style={{ padding:"12px 16px 16px",borderTop:"1px solid rgba(255,255,255,0.06)",display:"flex",flexDirection:"column",gap:12 }}>
+
+              {/* ⚠️ Pre-requisite warning */}
+              {showPrereq && (
+                <div style={{
+                  display:"flex",gap:10,padding:"12px 14px",borderRadius:12,
+                  background:"rgba(251,191,36,0.07)",border:"1px solid rgba(251,191,36,0.28)",
+                  boxShadow:"0 0 18px rgba(251,191,36,0.07)"
+                }}>
+                  <span style={{ fontSize:16,flexShrink:0,lineHeight:1 }}>⚠️</span>
                   <div>
-                    <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider mb-0.5">Expected Outcome</p>
-                    <p className="text-xs text-white/50 leading-relaxed">{story.outcome}</p>
+                    <p style={{ fontSize:11.5,fontWeight:800,color:"#fbbf24",margin:"0 0 6px",textTransform:"uppercase",letterSpacing:"0.07em" }}>
+                      Admin Pre-requisite
+                    </p>
+                    <p style={{ fontSize:12.5,color:"rgba(251,191,36,0.72)",lineHeight:1.65,margin:"0 0 9px" }}>
+                      Before adding a new product, the{" "}
+                      <strong style={{ color:"#fbbf24" }}>Category</strong>,{" "}
+                      <strong style={{ color:"#fbbf24" }}>Sub-Category</strong>, and{" "}
+                      <strong style={{ color:"#fbbf24" }}>Brand</strong>{" "}
+                      must already exist in the system. If any are new or missing,{" "}
+                      <strong style={{ color:"#fbbf24" }}>the admin must manually create each one first</strong>.
+                    </p>
+                    <div style={{ display:"flex",flexDirection:"column",gap:6 }}>
+                      {([
+                        { label:"Category",     path:"Product Management → Categories → Category → Add New" },
+                        { label:"Sub-Category", path:"Product Management → Categories → Sub Category → Add New" },
+                        { label:"Brand",        path:"Product Management → Brands → Add New Brand" },
+                      ] as const).map(({ label, path }) => (
+                        <div key={label} style={{ display:"flex",alignItems:"flex-start",gap:7 }}>
+                          <ArrowRight style={{ width:11,height:11,color:"rgba(251,191,36,0.45)",flexShrink:0,marginTop:2 }} />
+                          <span style={{ fontSize:11.5,color:"rgba(251,191,36,0.55)",lineHeight:1.5 }}>
+                            <strong style={{ color:"rgba(251,191,36,0.9)" }}>{label}:</strong>{" "}{path}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}
-              {navSteps.length > 0 && (
-                <div className="flex items-start gap-2.5">
-                  <Compass className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
+
+              {/* Expected Outcome */}
+              {story.outcome && (
+                <div style={{ display:"flex",gap:10 }}>
+                  <ClipboardCheck style={{ width:14,height:14,color:"#00f5a0",marginTop:2,flexShrink:0 }} />
                   <div>
-                    <p className="text-[10px] font-bold text-cyan-400 uppercase tracking-wider mb-1.5">Navigation Path</p>
-                    <div className="flex flex-wrap items-center gap-1.5">
+                    <p className="us-label" style={{ color:"#00f5a0",marginBottom:4 }}>Expected Outcome</p>
+                    <p style={{ fontSize:12.5,color:"rgba(255,255,255,0.48)",lineHeight:1.6,margin:0 }}>{story.outcome}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Navigation Path */}
+              {navSteps.length > 0 && (
+                <div style={{ display:"flex",gap:10 }}>
+                  <Compass style={{ width:14,height:14,color:"#00d9f5",marginTop:2,flexShrink:0 }} />
+                  <div>
+                    <p className="us-label" style={{ color:"#00d9f5",marginBottom:8 }}>Navigation Path</p>
+                    <div style={{ display:"flex",flexWrap:"wrap",alignItems:"center",gap:6 }}>
                       {navSteps.map((step, i) => (
-                        <span key={i} className="flex items-center gap-1.5">
-                          <span className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 border border-white/8 text-white/60">{step}</span>
-                          {i < navSteps.length - 1 && <ArrowRight className="w-3 h-3 text-white/15" />}
+                        <span key={i} style={{ display:"flex",alignItems:"center",gap:6 }}>
+                          <span className="us-nav-step">{step}</span>
+                          {i < navSteps.length-1 && <ArrowRight style={{ width:11,height:11,color:"rgba(255,255,255,0.2)" }} />}
                         </span>
                       ))}
                     </div>
                   </div>
                 </div>
               )}
+
+              {/* Why This Matters */}
               {story.businessSolution && story.businessSolution !== "None" && (
-                <div className="flex items-start gap-2.5">
-                  <Lightbulb className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
+                <div style={{ display:"flex",gap:10 }}>
+                  <Lightbulb style={{ width:14,height:14,color:"#ffd200",marginTop:2,flexShrink:0 }} />
                   <div>
-                    <p className="text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-0.5">Why This Matters</p>
-                    <p className="text-xs text-white/40 leading-relaxed">{story.businessSolution}</p>
+                    <p className="us-label" style={{ color:"#ffd200",marginBottom:4 }}>Why This Matters</p>
+                    <p style={{ fontSize:12.5,color:"rgba(255,255,255,0.42)",lineHeight:1.6,margin:0 }}>{story.businessSolution}</p>
                   </div>
                 </div>
               )}
+
+              {/* Setup Notes */}
               {story.setupComments && story.setupComments !== "None" && story.setupComments.trim() !== "" && (
-                <div className="flex items-start gap-2.5">
-                  <MessageSquare className="w-4 h-4 text-purple-400 mt-0.5 shrink-0" />
+                <div style={{ display:"flex",gap:10 }}>
+                  <MessageSquare style={{ width:14,height:14,color:"#b491ff",marginTop:2,flexShrink:0 }} />
                   <div>
-                    <p className="text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-0.5">Setup Notes</p>
-                    <p className="text-xs text-white/40 leading-relaxed">{story.setupComments}</p>
+                    <p className="us-label" style={{ color:"#b491ff",marginBottom:4 }}>Setup Notes</p>
+                    <p style={{ fontSize:12.5,color:"rgba(255,255,255,0.42)",lineHeight:1.6,margin:0 }}>{story.setupComments}</p>
                   </div>
                 </div>
               )}
-              {/* Story-specific Images (by ref ID) */}
-              {(() => {
-                const imgs = getStoryImages(story.ref, story.module, story.subModule);
-                return imgs.length > 0 ? (
-                  <div className="mt-2 pt-2 border-t border-white/5">
-                    <ImageGallery images={imgs} accentColor={accentColor} />
-                  </div>
-                ) : null;
-              })()}
+
+              {/* Screenshots */}
+              {imgs.length > 0 && (
+                <div style={{ paddingTop:10,borderTop:"1px solid rgba(255,255,255,0.05)" }}>
+                  <Gallery images={imgs} accent={c} />
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  Module Accordion
+// ═══════════════════════════════════════════════════════════════
+function ModuleCard({ name, stories, statuses, onSet, defaultOpen, idx }: {
+  name: string; stories: UserStory[]; statuses: Record<string,Status>;
+  onSet: (ref:string,s:Status)=>void; defaultOpen: boolean; idx: number;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  const Icon = MOD_ICON[name] || Package;
+  const [c1, c2] = MOD_GRAD[name] || ["#6366f1","#8b5cf6"];
+  const g = `linear-gradient(135deg,${c1},${c2})`;
+
+  const counts = useMemo(() => {
+    const r = { total:stories.length,working:0,"not-working":0,pending:0 };
+    stories.forEach(s => { const st = statuses[s.ref]||"pending"; if(st in r) r[st as keyof typeof r]=(r[st as keyof typeof r] as number)+1; });
+    return r;
+  },[stories,statuses]);
+
+  const pct = counts.total > 0 ? Math.round((counts.working/counts.total)*100) : 0;
+  const modImgs = getModuleImages(name);
+
+  return (
+    <motion.div className="us-module"
+      initial={{opacity:0,y:18}} animate={{opacity:1,y:0}}
+      transition={{ delay:idx*0.055,duration:0.38,ease:[0.4,0,0.2,1] }}>
+
+      {/* Header */}
+      <button onClick={()=>setOpen(!open)} style={{ width:"100%",display:"flex",alignItems:"center",gap:14,padding:"17px 20px",background:"none",border:"none",cursor:"pointer",textAlign:"left" }}>
+        
+        {/* Gradient icon */}
+        <div style={{ width:42,height:42,borderRadius:13,background:g,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,boxShadow:`0 4px 16px ${c1}40` }}>
+          <Icon style={{ width:19,height:19,color:"#fff" }} />
+        </div>
+
+        {/* Name + Meta */}
+        <div style={{ flex:1,minWidth:0 }}>
+          <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:7 }}>
+            <h3 style={{ fontSize:14,fontWeight:700,color:"#fff",margin:0,letterSpacing:"-0.01em" }}>{name}</h3>
+            <span style={{ fontSize:10,fontWeight:700,color:"rgba(255,255,255,0.4)",background:"rgba(255,255,255,0.07)",border:"1px solid rgba(255,255,255,0.1)",padding:"2px 7px",borderRadius:6 }}>
+              {counts.total}
+            </span>
+          </div>
+          {/* Progress + mini stats */}
+          <div style={{ display:"flex",alignItems:"center",gap:10 }}>
+            <div className="us-bar" style={{ flex:1,maxWidth:200 }}>
+              <motion.div className="us-fill" style={{ background:g,width:`${pct}%` }}
+                initial={{width:0}} animate={{width:`${pct}%`}} transition={{ duration:0.9,delay:idx*0.05,ease:[0.4,0,0.2,1] }} />
+            </div>
+            <span style={{ fontSize:11,fontWeight:800,color:c1,minWidth:28 }}>{pct}%</span>
+            <div style={{ display:"flex",gap:8,marginLeft:"auto" }}>
+              {counts.working>0 && <span style={{ display:"flex",alignItems:"center",gap:3,fontSize:10,fontWeight:700,color:"#00f5a0" }}><CheckCircle2 style={{ width:11,height:11 }}/>{counts.working}</span>}
+              {counts["not-working"]>0 && <span style={{ display:"flex",alignItems:"center",gap:3,fontSize:10,fontWeight:700,color:"#ef4444" }}><XCircle style={{ width:11,height:11 }}/>{counts["not-working"]}</span>}
+            </div>
+          </div>
+        </div>
+
+        <motion.div animate={{ rotate:open?90:0 }} transition={{ duration:0.18 }}>
+          <ChevronRight style={{ width:17,height:17,color:"rgba(255,255,255,0.22)" }} />
+        </motion.div>
+      </button>
+
+      {/* Stories */}
+      <AnimatePresence>
+        {open && (
+          <motion.div initial={{height:0,opacity:0}} animate={{height:"auto",opacity:1}} exit={{height:0,opacity:0}}
+            transition={{ duration:0.3,ease:[0.4,0,0.2,1] }} style={{ overflow:"hidden" }}>
+            <div style={{ borderTop:"1px solid rgba(255,255,255,0.06)",padding:"12px 14px 16px",display:"flex",flexDirection:"column",gap:8 }}>
+              {/* Module level images */}
+              {modImgs.length > 0 && (
+                <div style={{ borderRadius:12,background:"rgba(255,255,255,0.025)",border:"1px solid rgba(255,255,255,0.07)",padding:"10px 12px",marginBottom:4 }}>
+                  <Gallery images={modImgs} accent={c1} />
+                </div>
+              )}
+              {stories.map((story, i) => (
+                <motion.div key={story.ref} initial={{opacity:0,x:-10}} animate={{opacity:1,x:0}} transition={{ delay:i*0.022,duration:0.2 }}>
+                  <StoryCard
+                    story={story}
+                    status={statuses[story.ref]||"pending"}
+                    onSet={s=>onSet(story.ref,s)}
+                    g={g} c={c1}
+                  />
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         )}
@@ -346,458 +583,452 @@ function StoryCard({
 }
 
 // ═══════════════════════════════════════════════════════════════
-//  MODULE ACCORDION
+//  Stat Card
 // ═══════════════════════════════════════════════════════════════
-
-function ModuleAccordion({
-  moduleName,
-  stories,
-  statuses,
-  onSetStatus,
-  defaultOpen,
-}: {
-  moduleName: string;
-  stories: UserStory[];
-  statuses: Record<string, VerifyStatus>;
-  onSetStatus: (ref: string, s: VerifyStatus) => void;
-  defaultOpen: boolean;
+function Stat({ label, value, icon: Icon, c1, c2, glow }: {
+  label:string; value:number; icon:typeof CheckCircle2; c1:string; c2:string; glow:string;
 }) {
-  const [open, setOpen] = useState(defaultOpen);
-  const IconComp = MODULE_ICONS[moduleName] || Package;
-  const color = MODULE_COLORS[moduleName] || "#f59e0b";
-
-  const counts = useMemo(() => {
-    const c = { total: stories.length, verified: 0, working: 0, "not-working": 0, pending: 0 };
-    stories.forEach((s) => {
-      const st = statuses[s.ref] || "pending";
-      c[st]++;
-    });
-    return c;
-  }, [stories, statuses]);
-
-  const done = counts.verified + counts.working;
-  const pct = counts.total > 0 ? Math.round((done / counts.total) * 100) : 0;
-
+  const dark = ["#f59e0b","#ffd200","#eab308","#00f5a0"].includes(c1);
   return (
-    <div className="rounded-2xl bg-[#0a0e1a] border border-white/8 overflow-hidden shadow-xl">
-      {/* Module header */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center gap-4 px-5 py-4 hover:bg-white/[0.02] transition-colors group"
-      >
-        {/* Module icon */}
-        <div
-          className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-lg"
-          style={{ background: `linear-gradient(135deg, ${color}30, ${color}10)`, border: `1.5px solid ${color}40` }}
-        >
-          <IconComp className="w-5 h-5" style={{ color }} />
-        </div>
-
-        {/* Module info */}
-        <div className="flex-1 text-left min-w-0">
-          <div className="flex items-center gap-2.5 mb-1.5">
-            <h3 className="text-[15px] font-bold text-white truncate">{moduleName}</h3>
-            <span className="text-[11px] text-white/25 font-medium">{counts.total} stories</span>
-          </div>
-          {/* Progress bar */}
-          <div className="flex items-center gap-3">
-            <div className="h-1.5 flex-1 max-w-[250px] rounded-full bg-white/5 overflow-hidden">
-              <motion.div
-                className="h-full rounded-full"
-                style={{ background: `linear-gradient(90deg, ${color}, ${color}cc)` }}
-                initial={{ width: 0 }}
-                animate={{ width: `${pct}%` }}
-                transition={{ duration: 0.6 }}
-              />
-            </div>
-            <span className="text-[11px] text-white/35 font-bold tabular-nums">{pct}%</span>
-            {/* Mini counts */}
-            <div className="flex items-center gap-2 ml-auto">
-              {counts.verified > 0 && (
-                <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400">
-                  <CheckCircle2 className="w-3 h-3" />{counts.verified}
-                </span>
-              )}
-              {counts.working > 0 && (
-                <span className="flex items-center gap-1 text-[10px] font-bold text-blue-400">
-                  <Zap className="w-3 h-3" />{counts.working}
-                </span>
-              )}
-              {counts["not-working"] > 0 && (
-                <span className="flex items-center gap-1 text-[10px] font-bold text-red-400">
-                  <XCircle className="w-3 h-3" />{counts["not-working"]}
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Chevron */}
-        <motion.div animate={{ rotate: open ? 90 : 0 }} transition={{ duration: 0.15 }} className="shrink-0">
-          <ChevronRight className="w-5 h-5 text-white/20 group-hover:text-white/40 transition-colors" />
-        </motion.div>
-      </button>
-
-      {/* Stories */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden"
-          >
-            <div className="border-t border-white/5 p-4 space-y-3">
-              {/* Module-level image gallery */}
-              {(() => {
-                const moduleImgs = getModuleImages(moduleName);
-                return moduleImgs.length > 0 ? (
-                  <div className="rounded-xl bg-white/[0.02] border border-white/5 p-3 mb-2">
-                    <ImageGallery images={moduleImgs} accentColor={color} />
-                  </div>
-                ) : null;
-              })()}
-              {stories.map((story, i) => (
-                <motion.div
-                  key={story.ref}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.02, duration: 0.2 }}
-                >
-                  <StoryCard
-                    story={story}
-                    status={statuses[story.ref] || "pending"}
-                    onSetStatus={(s) => onSetStatus(story.ref, s)}
-                    accentColor={color}
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <div className="us-stat" style={{ background:`linear-gradient(135deg,${c1}18,${c2}0a)`,border:`1px solid ${c1}28`,boxShadow:glow }}>
+      <div style={{ width:34,height:34,borderRadius:10,background:`linear-gradient(135deg,${c1},${c2})`,
+        display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 10px",boxShadow:`0 4px 12px ${c1}40` }}>
+        <Icon style={{ width:16,height:16,color:dark?"#0d1200":"#fff" }} />
+      </div>
+      <motion.p key={value} initial={{opacity:0,y:8}} animate={{opacity:1,y:0}}
+        style={{ fontSize:28,fontWeight:900,color:c1,margin:"0 0 4px",letterSpacing:"-0.04em",lineHeight:1 }}>
+        {value}
+      </motion.p>
+      <p className="us-label" style={{ color:`${c1}80`,margin:0 }}>{label}</p>
     </div>
   );
 }
 
 // ═══════════════════════════════════════════════════════════════
-//  CIRCULAR PROGRESS
+//  Role Card
 // ═══════════════════════════════════════════════════════════════
+function RoleCard({ role, stories, statuses, onClick, idx }: {
+  role:RoleDef; stories:UserStory[]; statuses:Record<string,Status>; onClick:()=>void; idx:number;
+}) {
+  const Icon = ROLE_ICON[role.icon] || User;
+  const [c1,c2] = ROLE_GRAD[role.id] || ["#6366f1","#8b5cf6"];
+  const g = grad([c1,c2]);
 
-function CircularProgress({ value, size = 100, stroke = 8 }: { value: number; size?: number; stroke?: number }) {
-  const radius = (size - stroke) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (value / 100) * circumference;
+  const rs = useMemo(()=>stories.filter(s=>role.modules.includes(s.module)),[stories,role.modules]);
+  const counts = useMemo(() => {
+    const r = { total:rs.length,working:0,"not-working":0,pending:0 };
+    rs.forEach(s=>{ const st=statuses[s.ref]||"pending"; if(st in r) r[st as keyof typeof r]=(r[st as keyof typeof r] as number)+1; });
+    return r;
+  },[rs,statuses]);
+  const pct = counts.total > 0 ? Math.round((counts.working/counts.total)*100) : 0;
+
   return (
-    <div className="relative" style={{ width: size, height: size }}>
-      <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth={stroke} />
-        <motion.circle
-          cx={size / 2} cy={size / 2} r={radius} fill="none"
-          stroke={value >= 100 ? "#10b981" : value > 50 ? "#f59e0b" : "#ef4444"}
-          strokeWidth={stroke}
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          initial={{ strokeDashoffset: circumference }}
-          animate={{ strokeDashoffset: offset }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-        />
-      </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-2xl font-black text-white tabular-nums">{value}%</span>
-        <span className="text-[8px] text-white/30 font-semibold uppercase tracking-widest">Complete</span>
+    <motion.button className="us-role" onClick={onClick}
+      initial={{opacity:0,y:20}} animate={{opacity:1,y:0}}
+      transition={{ delay:idx*0.07,duration:0.38,ease:[0.4,0,0.2,1] }}
+      whileHover={{ y:-3 }} whileTap={{ scale:0.98 }}>
+      {/* Glow orb */}
+      <div style={{ position:"absolute",top:-50,right:-50,width:200,height:200,borderRadius:"50%",
+        background:`radial-gradient(circle,${c1}18 0%,transparent 65%)`,pointerEvents:"none" }} />
+
+      <div style={{ display:"flex",alignItems:"flex-start",gap:14,position:"relative" }}>
+        {/* Icon badge */}
+        <div style={{ width:50,height:50,borderRadius:14,background:g,display:"flex",alignItems:"center",
+          justifyContent:"center",flexShrink:0,boxShadow:`0 6px 20px ${c1}45` }}>
+          <Icon style={{ width:24,height:24,color:"#fff" }} />
+        </div>
+
+        {/* Content */}
+        <div style={{ flex:1,minWidth:0 }}>
+          <p style={{ fontSize:15,fontWeight:700,color:"#fff",margin:"0 0 3px",letterSpacing:"-0.01em" }}>{role.label}</p>
+          <p style={{ fontSize:12,color:"rgba(255,255,255,0.38)",lineHeight:1.5,margin:"0 0 12px" }}>{role.description}</p>
+
+          {/* Progress */}
+          <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:8 }}>
+            <div className="us-bar" style={{ flex:1 }}>
+              <motion.div className="us-fill" style={{ background:g }} initial={{width:0}} animate={{width:`${pct}%`}} transition={{ duration:0.9,ease:[0.4,0,0.2,1] }} />
+            </div>
+            <span style={{ fontSize:11,fontWeight:800,color:c1,minWidth:32 }}>{pct}%</span>
+          </div>
+
+          {/* Mini stats */}
+          <div style={{ display:"flex",alignItems:"center",gap:10 }}>
+            <span style={{ fontSize:10.5,color:"rgba(255,255,255,0.28)" }}>
+              {counts.total} stories · {role.modules.length} module{role.modules.length>1?"s":""}
+            </span>
+            <div style={{ display:"flex",gap:8,marginLeft:"auto" }}>
+              {counts.working>0       && <span style={{ display:"flex",alignItems:"center",gap:3,fontSize:10,fontWeight:700,color:"#00f5a0" }}><CheckCircle2 style={{ width:10,height:10 }}/>{counts.working}</span>}
+              {counts["not-working"]>0 && <span style={{ display:"flex",alignItems:"center",gap:3,fontSize:10,fontWeight:700,color:"#ef4444" }}><XCircle style={{ width:10,height:10 }}/>{counts["not-working"]}</span>}
+              {counts.pending>0        && <span style={{ display:"flex",alignItems:"center",gap:3,fontSize:10,fontWeight:700,color:"rgba(255,255,255,0.3)" }}><Circle style={{ width:10,height:10 }}/>{counts.pending}</span>}
+            </div>
+          </div>
+        </div>
+
+        <ChevronRight style={{ width:15,height:15,color:"rgba(255,255,255,0.22)",marginTop:4,flexShrink:0 }} />
       </div>
-    </div>
+    </motion.button>
   );
 }
 
 // ═══════════════════════════════════════════════════════════════
 //  MAIN PAGE
 // ═══════════════════════════════════════════════════════════════
-
 export default function UserStoriesPage() {
   const navigate = useNavigate();
-  const stories: UserStory[] = userStoriesData as UserStory[];
-  const [statuses, setStatuses] = useState<Record<string, VerifyStatus>>(loadStatuses);
-  const [search, setSearch] = useState("");
-  const [filterModule, setFilterModule] = useState<string | null>(null);
-  const [filterStatus, setFilterStatus] = useState<VerifyStatus | "all">("all");
-  const [showFilters, setShowFilters] = useState(false);
+  const stories: UserStory[] = useMemo(() => userStoriesData as UserStory[], []);
 
-  useEffect(() => { saveStatuses(statuses); }, [statuses]);
+  const [statuses, setStatuses] = useState<Record<string,Status>>(load);
+  const [search, setSearch]     = useState("");
+  const [fStatus, setFStatus]   = useState<Status|"all">("all");
+  const [showF, setShowF]       = useState(false);
+  const [zoom, setZoom]         = useState(100);
+  const [view, setView]         = useState("overview"); // "overview"|"all"|roleId
 
-  const updateStatus = useCallback((ref: string, s: VerifyStatus) => {
-    setStatuses((prev) => {
-      const next = { ...prev };
-      if (s === "pending") delete next[ref]; else next[ref] = s;
-      return next;
-    });
-  }, []);
+  useEffect(()=>{ save(statuses); },[statuses]);
 
-  const resetAll = useCallback(() => { setStatuses({}); }, []);
+  const upStatus = useCallback((ref:string,s:Status)=>{
+    setStatuses(prev=>{ const n={...prev}; s==="pending"?delete n[ref]:n[ref]=s; return n; });
+  },[]);
 
-  const modules = useMemo(() => {
-    const m: string[] = [];
-    stories.forEach((s) => { if (!m.includes(s.module)) m.push(s.module); });
-    return m;
-  }, [stories]);
+  const activeRole = useMemo(()=>{
+    if(view==="overview"||view==="all") return null;
+    return ROLES.find(r=>r.id===view)||null;
+  },[view]);
 
-  const filtered = useMemo(() => {
-    let r = stories;
-    if (search.trim()) {
-      const q = search.toLowerCase();
-      r = r.filter((s) =>
-        s.feature.toLowerCase().includes(q) || s.ref.toLowerCase().includes(q) ||
-        s.outcome.toLowerCase().includes(q) || s.subModule.toLowerCase().includes(q) ||
-        s.module.toLowerCase().includes(q) || s.navigation.toLowerCase().includes(q)
-      );
-    }
-    if (filterModule) r = r.filter((s) => s.module === filterModule);
-    if (filterStatus !== "all") r = r.filter((s) => (statuses[s.ref] || "pending") === filterStatus);
+  const roleGrad  = activeRole ? ROLE_GRAD[activeRole.id]||["#6366f1","#8b5cf6"] : ["#6366f1","#8b5cf6"];
+
+  const scoped = useMemo(()=>{
+    if(view==="overview"||view==="all") return stories;
+    const role = ROLES.find(r=>r.id===view);
+    return role ? stories.filter(s=>role.modules.includes(s.module)) : stories;
+  },[stories,view]);
+
+  const filtered = useMemo(()=>{
+    let r=scoped;
+    if(search.trim()){ const q=search.toLowerCase(); r=r.filter(s=>s.feature.toLowerCase().includes(q)||s.ref.toLowerCase().includes(q)||s.outcome.toLowerCase().includes(q)||s.module.toLowerCase().includes(q)||s.navigation.toLowerCase().includes(q)||s.subModule.toLowerCase().includes(q)); }
+    if(fStatus!=="all") r=r.filter(s=>(statuses[s.ref]||"pending")===fStatus);
     return r;
-  }, [stories, search, filterModule, filterStatus, statuses]);
+  },[scoped,search,fStatus,statuses]);
 
-  const grouped = useMemo(() => {
-    const map: Record<string, UserStory[]> = {};
-    filtered.forEach((s) => { if (!map[s.module]) map[s.module] = []; map[s.module].push(s); });
-    return Object.entries(map);
-  }, [filtered]);
+  const grouped = useMemo(()=>{
+    const m:Record<string,UserStory[]>={};
+    filtered.forEach(s=>{ if(!m[s.module])m[s.module]=[]; m[s.module].push(s); });
+    return Object.entries(m);
+  },[filtered]);
 
-  const total = stories.length;
-  const counts = useMemo(() => {
-    const c = { verified: 0, working: 0, "not-working": 0, pending: 0 };
-    stories.forEach((s) => { c[statuses[s.ref] || "pending"]++; });
+  // Global counts
+  const gCounts = useMemo(()=>{
+    const c={working:0,"not-working":0,pending:0};
+    stories.forEach(s=>{ const st=statuses[s.ref]||"pending"; if(st in c) c[st as keyof typeof c]=(c[st as keyof typeof c] as number)+1; });
     return c;
-  }, [stories, statuses]);
+  },[stories,statuses]);
+  const gTotal=stories.length;
+  const gPct=gTotal>0?Math.round((gCounts.working/gTotal)*100):0;
 
-  const pct = total > 0 ? Math.round(((counts.verified + counts.working) / total) * 100) : 0;
+  // Scoped counts
+  const sCounts = useMemo(()=>{
+    const c={working:0,"not-working":0,pending:0};
+    scoped.forEach(s=>{ const st=statuses[s.ref]||"pending"; if(st in c) c[st as keyof typeof c]=(c[st as keyof typeof c] as number)+1; });
+    return c;
+  },[scoped,statuses]);
+  const sTotal=scoped.length;
+  const sPct=sTotal>0?Math.round((sCounts.working/sTotal)*100):0;
+
+  const dc = view==="overview" ? gCounts : sCounts;
+  const dt = view==="overview" ? gTotal  : sTotal;
+  const dp = view==="overview" ? gPct    : sPct;
+
+  // Back logic
+  function handleBack(){
+    if(view==="overview") navigate("/");
+    else setView("overview");
+  }
+
+  const isOverview = view==="overview";
 
   return (
-    <div className="min-h-screen w-full bg-[radial-gradient(125%_125%_at_50%_101%,rgba(245,87,2,1)_10.5%,rgba(245,120,2,1)_16%,rgba(245,140,2,1)_17.5%,rgba(245,170,100,1)_25%,rgba(238,174,202,1)_40%,rgba(202,179,214,1)_65%,rgba(148,201,233,1)_100%)]">
+    <div className="us-root" style={{ fontSize:`${zoom}%` }}>
+      <style dangerouslySetInnerHTML={{ __html: CSS }} />
+      <div className="us-bg" />
 
-      {/* ── Sticky Nav ── */}
-      <header className="sticky top-0 z-50 bg-[#070b14]/95 backdrop-blur-md border-b border-white/10 shadow-2xl">
-        <div className="max-w-[1100px] mx-auto px-6 h-16 flex items-center justify-between">
-          {/* Left: Logo big */}
-          <div className="flex items-center gap-3">
-            <img src="/myjinan-logo.png" alt="MyJinan" className="w-10 h-10 rounded-xl bg-white object-contain p-0.5 shadow-lg" />
-            <div>
-              <p className="text-base font-black text-white leading-tight">MyJinan</p>
-              <p className="text-[10px] text-white/30 font-semibold">User Stories</p>
+      <div className="us-wrap">
+        {/* ════════════════════════════ NAV ════════════════════════════ */}
+        <header className="us-nav">
+          <div style={{ maxWidth:1120,margin:"0 auto",padding:"0 22px",height:58,display:"flex",alignItems:"center",gap:14 }}>
+
+            {/* Logo + Breadcrumb */}
+            <div style={{ display:"flex",alignItems:"center",gap:11,flexShrink:0 }}>
+              <div style={{ width:34,height:34,borderRadius:9,background:"linear-gradient(135deg,#6366f1,#8b5cf6)",
+                display:"flex",alignItems:"center",justifyContent:"center",
+                boxShadow:"0 4px 14px rgba(99,102,241,0.5)",fontSize:11,fontWeight:900,color:"#fff" }}>
+                MJ
+              </div>
+              <div style={{ display:"flex",alignItems:"center",gap:6 }}>
+                <span style={{ fontSize:14,fontWeight:700,color:"rgba(255,255,255,0.9)",letterSpacing:"-0.01em" }}>MyJinan</span>
+                <ChevronRight style={{ width:12,height:12,color:"rgba(255,255,255,0.2)" }} />
+                <button
+                  onClick={()=>!isOverview&&setView("overview")}
+                  style={{ background:"none",border:"none",padding:0,cursor:isOverview?"default":"pointer",
+                    fontSize:13,fontWeight:600,color:isOverview?"rgba(255,255,255,0.7)":"rgba(255,255,255,0.38)",
+                    fontFamily:"inherit",transition:"color 0.15s" }}>
+                  User Stories
+                </button>
+                {!isOverview && (
+                  <>
+                    <ChevronRight style={{ width:12,height:12,color:"rgba(255,255,255,0.18)" }} />
+                    <span style={{ fontSize:13,fontWeight:700,color:"rgba(255,255,255,0.88)" }}>
+                      {view==="all"?"All Modules":activeRole?.label}
+                    </span>
+                  </>
+                )}
+              </div>
             </div>
-          </div>
-          {/* Right: Back */}
-          <button
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 border border-white/15 text-white/80 hover:text-white hover:bg-white/20 transition-all text-sm font-semibold"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Chat
-          </button>
-        </div>
-      </header>
 
-      <main className="max-w-[1100px] mx-auto px-6 py-8 space-y-6">
+            {/* Role quick-switch pills (only when not on overview) */}
+            {!isOverview && (
+              <div style={{ flex:1,display:"flex",alignItems:"center",gap:5,overflowX:"auto",padding:"0 2px" }}>
+                <button className={`us-pill ${view==="all"?"on":""}`} onClick={()=>setView("all")}>
+                  <LayoutGrid style={{ width:11,height:11 }} /> All
+                </button>
+                {ROLES.map(r=>{
+                  const Icon=ROLE_ICON[r.icon]||User;
+                  const [c1]=ROLE_GRAD[r.id]||["#6366f1","#8b5cf6"];
+                  const on=view===r.id;
+                  return (
+                    <button key={r.id} className={`us-pill ${on?"on":""}`} onClick={()=>setView(r.id)}
+                      style={on?{ color:c1,background:`${c1}18`,borderColor:`${c1}35` }:{}}>
+                      <Icon style={{ width:11,height:11 }} />{r.label}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+            {isOverview && <div style={{ flex:1 }} />}
 
-        {/* ── Dashboard Hero ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="rounded-2xl bg-[#070b14] border border-white/8 p-6 shadow-2xl"
-        >
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            {/* Circular Progress */}
-            <CircularProgress value={pct} size={120} stroke={10} />
-
-            {/* Title + description */}
-            <div className="flex-1 text-center md:text-left">
-              <h1 className="text-3xl font-black text-white mb-2">Verification Dashboard</h1>
-              <p className="text-sm text-white/40 leading-relaxed mb-4">
-                Track and verify <span className="text-white/70 font-bold">{total}</span> user stories across <span className="text-white/70 font-bold">{modules.length}</span> modules.
-                Use the buttons on each story to set its status.
-              </p>
-              {/* Reset */}
-              <button
-                onClick={resetAll}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white/40 bg-white/5 border border-white/8 hover:bg-white/10 hover:text-white/70 transition-colors mx-auto md:mx-0"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-                Reset All Status
+            {/* Right controls */}
+            <div style={{ display:"flex",alignItems:"center",gap:7,flexShrink:0 }}>
+              {/* Zoom */}
+              <div style={{ display:"flex",alignItems:"center",gap:3 }}>
+                <button className="us-btn" onClick={()=>setZoom(z=>Math.max(75,z-10))} style={{ padding:"7px 10px" }}>
+                  <ZoomOut style={{ width:13,height:13 }} />
+                </button>
+                <span style={{ fontSize:11,color:"rgba(255,255,255,0.28)",fontWeight:600,width:30,textAlign:"center" }}>{zoom}%</span>
+                <button className="us-btn" onClick={()=>setZoom(z=>Math.min(135,z+10))} style={{ padding:"7px 10px" }}>
+                  <ZoomIn style={{ width:13,height:13 }} />
+                </button>
+              </div>
+              {/* Back */}
+              <button className="us-btn" onClick={handleBack}>
+                <ArrowLeft style={{ width:13,height:13 }} />
+                {isOverview?"Back to Chat":"← Roles"}
               </button>
             </div>
-
-            {/* Stat boxes */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-xl bg-emerald-500/10 border border-emerald-500/20 p-4 min-w-[110px] text-center">
-                <CheckCircle2 className="w-6 h-6 text-emerald-400 mx-auto mb-1.5" />
-                <p className="text-3xl font-black text-emerald-400 tabular-nums">{counts.verified}</p>
-                <p className="text-[10px] text-emerald-400/60 font-bold mt-0.5">VERIFIED</p>
-              </div>
-              <div className="rounded-xl bg-blue-500/10 border border-blue-500/20 p-4 min-w-[110px] text-center">
-                <Zap className="w-6 h-6 text-blue-400 mx-auto mb-1.5" />
-                <p className="text-3xl font-black text-blue-400 tabular-nums">{counts.working}</p>
-                <p className="text-[10px] text-blue-400/60 font-bold mt-0.5">WORKING</p>
-              </div>
-              <div className="rounded-xl bg-red-500/10 border border-red-500/20 p-4 min-w-[110px] text-center">
-                <XCircle className="w-6 h-6 text-red-400 mx-auto mb-1.5" />
-                <p className="text-3xl font-black text-red-400 tabular-nums">{counts["not-working"]}</p>
-                <p className="text-[10px] text-red-400/60 font-bold mt-0.5">ISSUES</p>
-              </div>
-              <div className="rounded-xl bg-white/5 border border-white/8 p-4 min-w-[110px] text-center">
-                <Circle className="w-6 h-6 text-white/30 mx-auto mb-1.5" />
-                <p className="text-3xl font-black text-white/50 tabular-nums">{counts.pending}</p>
-                <p className="text-[10px] text-white/20 font-bold mt-0.5">PENDING</p>
-              </div>
-            </div>
           </div>
-        </motion.div>
+        </header>
 
-        {/* ── Search & Filters ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15, duration: 0.3 }}
-          className="rounded-2xl bg-[#070b14] border border-white/8 p-4 shadow-xl"
-        >
-          <div className="flex items-center gap-3">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25" />
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search by feature, ref, module, navigation..."
-                className="w-full pl-10 pr-10 py-3 rounded-xl bg-white/5 border border-white/8 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-white/20 focus:ring-2 focus:ring-white/5 transition-all"
-              />
-              {search && (
-                <button onClick={() => setSearch("")} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-white/30 hover:text-white">
-                  <X className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className={`h-[46px] px-5 rounded-xl flex items-center gap-2 text-sm font-bold transition-all ${
-                showFilters || filterModule || filterStatus !== "all"
-                  ? "bg-amber-500/15 border border-amber-500/30 text-amber-400 shadow-lg shadow-amber-500/10"
-                  : "bg-white/5 border border-white/8 text-white/40 hover:text-white/70 hover:bg-white/10"
-              }`}
-            >
-              <Filter className="w-4 h-4" />
-              Filters
-              {(filterModule || filterStatus !== "all") && <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />}
-            </button>
-          </div>
+        {/* ════════════════════ OVERVIEW ════════════════════ */}
+        <AnimatePresence mode="wait">
+          {isOverview ? (
+            <motion.div key="ov" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0,y:-8}} transition={{ duration:0.28 }}
+              style={{ maxWidth:1120,margin:"0 auto",padding:"30px 22px 80px",display:"flex",flexDirection:"column",gap:22 }}>
 
-          {/* Filter chips */}
-          <AnimatePresence>
-            {showFilters && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden"
-              >
-                <div className="mt-4 pt-4 border-t border-white/5 space-y-4">
-                  {/* Module filter */}
-                  <div>
-                    <p className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-2">Module</p>
-                    <div className="flex flex-wrap gap-2">
-                      <button
-                        onClick={() => setFilterModule(null)}
-                        className={`text-xs px-3 py-1.5 rounded-lg border font-bold transition-all ${
-                          !filterModule ? "bg-white/15 border-white/20 text-white" : "border-white/8 text-white/30 hover:text-white/60"
-                        }`}
-                      >All Modules</button>
-                      {modules.map((m) => {
-                        const Icon = MODULE_ICONS[m] || Package;
-                        const c = MODULE_COLORS[m] || "#f59e0b";
-                        return (
-                          <button
-                            key={m}
-                            onClick={() => setFilterModule(filterModule === m ? null : m)}
-                            className={`text-xs px-3 py-1.5 rounded-lg border font-bold transition-all flex items-center gap-1.5 ${
-                              filterModule === m
-                                ? "border-white/20 text-white"
-                                : "border-white/8 text-white/30 hover:text-white/60"
-                            }`}
-                            style={filterModule === m ? { backgroundColor: `${c}20`, borderColor: `${c}40` } : {}}
-                          >
-                            <Icon className="w-3.5 h-3.5" style={filterModule === m ? { color: c } : {}} />
-                            {m}
-                          </button>
-                        );
-                      })}
+              {/* ── Hero ── */}
+              <div className="us-glass us-fadein" style={{ padding:"30px 32px" }}>
+                <div style={{ display:"flex",flexWrap:"wrap",alignItems:"center",gap:28 }}>
+                  {/* Ring + title */}
+                  <div style={{ display:"flex",alignItems:"center",gap:22,flex:1,minWidth:280 }}>
+                    <Ring value={gPct} size={128} stroke={9} />
+                    <div>
+                      <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:6 }}>
+                        <Star style={{ width:15,height:15,color:"#ffd200" }} />
+                        <span className="us-label" style={{ color:"rgba(255,255,255,0.35)" }}>MyJinan Platform</span>
+                      </div>
+                      <h1 style={{ fontSize:26,fontWeight:900,color:"#fff",margin:"0 0 7px",letterSpacing:"-0.03em" }}>
+                        Verification Dashboard
+                      </h1>
+                      <p style={{ fontSize:13,color:"rgba(255,255,255,0.4)",margin:"0 0 16px",lineHeight:1.65 }}>
+                        Track and verify <strong style={{ color:"rgba(255,255,255,0.75)" }}>{gTotal}</strong> user stories across{" "}
+                        <strong style={{ color:"rgba(255,255,255,0.75)" }}>{ROLES.length}</strong> roles.<br/>
+                        Click a role below to begin verification.
+                      </p>
+                      <button className="us-btn" onClick={()=>setStatuses({})} style={{ fontSize:12 }}>
+                        <RotateCcw style={{ width:12,height:12 }} /> Reset All
+                      </button>
                     </div>
                   </div>
-                  {/* Status filter */}
-                  <div>
-                    <p className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-2">Status</p>
-                    <div className="flex flex-wrap gap-2">
-                      {[
-                        { key: "all" as const, label: "All", count: total, color: "text-white", bg: "bg-white/15", border: "border-white/20" },
-                        { key: "verified" as const, label: "Verified", count: counts.verified, color: "text-emerald-400", bg: "bg-emerald-500/15", border: "border-emerald-500/30", Icon: CheckCircle2 },
-                        { key: "working" as const, label: "Working", count: counts.working, color: "text-blue-400", bg: "bg-blue-500/15", border: "border-blue-500/30", Icon: Zap },
-                        { key: "not-working" as const, label: "Not Working", count: counts["not-working"], color: "text-red-400", bg: "bg-red-500/15", border: "border-red-500/30", Icon: XCircle },
-                        { key: "pending" as const, label: "Pending", count: counts.pending, color: "text-white/50", bg: "bg-white/10", border: "border-white/15", Icon: Circle },
-                      ].map(({ key, label, count, color, bg, border, Icon }) => (
-                        <button
-                          key={key}
-                          onClick={() => setFilterStatus(filterStatus === key ? "all" : key)}
-                          className={`text-xs px-3 py-1.5 rounded-lg border font-bold transition-all flex items-center gap-1.5 ${
-                            filterStatus === key ? `${bg} ${border} ${color}` : "border-white/8 text-white/30 hover:text-white/60"
-                          }`}
-                        >
-                          {Icon && <Icon className="w-3.5 h-3.5" />}
-                          {label} ({count})
-                        </button>
-                      ))}
-                    </div>
+
+                  {/* 3 stat cards */}
+                  <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,flexShrink:0 }}>
+                    <Stat label="Working"     value={gCounts.working}        icon={CheckCircle2} c1="#00f5a0" c2="#10b981" glow="0 0 28px rgba(0,245,160,0.2)"  />
+                    <Stat label="Not Working" value={gCounts["not-working"]} icon={XCircle}      c1="#ef4444" c2="#b91d2a" glow="0 0 28px rgba(239,68,68,0.2)"  />
+                    <Stat label="Pending"     value={gCounts.pending}        icon={Circle}       c1="rgba(255,255,255,0.5)" c2="rgba(255,255,255,0.2)" glow="none" />
                   </div>
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
 
-          {(search || filterModule || filterStatus !== "all") && (
-            <p className="mt-3 text-xs text-white/25">
-              Showing <span className="font-bold text-white/50">{filtered.length}</span> of {total} stories
-              {filterModule && <span className="text-amber-400 font-bold"> · {filterModule}</span>}
-            </p>
-          )}
-        </motion.div>
+              {/* ── Role cards section ── */}
+              <div>
+                <div style={{ display:"flex",alignItems:"center",gap:10,marginBottom:16 }}>
+                  <LayoutGrid style={{ width:15,height:15,color:"rgba(255,255,255,0.35)" }} />
+                  <h2 style={{ fontSize:14,fontWeight:700,color:"rgba(255,255,255,0.6)",margin:0 }}>Select Admin Role</h2>
+                  <div style={{ flex:1,height:1,background:"rgba(255,255,255,0.06)" }} />
+                  <button className="us-btn" onClick={()=>setView("all")} style={{ fontSize:12 }}>
+                    <TrendingUp style={{ width:12,height:12 }} /> All Modules
+                  </button>
+                </div>
+                <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(320px,1fr))",gap:12 }}>
+                  {ROLES.map((role,i) => (
+                    <RoleCard key={role.id} role={role} stories={stories} statuses={statuses} onClick={()=>setView(role.id)} idx={i} />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
 
-        {/* ── Module List ── */}
-        <section className="space-y-4 pb-16">
-          {grouped.length === 0 ? (
-            <div className="rounded-2xl bg-[#070b14] border border-white/8 flex flex-col items-center py-20">
-              <Search className="w-12 h-12 text-white/10 mb-4" />
-              <p className="text-base text-white/30 font-semibold">No stories found</p>
-              <p className="text-xs text-white/15 mt-1">Try a different search or clear your filters</p>
-            </div>
           ) : (
-            grouped.map(([name, moduleStories], i) => (
-              <motion.div
-                key={name}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.05 * i, duration: 0.3 }}
-              >
-                <ModuleAccordion
-                  moduleName={name}
-                  stories={moduleStories}
-                  statuses={statuses}
-                  onSetStatus={updateStatus}
-                  defaultOpen={!!filterModule || grouped.length === 1}
-                />
-              </motion.div>
-            ))
+            // ════════════════════ ROLE/ALL VIEW ═══════════════════════
+            <motion.div key="rv" initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-8}} transition={{ duration:0.28 }}
+              style={{ maxWidth:1120,margin:"0 auto",padding:"26px 22px 80px",display:"flex",flexDirection:"column",gap:18 }}>
+
+              {/* ── Role Hero ── */}
+              <div className="us-glass" style={{
+                padding:"26px 30px",
+                ...(activeRole?{ background:`linear-gradient(135deg,${roleGrad[0]}10 0%,rgba(255,255,255,0.03) 60%)`,borderColor:`${roleGrad[0]}28` }:{}),
+              }}>
+                <div style={{ display:"flex",flexWrap:"wrap",alignItems:"center",gap:22 }}>
+                  {/* Ring with role icon */}
+                  <div style={{ position:"relative",flexShrink:0 }}>
+                    <Ring value={sPct} size={112} stroke={8} />
+                    {activeRole && (
+                      <div style={{ position:"absolute",bottom:-4,right:-4,width:28,height:28,borderRadius:8,
+                        background:grad(roleGrad),border:"2px solid rgba(7,9,18,0.85)",display:"flex",alignItems:"center",justifyContent:"center" }}>
+                        {(()=>{ const Icon=ROLE_ICON[activeRole.icon]||User; return <Icon style={{ width:13,height:13,color:"#fff" }} />; })()}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Info */}
+                  <div style={{ flex:1,minWidth:200 }}>
+                    {activeRole && (
+                      <div style={{ display:"inline-flex",alignItems:"center",gap:4,padding:"3px 10px",borderRadius:7,marginBottom:8,
+                        background:`${roleGrad[0]}1a`,border:`1px solid ${roleGrad[0]}38`,
+                        fontSize:10,fontWeight:800,textTransform:"uppercase",letterSpacing:"0.07em",color:roleGrad[0] }}>
+                        Role View
+                      </div>
+                    )}
+                    <h1 style={{ fontSize:22,fontWeight:900,color:"#fff",margin:"0 0 5px",letterSpacing:"-0.03em" }}>
+                      {activeRole?activeRole.label:"All Modules"}
+                    </h1>
+                    <p style={{ fontSize:13,color:"rgba(255,255,255,0.4)",margin:"0 0 12px",lineHeight:1.55 }}>
+                      {activeRole?activeRole.description:`Complete overview of all ${Object.keys(MOD_ICON).length} platform modules`}
+                    </p>
+                    <p style={{ fontSize:12,color:"rgba(255,255,255,0.28)",margin:"0 0 14px" }}>
+                      <strong style={{ color:"rgba(255,255,255,0.6)" }}>{sTotal}</strong> stories
+                      {activeRole&&<> · <strong style={{ color:"rgba(255,255,255,0.6)" }}>{activeRole.modules.length}</strong> module{activeRole.modules.length>1?"s":""}</>}
+                    </p>
+                    <button className="us-btn" onClick={()=>setStatuses({})} style={{ fontSize:12 }}>
+                      <RotateCcw style={{ width:12,height:12 }} /> Reset All
+                    </button>
+                  </div>
+
+                  {/* Stats */}
+                  <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:9,flexShrink:0 }}>
+                    <Stat label="Working"     value={sCounts.working}        icon={CheckCircle2} c1="#00f5a0" c2="#10b981" glow="0 0 22px rgba(0,245,160,0.18)"  />
+                    <Stat label="Not Working" value={sCounts["not-working"]} icon={XCircle}      c1="#ef4444" c2="#b91d2a" glow="0 0 22px rgba(239,68,68,0.18)"  />
+                    <Stat label="Pending"     value={sCounts.pending}        icon={Circle}       c1="rgba(255,255,255,0.45)" c2="rgba(255,255,255,0.2)" glow="none" />
+                  </div>
+                </div>
+
+                {/* Module chips */}
+                {activeRole && (
+                  <div style={{ marginTop:18,paddingTop:16,borderTop:"1px solid rgba(255,255,255,0.06)",display:"flex",flexWrap:"wrap",gap:8 }}>
+                    {activeRole.modules.map(mod=>{
+                      const [c1]=MOD_GRAD[mod]||["#6366f1","#8b5cf6"];
+                      const Icon=MOD_ICON[mod]||Package;
+                      return (
+                        <span key={mod} style={{ display:"inline-flex",alignItems:"center",gap:6,padding:"6px 12px",borderRadius:9,
+                          background:`${c1}18`,border:`1px solid ${c1}2e`,fontSize:12,fontWeight:700,color:c1 }}>
+                          <Icon style={{ width:13,height:13 }} />{mod}
+                        </span>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* ── Search & Filter ── */}
+              <div className="us-glass-sm" style={{ padding:"13px 15px" }}>
+                <div style={{ display:"flex",gap:9,alignItems:"center" }}>
+                  <div style={{ flex:1,position:"relative" }}>
+                    <Search style={{ position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",width:14,height:14,color:"rgba(255,255,255,0.25)" }} />
+                    <input className="us-input" type="text" value={search} onChange={e=>setSearch(e.target.value)}
+                      placeholder="Search feature, ref, module, navigation..." style={{ padding:"10px 38px 10px 38px" }} />
+                    {search && (
+                      <button onClick={()=>setSearch("")} style={{ position:"absolute",right:11,top:"50%",transform:"translateY(-50%)",background:"none",border:"none",cursor:"pointer",color:"rgba(255,255,255,0.3)",padding:0 }}>
+                        <X style={{ width:13,height:13 }} />
+                      </button>
+                    )}
+                  </div>
+                  <button className="us-btn" onClick={()=>setShowF(!showF)}
+                    style={showF||fStatus!=="all"?{ borderColor:"rgba(255,210,0,0.35)",color:"#ffd200",background:"rgba(255,210,0,0.08)" }:{}}>
+                    <SlidersHorizontal style={{ width:13,height:13 }} />
+                    Filters
+                    {fStatus!=="all"&&<span style={{ width:6,height:6,borderRadius:"50%",background:"#ffd200",display:"block" }}/>}
+                  </button>
+                </div>
+
+                <AnimatePresence>
+                  {showF && (
+                    <motion.div initial={{height:0,opacity:0}} animate={{height:"auto",opacity:1}} exit={{height:0,opacity:0}} transition={{ duration:0.2 }} style={{ overflow:"hidden" }}>
+                      <div style={{ paddingTop:12,marginTop:12,borderTop:"1px solid rgba(255,255,255,0.07)" }}>
+                        <p className="us-label" style={{ marginBottom:8 }}>Filter by Status</p>
+                        <div style={{ display:"flex",flexWrap:"wrap",gap:7 }}>
+                          {([
+                            { key:"all",          label:"All",          cnt:dt,                   c1:"rgba(255,255,255,0.7)", Icon:LayoutGrid   },
+                            { key:"working",    label:"Working",      cnt:dc.working,           c1:"#00f5a0",              Icon:CheckCircle2 },
+                            { key:"not-working",label:"Not Working",   cnt:dc["not-working"],    c1:"#ef4444",              Icon:XCircle      },
+                            { key:"pending",    label:"Pending",       cnt:dc.pending,           c1:"rgba(255,255,255,0.45)",Icon:Circle      },
+                          ] as const).map(({ key,label,cnt,c1,Icon })=>{
+                            const on=fStatus===key;
+                            return (
+                              <button key={key} onClick={()=>setFStatus(fStatus===key?"all":key as Status|"all")}
+                                style={{ display:"inline-flex",alignItems:"center",gap:6,padding:"7px 12px",borderRadius:9,
+                                  border:`1px solid ${on?`${c1}40`:"rgba(255,255,255,0.08)"}`,
+                                  background:on?`${c1}15`:"rgba(255,255,255,0.04)",
+                                  color:on?c1:"rgba(255,255,255,0.38)",fontSize:12,fontWeight:700,cursor:"pointer",fontFamily:"inherit",transition:"all 0.18s" }}>
+                                <Icon style={{ width:12,height:12 }} />{label} ({cnt})
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {(search||fStatus!=="all") && (
+                  <p style={{ marginTop:9,fontSize:12,color:"rgba(255,255,255,0.25)" }}>
+                    Showing <strong style={{ color:"rgba(255,255,255,0.55)" }}>{filtered.length}</strong> of {dt}
+                  </p>
+                )}
+              </div>
+
+              {/* ── Module Accordions ── */}
+              <div style={{ display:"flex",flexDirection:"column",gap:12,paddingBottom:30 }}>
+                {grouped.length===0 ? (
+                  <div className="us-glass" style={{ padding:"60px 24px",textAlign:"center" }}>
+                    <Search style={{ width:38,height:38,color:"rgba(255,255,255,0.1)",display:"block",margin:"0 auto 14px" }} />
+                    <p style={{ fontSize:16,color:"rgba(255,255,255,0.28)",fontWeight:700,margin:"0 0 5px" }}>No stories found</p>
+                    <p style={{ fontSize:13,color:"rgba(255,255,255,0.16)",margin:0 }}>Try a different search or clear filters</p>
+                  </div>
+                ) : grouped.map(([name,moduleStories],i)=>(
+                  <ModuleCard key={name} name={name} stories={moduleStories} statuses={statuses} onSet={upStatus}
+                    defaultOpen={grouped.length===1||(!!activeRole&&activeRole.modules.length===1)} idx={i} />
+                ))}
+              </div>
+            </motion.div>
           )}
-        </section>
-      </main>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
