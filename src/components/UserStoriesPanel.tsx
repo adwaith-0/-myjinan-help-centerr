@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import userStoriesData from "@/lib/user-stories-data.json";
 import { getStoryImages, getModuleImages, type StoryImage } from "@/lib/stories-image-map";
-import { ROLES, type RoleDef } from "@/lib/role-config.ts";
+import { ROLES, type RoleDef } from "@/lib/role-config";
 
 // ─── Types ─────────────────────────────────────────────────────
 interface UserStory {
