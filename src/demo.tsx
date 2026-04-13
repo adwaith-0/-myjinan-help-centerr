@@ -412,9 +412,8 @@ function ApiKeyModal({ onClose }: { onClose: () => void }) {
     setApiKey(key);
     setSaved(true);
     setTimeout(() => {
-      setSaved(false);
-      onClose();
-    }, 1200);
+      window.location.reload();
+    }, 900);
   };
 
   const handleClear = () => {
