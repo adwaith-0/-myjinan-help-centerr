@@ -25,13 +25,11 @@ export const ROLES: RoleDef[] = [
       "Product Management",
       "Zone & Module Setup",
       "Business Settings",
+      "Store Management",
       "Order Management",
+      "Flash Sales",
+      "Promotion Management",
       "Reports & Analytics",
-      "Wallet Management",
-      "Advertisement Management",
-      "Employee Management",
-      "Item / Inventory Mgmt",
-      "Marketing & Promotions",
       "Financial Operations",
     ],
   },
@@ -40,10 +38,9 @@ export const ROLES: RoleDef[] = [
     label: "Product Manager",
     icon: "Package",
     color: "#f59e0b",
-    description: "Manages the product catalog — categories, listings, pricing, inventory, and reviews",
+    description: "Manages the product catalog — categories, listings, pricing, and reviews",
     modules: [
       "Product Management",
-      "Item / Inventory Mgmt",
     ],
   },
   {
@@ -51,10 +48,11 @@ export const ROLES: RoleDef[] = [
     label: "Operations Manager",
     icon: "ShoppingCart",
     color: "#10b981",
-    description: "Handles day-to-day order processing, zones, deliveries, and returns",
+    description: "Handles day-to-day order processing, zones, stores, and deliveries",
     modules: [
       "Order Management",
       "Zone & Module Setup",
+      "Store Management",
     ],
   },
   {
@@ -62,10 +60,9 @@ export const ROLES: RoleDef[] = [
     label: "Finance Manager",
     icon: "DollarSign",
     color: "#eab308",
-    description: "Manages withdrawals, disbursements, wallet operations, and financial reporting",
+    description: "Manages withdrawals, disbursements, and financial reporting",
     modules: [
       "Financial Operations",
-      "Wallet Management",
       "Reports & Analytics",
     ],
   },
@@ -74,20 +71,10 @@ export const ROLES: RoleDef[] = [
     label: "Marketing Manager",
     icon: "Megaphone",
     color: "#d946ef",
-    description: "Creates and manages promotions, ad campaigns, discount codes, and flash sales",
+    description: "Creates and manages promotions, banners, ads, coupons, and flash sales",
     modules: [
-      "Marketing & Promotions",
-      "Advertisement Management",
-    ],
-  },
-  {
-    id: "hr-admin",
-    label: "HR / Employee Admin",
-    icon: "Users",
-    color: "#ec4899",
-    description: "Manages team access, roles, permissions, invitations, and activity auditing",
-    modules: [
-      "Employee Management",
+      "Promotion Management",
+      "Flash Sales",
     ],
   },
   {
@@ -101,6 +88,7 @@ export const ROLES: RoleDef[] = [
     ],
   },
 ];
+
 
 // ── Helper: Get role(s) that own a given module ───────────────
 export function getRolesForModule(moduleName: string): RoleDef[] {

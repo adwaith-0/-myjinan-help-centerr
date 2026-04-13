@@ -1,556 +1,633 @@
 export const KNOWLEDGE_BASE = `
-## MYJINAN PLATFORM — COMPLETE DOCUMENTATION
+## MYJINAN PLATFORM — COMPLETE VERIFIED DOCUMENTATION
 
 You are a helpful documentation assistant for the MyJinan e-commerce admin panel (admin.myjinan.com).
-Below is the complete knowledge base covering all modules. Use ONLY this information to answer questions.
-
----
-
-### PRODUCT MANAGEMENT
-
-#### Categories
-> ⚠️ **Admin Note**: Category names must be created manually in the admin panel before they can be assigned to any product. If a category does not exist, it will not appear in product forms or bulk imports.
-- **Add New Category**: Product Management → Categories → Category → Add New → Enter name in Default/EN/AR → Upload 1:1 image → Save.
-- **View/Export Categories**: Product Management → Categories → Category → Use Search bar to find → Click Export to download as Excel.
-- **Edit Category**: Product Management → Categories → Click Edit icon next to category → Update name/image → Save.
-- **Enable/Disable Category**: Product Management → Categories → Toggle the Status switch to Enable/Disable.
-- **Delete Category**: Product Management → Categories → Click Delete icon → Confirm deletion (only works if no products linked).
-
-#### Sub Categories
-> ⚠️ **Admin Note**: Sub-category names must be created manually in the admin panel before they can be assigned to any product. The parent Category must also exist first before a sub-category can be created under it.
-- **Add Sub Category**: Product Management → Categories → Sub Category → Add New → Select parent category → Enter name in all languages → Save.
-- **View Sub Categories**: Product Management → Categories → Sub Category → Review the list showing each sub-category alongside its parent.
-- **Edit Sub Category**: Product Management → Categories → Sub Category → Click Edit → Change parent category or name → Save.
-
-#### Bulk Import (Categories)
-- **Download Template**: Product Management → Bulk Import → Download Template (with or without current data).
-- **Upload New Data**: Product Management → Bulk Import → Select 'Upload New Data' → Choose filled Excel file → Upload.
-- **Update Existing Data**: Product Management → Bulk Import → Select 'Update Existing Data' → Choose corrected Excel → Upload.
-
-#### Bulk Export (Categories)
-- **Export Categories**: Product Management → Bulk Export → Select sort/filter options → Click Export → Download Excel.
-
-#### Attributes
-- **Add Attribute**: Product Management → Attributes → Add New → Enter attribute name in all languages → Save.
-- **Manage Attributes**: Product Management → Attributes → View list → Click Edit to update or Delete to remove.
-
-#### Units
-- **Add Unit**: Product Management → Units → Add New → Enter unit name (e.g., kg, piece, litre) in all languages → Save.
-- **Manage Units**: Product Management → Units → View list → Edit to rename or Delete duplicates.
-
-#### Brands
-> ⚠️ **Admin Note**: Brand names must be created manually in the admin panel before they can be assigned to any product. If a brand does not exist yet, admin must add it first before it appears as a selectable option in product forms or bulk imports.
-- **Add Brand**: Product Management → Brands → Add New → Enter brand name → Upload logo → Save.
-- **Enable/Disable Brand**: Product Management → Brands → Toggle Status switch to Enable/Disable.
-- **Search Brands**: Product Management → Brands → Use Search bar to find specific brands.
-
----
-
-### PRODUCT SETUP
-
-#### Add New Product
-> ⚠️ **ADMIN PRE-REQUISITE — IMPORTANT**: Before adding any new product (individually or via bulk import), the following must already exist in the admin panel. If any are missing or new, the admin MUST manually create them first:
-> - **Category**: Product Management → Categories → Category → Add New
-> - **Sub-Category**: Product Management → Categories → Sub Category → Add New
-> - **Brand**: Product Management → Brands → Add New Brand
-> Attempting to add a product without these pre-existing entries will result in the fields being empty or unavailable.
-- **Product Name & Description**: Product Setup → Add New → Fill Name, Short Description, Long Description in Default/EN/AR tabs.
-- **Product Images**: Product Setup → Add New → Upload Product Image (1:1 ratio) → Upload Thumbnail (mandatory). Image requirements: 1:1 aspect ratio, less than 100KB, .jpg or .png format.
-- **Store & Category Assignment**: Product Setup → Add New → Select Store → Select Category → Select Sub-Category → Select Brand.
-- **Purchase Limits & Units**: Product Setup → Add New → Select Unit of Measurement → Set Max Purchase Quantity.
-- **Pricing & Stock**: Product Setup → Add New → Enter Price → Enter Stock Quantity → Set Discount Percentage.
-- **Attributes**: Product Setup → Add New → Scroll to Attributes section → Add attribute values.
-- **Gallery**: Product Setup → Add New → Click 'Add Info From Gallery' → Select existing image → Apply.
-- **Save as Draft**: Product Setup → Add New → Fill all details → Click 'Save as Draft'.
-- **Publish Product**: Product Setup → Add New → Fill all details → Click 'Publish' (may require admin approval).
-- **Variants**: When a product has multiple variations (e.g., sizes, colors), select Attribute → Enter Value → Enter Variant Price → Enter Variant Quantity.
-- **Tags**: Enter relevant keywords in the "Search tags" field for better search results.
-
-#### Product List
-- **View Products**: Product Management → Product List → Use Search/Filter by category or status → Paginate.
-- **Edit Product**: Product Management → Product List → Click Edit icon (pencil) next to product → Make changes → Save.
-- **Enable/Disable Product**: Product Management → Product List → Toggle Status switch to Enable/Disable.
-- **Delete Product**: Product Management → Product List → Click Delete icon (trash) → Confirm (irreversible action).
-- **Quick Stock Update**: Click the "+" (Plus) icon beside the quantity to immediately update stock.
-- **Export Product List**: Use the Export button to download the filtered product list.
-
-#### Low Stock
-- **Monitor Low Stock**: Product Management → Low Stock → Review the filtered list of products below reorder threshold.
-- **Update Stock**: Product Management → Low Stock → Click item → Enter new stock quantity → Save.
-- **Export/Filter**: The Low Stock list can be exported as Excel/CSV. Can be filtered Zone-wise or Store-wise.
-
-#### Reviews
-- **View Reviews**: Product Management → Reviews → View all reviews with ratings, comments, and reviewer names.
-- **Delete Review**: Product Management → Reviews → Click Delete on inappropriate review → Confirm.
-- **Export Reviews**: You can export the entire Review List as an Excel or CSV file.
-
-#### Product Bulk Import
-> ⚠️ **ADMIN PRE-REQUISITE — IMPORTANT**: Before bulk importing products, ensure every Category, Sub-Category, and Brand referenced in the Excel file already exists in the admin panel. Any unrecognised name will cause that row to fail. Create missing entries manually first:
-> - **Category**: Product Management → Categories → Category → Add New
-> - **Sub-Category**: Product Management → Categories → Sub Category → Add New
-> - **Brand**: Product Management → Brands → Add New Brand
-- **Download Template**: Product Management → Bulk Import → Download Template (pre-filled with existing data).
-- **Upload Products**: Product Management → Bulk Import → Choose filled .xls/.xlsx file → Upload.
-- **Important**: Ensure image file names do not exceed 30 characters. For e-commerce items, use 24-hour time format.
-
-#### Product Bulk Export
-- **Export Products**: Product Management → Bulk Export → Click Export → Download Excel file.
-- **Export Types**: All Data, Date-wise, or ID-wise.
+Use ONLY the information below to answer questions. Do NOT invent features not listed here.
+If a feature is not documented below, say "That feature is not available in the current version of the system."
 
 ---
 
 ### ZONE & MODULE SETUP
 
 #### Zones
-- **Create Zone**: Zone Setup → Add New → Draw boundary polygon on Google Map → Enter zone name in all languages → Save.
-- **View/Export Zones**: Zone Setup → View list → Search by name → Click Export for spreadsheet download.
-- **Disable Zone**: Zone Setup → Toggle zone Status to Disable.
-- **Connect Module to Zone**: Zone Setup → Click grid action icon next to zone → Select business module → Connect.
-- **Edit Zone Boundary**: Zone Setup → Click Edit on zone → Drag polygon points on map to new boundary → Save.
+> ⚠️ **Required First Step**: Zones must be created before stores, modules, or delivery areas can be configured.
+- **Create Zone**: Settings → Zone Setup → Fill Business Zone Name (Default/EN/AR) → Draw boundary polygon on embedded Google Map → Submit.
+- **Zone List**: Shows: Zone Id, Business Zone Name, Vendors count, Deliverymen count, Status toggle, Action icons (Connect Module grid icon, three-dot menu).
+- **Enable/Disable Zone**: Zone List → Toggle the Status switch. Immediately suspends or restores all storefronts, deliveries, and customer access in that area.
+- **Connect Module to Zone**: Zone List → Click the grid/Connect Module icon → Select a business module → Connect. A zone without a connected module offers no services to customers.
+- **Edit/Delete Zone**: Zone List → Click three-dot menu → Edit boundary polygon on map, or Delete.
+- **Export Zone list**: Zone List → Click Export button.
 
-#### Modules
-- **Create Module**: Module Setup → Create New → Select type → Enter name, description → Upload icon + thumbnail → Save.
-- **Filter/Search Modules**: Module Setup → Filter by module type → Use search bar to find by name.
-- **Enable/Disable Module**: Module Setup → Toggle Status to Enable/Disable.
-- **Edit Module**: Module Setup → Click Edit → Update name, description, icon, or thumbnail → Save.
+#### Business Modules
+- **Create Module**: Settings → Module Setup → Add Business Module → Fill Business Module Name + description (Default/EN/AR) → Select module type (Grocery, Food, Pharmacy, Ecommerce, Parcel) → Upload Icon (1:1) and Thumbnail (1:1) → Add Module.
+- **Module List**: Shows: Module Id, Name, Business Module Type, Total Vendors, Status toggle, Edit (pencil icon). Filter by module type dropdown; search by name; export.
+- **Enable/Disable Module**: Module List → Toggle Status switch. Hides the module from the customer app.
+- **Edit Module**: Module List → Click pencil Edit icon → Update fields → Save.
 
 ---
 
 ### BUSINESS SETTINGS
 
 #### Business Information
-- **Company Details**: Business Settings → Business Information → Fill company name, email, phone, country, address, map coordinates → Save.
-- **Logo & Favicon**: Business Settings → Business Information → Upload Logo (3:1 ratio) → Upload Favicon (1:1 ratio) → Save.
-- **Locale Settings**: Business Settings → Business Information → Set time zone, time format, currency symbol, currency position, decimal precision → Save.
-- **Maintenance Mode**: Business Settings → Business Information → Toggle Maintenance Mode ON.
+- **Company Details**: Settings → Business Settings → Business Information tab → Fill Company Name, Email, Phone, Country, Address → Click on map to set Latitude/Longitude → Upload Logo (3:1 ratio) → Upload Favicon (1:1 ratio) → Save.
+- **General Settings** (scroll down same page): Set Time Zone, Time Format, Currency Symbol, Currency Position (left/right), Digit After Decimal Point, Copyright Text, Cookies Text → Save.
+- **Maintenance Mode**: Business Information tab → Toggle Maintenance Mode ON at the top of the page. All customer-facing apps and APIs are disabled; customers see a maintenance screen.
 
 #### Vendor Settings
-- **Self-Registration**: Business Settings → Vendor Settings → Toggle 'Vendor Self-Registration' Enable/Disable.
-- **Product Approval**: Business Settings → Vendor Settings → Enable 'Need Approval For Products' → Select scope (Add/Price/Details).
-- **Order Cancellation**: Business Settings → Vendor Settings → Toggle 'Allow Vendor Order Cancellation' Enable/Disable.
-- **Cash-in-Hand Limit**: Business Settings → Vendor Settings → Set Cash-In-Hand maximum amount and minimum repayment → Save.
+Settings → Business Settings → Vendor tab:
+- Can A Vendor Cancel Order (Yes/No radio)
+- Vendor Self Registration (toggle)
+- Need Approval For Products (toggle) + scope checkboxes: Add new product / Update product price / Update product variation / Update anything in product details
+- Vendor Can Reply Review (toggle)
+- Cash In Hand Overflow (toggle) with Maximum Amount and Minimum Amount fields
+→ Save Information
 
 #### Deliveryman Settings
-- **Max Orders**: Business Settings → Deliveryman Settings → Set maximum simultaneous orders per driver → Save.
-- **Photo Proof**: Business Settings → Deliveryman Settings → Toggle 'Photo Proof of Delivery' Enable.
-- **Customer Tipping**: Business Settings → Deliveryman Settings → Toggle 'Customer Tipping' Enable.
-- **Driver Self-Registration**: Business Settings → Deliveryman Settings → Toggle 'Driver Self-Registration' Enable/Disable.
+Settings → Business Settings → Deliveryman tab:
+- Tips For Deliveryman (toggle)
+- Show Earnings In App (toggle)
+- Dm Self Registration (toggle)
+- Maximum Assigned Order Limit (number field)
+- Can A Deliveryman Cancel Order (Yes/No radio)
+- Take Picture For Completing Delivery (toggle)
+- Cash In Hand Overflow (toggle) with Maximum Cash In Hand and Minimum Amount To Pay
+→ Save Information
 
 #### Customer & Wallet Settings
-- **Enable Wallet**: Business Settings → Customer & Wallet → Toggle 'Customer Wallet' Enable.
-- **Loyalty Points**: Business Settings → Customer & Wallet → Set earning %, conversion rate, minimum redemption threshold → Save.
-- **Referral Program**: Business Settings → Customer & Wallet → Toggle 'Referral Program' Enable.
+Settings → Business Settings → Customers tab:
+- Customer Wallet (toggle)
+- Customer Can Earn & Buy From Referral (toggle)
+- Refund To Wallet (toggle)
+- Customer Can Add Fund To Wallet (toggle)
+- Customer Can Earn Loyalty Point (toggle)
+- Loyalty Point Settings: 1 BHD Equivalent point amount, Loyalty Point Earn Per Order (%), Minimum Point Required To Convert
+- Customer Referral Earning Settings
+→ Save
 
 #### Refund Settings
-- **Enable Refunds**: Business Settings → Refund Settings → Toggle 'Refund Requests' Enable/Disable.
-- **Refund Window**: Business Settings → Refund Settings → Set refund window in days → Save.
-- **Refund Reasons**: Business Settings → Refund Settings → Add/Edit/Delete refund reason options.
+Settings → Business Settings → Refund Settings tab:
+- Toggle Refund Request Mode ON/OFF
+- Add Refund Reason: Enter reason name in Default/EN/AR → Add Now
+- Refund Reason List: shows all active reasons with Delete option
 
-#### Language Setup
-- **Add Language**: Business Settings → Language Setup → Add language → Enter ISO code → Select LTR or RTL → Save.
-- **Set Default Language**: Business Settings → Language Setup → Click 'Set as Default' on the preferred language.
+#### Language Settings
+Settings → Business Settings → Languages tab:
+- View Language list: Code, Status toggle, Default Status toggle, Action (globe icon for translations)
+- Add New Language button
+- Toggle Status (show/hide language in the app)
+- Toggle Default Status (set as platform default)
 
-#### System Tax
-- **Create Tax**: Business Settings → System Tax → Create New → Enter tax name and percentage rate → Save.
-- **Tax Method**: Business Settings → System Tax → Select Inclusive or Exclusive tax calculation method → Save.
+#### React Landing Page
+Settings → Pages & Social Media → React Landing Page:
+- Edit content blocks: Header (Title, Sub Title, Tag Line, Icon 1:1, Banner 1:1)
+- Additional tabs: Company Intro, Download User App, Earn Money, Available Zone, Promotional Banners, Business Section, Testimonials, Fixed Data
+- All content supports Default/EN/AR language tabs
+→ Save Information
 
-#### Subscription Management
-- **Create Plan**: Business Settings → Subscription Management → Create New → Set name, price, validity, feature checklist → Save.
-- **Set Limits**: Business Settings → Subscription Management → Edit package → Set max order and product limits → Save.
-- **Free Trial**: Business Settings → Subscription Management → Edit/Create package → Set free trial period → Save.
-
-#### Pages & Social
-- **Edit Legal Pages**: Business Settings → Pages & Social → Select page → Edit in rich-text editor → Save.
-- **Social Media Links**: Business Settings → Pages & Social → Enter Facebook/Instagram/Twitter/LinkedIn URLs → Save.
-
-#### Gallery
-- **Browse Gallery**: Business Settings → Gallery → Browse folders (Products, Store, Banner, Category).
-- **Upload Assets**: Business Settings → Gallery → Click Upload → Select individual images or zip archive → Upload.
-- **Manage Files**: Business Settings → Gallery → Select file → Click Preview/Copy URL/Download/Delete.
-
----
-
-### ORDER MANAGEMENT
-
-#### Orders
-- **View All Orders**: Order Management → Order List → View all orders (ID, customer, total, status, date).
-- **Filter by Status**: Order Management → Order List → Click status tabs (Pending/Confirmed/Packed/Dispatched/Delivered/Cancelled/Returned).
-- **Search Orders**: Order Management → Order List → Search by order ID or customer name → Filter by date range.
-- **Accept Order**: Order Management → Order List → Click Accept on pending order → Order moves to Confirmed.
-- **Reject Order**: Order Management → Order List → Click Reject → Select reason → Confirm.
-- **Update Status**: Order Management → Order Details → Update stage: Confirmed → Packed → Dispatched → Delivered.
-- **View Details**: Order Management → Click order → View full detail page with all line items and customer info.
-- **Generate Invoice**: Order Management → Order Details → Click 'Generate Invoice' or 'Delivery Note' → Download/Print.
-
-#### Returns & Refunds
-- **Initiate Return**: Order Management → Returns & Refunds → Click 'Initiate Return' on eligible order.
-- **Process Return**: Order Management → Returns & Refunds → Review request → Click Approve or Deny → Add admin notes.
-- **Monitor Returns**: Order Management → Returns & Refunds → Filter by status (Pending/Approved/Denied) → Review trends.
+#### Websocket Configuration
+Settings → Business Settings → Websocket tab:
+- Toggle Websocket ON
+- Enter Websocket URL (e.g. wss://your-server.com)
+- Enter Websocket Port number
+→ Save Information. Powers live driver tracking and real-time push notifications.
 
 ---
 
-### REPORTS & ANALYTICS
+### SYSTEM TAX
 
-- **Dashboard**: Reports & Analytics → Dashboard → View summary cards for current period.
-- **Sales Report (Date)**: Reports & Analytics → Sales Report → Select date range → View.
-- **Sales Report (Breakdown)**: Reports & Analytics → Sales Report → Select breakdown by module/store/category → Analyse.
-- **Top Products**: Reports & Analytics → Product Report → View top-selling products ranked by quantity and revenue.
-- **Low Performers**: Reports & Analytics → Product Report → View low-performing/zero-sales product report.
-- **Customer Growth**: Reports & Analytics → Customer Report → View new registration trends over time.
-- **Repeat Customers**: Reports & Analytics → Customer Report → View repeat purchase rates.
-- **Store Performance**: Reports & Analytics → Store Report → View per-store orders, revenue, cancellation rate.
-- **Delivery Report**: Reports & Analytics → Delivery Report → View average time, on-time rate, driver scores.
-- **Transactions**: Reports & Analytics → Transaction Report → View payments, refunds, wallet credits, commissions.
-- **Export Reports**: Reports & Analytics → Any report → Click Export → Choose Excel or CSV → Download.
+- **Create Tax**: Settings → System Tax → Create Taxes → Click "Create Tax" button → In slide-out modal: set Availability Status toggle, enter Tax name, enter Tax rate (%) → Submit.
+- **Setup Tax Calculation**: Settings → System Tax → Setup Taxes. Configure separately for Order Module and Parcel Module tabs:
+  - Allow Tax Calculation For Vendor (Status toggle)
+  - Calculate Tax Include Product Price OR Calculate Tax Exclude Product Price (radio buttons)
+  - Basic Setup: Select Tax Type (Order wise), Select Tax Rate
 
 ---
 
-### WALLET MANAGEMENT
+### SUBSCRIPTION MANAGEMENT
 
-- **View Balance**: Wallet Management → Balance & Overview → View current balance, pending, and withdrawable amounts.
-- **Withdraw**: Wallet Management → Withdraw → Enter amount → Select payment method → Submit request.
-- **Transaction History**: Wallet Management → Transaction History → View paginated list with date, amount, type, reference.
-- **Auto Credit**: Wallet is automatically credited when driver marks order as Delivered.
-- **Payment Methods**: Wallet Management → Payment Methods → Add bank/IBAN/mobile wallet details → Save.
-
----
-
-### ADVERTISEMENT MANAGEMENT
-
-- **Create Campaign**: Advertisement → New Campaign → Select ad format (banner/product spotlight/featured store).
-- **Targeting**: Advertisement → Campaign Settings → Select zone, module, customer segment → Save.
-- **Budget (Daily/Total)**: Advertisement → Budget & Schedule → Set daily cap and/or total campaign budget → Save.
-- **Schedule**: Advertisement → Budget & Schedule → Set start date/time and end date/time → Save.
-- **Pause Campaign**: Advertisement → Campaign List → Click Pause on running campaign.
-- **View Analytics**: Advertisement → Performance Analytics → View impressions, clicks, CTR, conversions per campaign.
+- **Create Subscription Package**: Settings → Subscription Management → Subscription Package → Enter Package Name, Package Price (BD), Package Validity Days, Package Info description (Default/EN/AR) → Check Package Available Features (POS system, Self delivery, Mobile App, Review, Chat, etc.) → Save.
+- **Subscription Settings**: Settings → Subscription Management → Settings:
+  - Offer Free Trial: toggle Status → set Free Trial Period (number + Day/Month unit) → Submit
+  - Show Deadline Warning: Select Days before expiry + Type Message → Submit
+  - Return Money Restriction: set threshold amount after which no refund is given on plan changes
 
 ---
 
-### EMPLOYEE MANAGEMENT
+### PAGES & SOCIAL MEDIA
 
-- **Invite Employee**: Employee Management → Invite → Enter email → Select role → Send invitation.
-- **Create Role**: Employee Management → Roles → Create New → Set module-level permissions (view/edit/delete/export) → Save.
-- **Edit Role**: Employee Management → Roles → Click Edit → Add or remove permissions → Save.
-- **View Employees**: Employee Management → Employee List → View name, email, role, last login date.
-- **Deactivate Employee**: Employee Management → Employee List → Click Deactivate on departing employee's account.
-- **Activity Audit**: Employee Management → Activity Audit → View all employee actions with timestamps.
-
----
-
-### ITEM / INVENTORY MANAGEMENT
-
-- **Create Item**: Item / Inventory → Item Creation → Enter SKU, barcode, unit of measure, initial stock → Save.
-- **Set Low-Stock Threshold**: Item / Inventory → Item Creation/Edit → Set low-stock threshold value → Save.
-- **Link to Product**: Item / Inventory → Item Linking → Select inventory item → Link to storefront product.
-- **Bulk Stock Update**: Item / Inventory → Bulk Stock Update → Prepare CSV/Excel with quantities → Upload.
-- **Low-Stock Alerts**: Automatic notifications via in-app and/or email when stock falls below threshold.
-- **Stock History**: Item / Inventory → Stock Movement History → Select item → View all movement entries.
+- **Social Media**: Settings → Pages & Social Media → Social Media → Select platform name from dropdown → Enter Social Media Link → Save. Table shows: SL, Name, Link, Status, Action.
+- **Terms And Condition**: Settings → Pages & Social Media → Business Pages → Terms And Condition → Edit in CKEditor (Default/EN/AR tabs) → Submit.
+- **Privacy Policy**: Settings → Pages & Social Media → Business Pages → Privacy Policy → Edit in CKEditor → Submit.
+- **About Us**: Settings → Pages & Social Media → Business Pages → About Us → Enter About title + About us description in CKEditor → Submit.
+- **Refund Policy**: Settings → Pages & Social Media → Business Pages → Refund Policy → Toggle STATUS (enable/disable page visibility) → Edit in CKEditor → Submit.
+- **Cancellation Policy**: Settings → Pages & Social Media → Business Pages → Cancelation Policy → Toggle STATUS → Edit in CKEditor → Submit.
 
 ---
 
-### MARKETING & PROMOTIONS
+### GALLERY
 
-- **Create Discount Code**: Marketing → Discount Codes → Create New → Set code, discount type (fixed/%), assign to products/store → Save.
-- **Usage Controls**: Marketing → Discount Codes → Edit → Set minimum order value + usage limits → Save.
-- **Flash Sales**: Marketing → Flash Sales → Select products → Set discounted prices → Schedule start/end times → Save.
-- **Bundle Deals**: Marketing → Bundle Deals → Create New → Select products → Set bundle discount price → Save.
-- **Promotion Analytics**: Marketing → Promotion Analytics → View redemption report.
+- **Browse**: Settings → Gallery → Local Storage shows categorised system folders (Category, Vendor, Delivery-Man, Banner, Store, Module, Campaign, Product, Brand, Advertisement, etc.) each with item count badge.
+- **Upload files**: Open any folder → Click Add New → Upload image (single file) OR Upload zip file (bulk) → Click Upload.
+- **View & use assets**: Open folder → Click any image thumbnail → Preview modal shows: filename, Copy Path button (copies the asset URL), Download button.
 
 ---
 
 ### FINANCIAL OPERATIONS
 
-- **Withdraw Requests**: Financial Operations → Withdraw Requests → Filter by status (Pending/Approved/Denied).
-- **Approve Withdrawal**: Financial Operations → Withdraw Requests → Review details → Click Approve.
-- **Store Disbursement**: Financial Operations → Store Disbursement → View disbursement history.
-- **Delivery Disbursement**: Financial Operations → Delivery Disbursement → View and process driver payouts.
-- **Collect Cash (COD)**: Financial Operations → Collect Cash → Enter amount, payment method, reference number → Save.
-- **Withdraw Methods**: Financial Operations → Withdraw Methods → Add method (Bank/Mobile/PayPal) → Define required fields → Save.
+- **Withdraw Requests**: Financial Operations → Withdraw Requests. Three tabs: Pending, Approved, Denied. Review vendor payout requests → Click Approve or Deny (enter admin reason note) → Confirm.
+- **Store Disbursement**: Financial Operations → Store Disbursement. View full disbursement history per store with lifecycle stages (Pending, Completed, Cancelled). Filter by status.
+- **Delivery Man Disbursement**: Financial Operations → Delivery Man Disbursement. View and process driver payouts through payment lifecycle (Pending, Processing, Completed).
+- **Collect Cash (COD)**: Financial Operations → Collect Cash → Enter amount, payment method, reference number → Save. View collection log to reconcile physical cash against digital records.
+- **Delivery Man Payments**: Financial Operations → Delivery Man Payments → Log ad hoc bonus payments directly to drivers (outside automated disbursement).
+- **Withdraw Methods**: Financial Operations → Withdraw Method → Add method (Bank Transfer, Mobile Money, etc.) → Define required fields → Save. Toggle Enable/Disable or click Set as Default.
 
 ---
 
-### GENERAL INFORMATION
+### STORE MANAGEMENT
+
+- **New Store Requests**: Store Management → New Store. Two tabs: New Joining Requests (pending applications) and Denied. Each row shows store name, module, owner info, zone, status. Approve or Deny using action icons.
+- **Add Store (manually)**: Store Management → Add Store. Fill: Store Name, Address, Logo (1:1), Cover (2:1), Minimum & Maximum Delivery Time + time unit, Zone, Latitude, Longitude. Owner: First Name, Last Name, Phone. Account: Email, Password. Business TIN. → Submit.
+- **Stores List**: Store Management → Stores List. Paginated table showing store info, owner info, zone, Featured toggle, Status toggle, Actions (View Eye, Edit Pencil, Delete Trash). Use search bar to find stores.
+- **Featured toggle**: Stores List → Toggle Featured switch to promote a store on the customer website homepage.
+- **Enable/Disable Store**: Stores List → Toggle Status switch. Disabled stores are immediately hidden from customers.
+- **Recommended Stores**: Store Management → Recommended Stores. Shows: rating, total products, total orders, Status toggle, Delete option.
+- **Bulk Import Stores**: Store Management → Bulk Import → Download Excel template (with or without current data) → Fill template → Upload New Data or Update Existing Data.
+- **Bulk Export Stores**: Store Management → Bulk Export → Select data type → Click Export → Download Excel.
+
+---
+
+### ORDER MANAGEMENT
+
+#### POS — Point of Sale
+- **New Sale**: POS Section → New Sale → Select Store from dropdown → Select Category from dropdown → Search for products in the grid → Click product to add to cart. Used for walk-in/offline orders without customer using the app.
+- **Link Customer**: POS → Billing section → Select existing customer from dropdown OR click Add New Customer (First Name, Last Name, Email, Phone) → Submit.
+- **Place Order**: POS → Review order summary (Subtotal, Discount, Delivery Fee, Tax, Total) → Select payment method → Click Place Order. Or click Clear Cart to cancel.
+
+#### Orders
+Order status sidebar categories: All Orders, Scheduled, Pending, Accepted, Processing, Order On The Way, Delivered, Cancelled, Payment Failed, Refunded.
+
+- **View All Orders**: Order Management → Orders → Click All Orders (or any status tab). Table shows order ID, customer, store, total, payment method, status, date.
+- **Order Detail**: Order Management → Orders → Click Eye icon on any row. Shows: Order Summary (number, date, store, coupon, status, payment method), Item Details, Financial Breakdown (subtotal, delivery, discounts, tips, total), Customer Details, Delivery Information, Delivery Proof photo, Store Information.
+- **Update Order Status / Assign Driver**: Order detail → Click Edit → Update status stage → Assign Delivery Man → Save.
+- **Correct order status stages**: Pending → Accepted → Processing → Order On The Way → Delivered. Also: Scheduled, Cancelled, Payment Failed, Refunded.
+- **Print Invoice**: Orders list → Click Printer icon on any order row → Generates printable receipt/PDF.
+- **Offline Payments**: Order Management → Offline Payments. Tabs: All, Pending, Verified, Denied. Review customer's uploaded payment proof → Update status to Verified or Denied. ⚠️ Always confirm funds received in your bank before marking Verified.
+- **Order Refunds**: Order Management → Order Refunds → Review customer refund requests → Click Approve or Rejected.
+
+---
+
+### FLASH SALES (under Promotion Management)
+
+> ⚠️ Flash Sales are ADMIN-ONLY. Vendors cannot create flash sales.
+- **Create Flash Sale**: Promotion Management → Flash Sales → Enter Title (Default/EN/AR), Admin Discount %, Store Discount % (split), Start Date, End Date → Submit.
+- **Add Products to Flash Sale**: Flash Sale List → Click Add Products → Select Item → Set Stock for this sale → Set Discount % → Save.
+- **Manage Flash Sales**: Flash Sale List → Toggle Publish (controls customer visibility) → Edit (update sale details) → Delete (remove sale).
+
+---
+
+### PRODUCT MANAGEMENT
+
+#### Categories
+> ⚠️ **Admin Pre-Requisite**: Categories, Sub-Categories, and Brands must be created manually in the admin panel BEFORE any product can be added or bulk-imported. If these don't exist, the fields will be empty in product forms.
+- **Add Category**: Product Management → Categories → Category → Fill Name (Default/EN/AR) → Upload 1:1 image → Save.
+- **Category List**: Product Management → Categories → Category → View list with search bar, export, Status toggle, Edit, Delete.
+- **Add Sub-Category**: Product Management → Categories → Sub Category → Select parent Main Category → Enter name in all language tabs → Save.
+- **Sub-Category List**: Product Management → Categories → Sub Category → View list showing each entry and its parent category.
+- **Bulk Import Categories**: Product Management → Categories → Bulk Import → Download template (with or without data) → Fill → Upload New Data or Update Existing Data.
+- **Bulk Export Categories**: Product Management → Categories → Bulk Export → Select type → Export Excel.
+
+#### Attributes
+- **Add Attribute**: Product Management → Attributes → Enter attribute name (Default/EN/AR, e.g., Colour, Material) → Save.
+- **Attribute List**: Product Management → Attributes → View list → Edit or Delete.
+
+#### Units
+- **Add Unit**: Product Management → Units → Enter unit name (e.g., kg, piece, metre) → Save.
+- **Unit List**: Product Management → Units → View list → Edit or Delete.
+
+#### Brands
+- **Add Brand**: Product Management → Brands → Add New Brand → Enter name → Upload logo → Set Status → Save.
+- **Brand List**: Product Management → Brands → View list → Toggle Status / Edit / Delete.
+
+#### Add New Product
+> ⚠️ **Admin Pre-Requisite**: Before adding or bulk importing any product, ensure Category, Sub-Category, and Brand already exist in the admin panel. Create missing entries first or the fields will be unavailable.
+- **Basic Info**: Product Setup → Add New → Fill Name, Short Description, Long Description (Default/EN/AR tabs).
+- **Images**: Upload Product Image (1:1 ratio) + Thumbnail (required). Requirements: 1:1, max 100KB, .jpg or .png.
+- **Classification**: Select Store → Category → Sub-Category → Brand from dropdowns.
+- **Pricing & Stock**: Enter Price, Stock Quantity, Discount Percentage.
+- **Unit & Purchase Limit**: Select Unit of Measurement → Set Maximum Purchase Quantity per order.
+- **Attributes/Variants**: Add attribute values → System auto-generates variant combination table with individual Price and Stock per combination.
+- **Tags**: Enter searchable keyword tags.
+
+#### Product List
+- **View**: Product Management → Product Setup → List. Search bar + filter dropdowns (Store, Zone, Category, Sub-Category).
+- **Edit**: Click Edit icon → Update any field → Save.
+- **Enable/Disable**: Toggle Status switch. Out-of-season products can be hidden without deletion.
+- **Delete**: Click Delete icon → Confirm (permanent, irreversible).
+- **Quick Stock Update**: Click the "+" Plus icon beside the quantity to update stock without opening the full editor.
+- **Low Stock List**: Product Management → Product Setup → Low Stock List. Filtered view of products at critically low or zero stock. Filter by zone or store. Export available.
+
+#### Product Reviews
+- **View Reviews**: Product Management → Product Setup → Review → View all customer reviews with ratings, comments, reviewer info.
+- **Delete Review**: Click Delete on inappropriate or fraudulent review.
+
+#### Product Bulk Import/Export
+- **Bulk Import Products**: Product Management → Product Setup → Bulk Import → Download template → Fill → Upload. Only .xls/.xlsx with the official MyJinan template accepted. Image file names must not exceed 30 characters.
+- **Bulk Export Products**: Product Management → Product Setup → Bulk Export → Select type → Export Excel.
+
+---
+
+### PROMOTION MANAGEMENT
+
+#### Campaigns
+- **Basic Campaign – Add New**: Promotion Management → Campaigns → Basic Campaigns → Add New Campaign → Enter Name, Short Description (Default/EN/AR), Start Date, End Date, daily Start Time, daily End Time → Upload 900×300 banner image → Save.
+- **Basic Campaign List**: Promotion Management → Campaigns → Basic Campaigns → View Campaign List.
+- **Item Campaign – Add New**: Promotion Management → Campaigns → Item Campaigns → Add New Campaign → Fill name, description (1:1 image), select Store and Item, add Attributes, set Start/End Dates and daily time schedule → Save.
+- **Item Campaign List**: Promotion Management → Campaigns → Item Campaigns → View Campaign List.
+
+#### Banners
+- **Add Banner**: Promotion Management → Banners → Fill Title (Default/EN/AR), Zone, Banner Type (store-wise / item-wise / default), Store Name → Upload 3:1 image → Save.
+- **Banner List**: Promotion Management → Banners → View Banner List with Status toggle, Edit, Delete.
+
+#### Other Banners
+Promotion Management → Other Banners → Upload images for three specific website sections:
+- Best Reviewed Items (235×346 px)
+- New Arrivals (235×346 px)
+- Bottom Section Banner (5:1 ratio)
+→ Save
+
+#### Coupons
+- **Add Coupon**: Promotion Management → Coupons → Fill: Title, Coupon Type, Store selection, Customer selection, unique Code, Limit per same user, Start Date, Expire Date, Discount Type (amount or percent), Minimum Purchase, Maximum Discount Amount → Save.
+- **Coupon List**: Promotion Management → Coupons → View Coupon List with Status toggle, Edit, Delete.
+
+#### Push Notifications
+- **Send Notification**: Promotion Management → Push Notifications → Fill Title, select Zone, choose Send To recipients, enter Description → Upload image → Save.
+- **Notification List**: Promotion Management → Push Notifications → View Notification List with Edit and Delete.
+
+#### Advertisements
+- **Add Advertisement (Admin)**: Promotion Management → Advertisements → Add New Advertisement → Fill Title, Short Description, Store, Priority, Advertisement Type, Validity (Start/End Date), Review & Ratings display options → Upload Image (1:1) and Cover (2:1) → Save. A live preview is shown.
+- **Advertisement Requests (from Vendors)**: Promotion Management → Advertisements → Ad Requests. Three tabs: New Requests, Update Requests, Denied Requests. Review each → Approve or Deny.
+- **Ads List**: Promotion Management → Advertisements → Ads List. Shows all active advertisements.
+> ⚠️ **Advertisements do NOT have**: zone targeting, module targeting, customer segment targeting, budget caps, impression analytics, click-through tracking, or CTR metrics. Vendors submit ads for admin approval — there is no self-serve ad system with analytics.
+
+---
+
+### REPORTS & ANALYTICS
+
+#### Transaction Report
+- Reports & Analytics → Transaction Report
+- Filters: Module, Zone, Store, Time Duration (All Time / This Year / Previous Year / This Month / This Week / Custom Date Range)
+- Summary cards: Admin Earning, Store Earning, Deliveryman Earning, Completed Transactions, Refunded Transactions
+- Order Transactions table: view details, download individual order statements, export as CSV or Excel
+
+#### Item Report
+- Reports & Analytics → Item Report
+- Filters: Module, Store, Zone, Time Duration, Categories
+- Table columns: Item Name, Module, Store, Stock, Sell Count, Price, Total Amount Sold, Total Discount Given, Average Sale Value, Average Ratings
+- Export available
+
+#### Store Wise Report
+- Reports & Analytics → Store Wise Report. Three sections:
+  1. Summary Report: Total Orders, Average Order Value, Payment method breakdown
+  2. Sales Report: Gross Sale, Tax, Commission, Quantity Sold, Discount
+  3. Order Report: Total Discount, Coupon Discount, Cancelled/Incomplete/Completed counts
+
+#### Expense Report
+- Reports & Analytics → Expense Report
+- Filters: Module, Zone, Vendors, Customers, Time Duration, Expense Type (Add fund bonus, Free delivery, Coupon discount, Discount on product, Flash sale discount, CashBack, Referral Discount)
+- Expense List table: SL, Order ID, Date & Time, Expense Type, Customer Name, Expense Amount
+- Export available
+
+#### Disbursement Report
+- Reports & Analytics → Disbursement Report. Two tabs: Stores and Deliverymen
+- Summary cards: Pending, Completed, Cancelled counts
+- Filters: Zone, Module, Store, Payment Method, Status, Time Duration
+- Full disbursement table with export
+
+#### Order Report
+- Reports & Analytics → Order Report
+- Filters: Modules, Zones, Stores, Customers, Time Duration
+- Statistics cards: Total, In Progress, On The Way, Delivered, Failed, Refunded, Cancelled
+- Full Order Report table with all order and financial columns
+- Export to Excel; Invoice preview available
+
+#### Admin Tax Report
+- Reports & Analytics → Admin Tax Report
+- Step 1: Select date range (This Fiscal Year OR Custom date range)
+- Step 2: Choose tax calculation method — Same Tax for All Income Source OR Different Tax for Different Income Source
+- Step 3: Click Submit → Report shows Total Income and Total Tax broken down by income source
+
+#### Vendor Tax Report
+- Reports & Analytics → Vendor Tax Report
+- Filters: Date range, All vendors or specific store
+- Summary: Total Orders, Total Order Amount, Total Tax Amount
+- Table: SL, Vendor Info, Total Order, Total Order Amount, Tax Amount, Action
+- Click Filter to refresh results
+
+#### Parcel Tax Report
+- Reports & Analytics → Parcel Tax Report
+- Select date range → Click Filter
+- Summary: Total Orders, Total Order Amount, Total Tax Amount (for parcel module only)
+- Order table: SL, Order Id, Total Order Amount, Tax Amount
+- Export available
+
+---
+
+### GENERAL INFORMATION & IMPORTANT NOTES
+
 - **Platform URL**: admin.myjinan.com
-- **Prepared By**: AlphaTech
-- **Client**: MyJinan
-- **Image Requirements**: 1:1 aspect ratio, max 100KB, .jpg or .png format
-- **Excel Imports**: Only .xls or .xlsx format with official MyJinan template
+- **Prepared By**: AlphaTech | **Client**: MyJinan | **Software Version**: 3.3
+- **Image Requirements**: 1:1 aspect ratio, max 100KB, .jpg or .png format (unless otherwise specified per field)
+- **Excel Imports**: Only .xls or .xlsx format with the official MyJinan template
 - **Multi-language Support**: Default, English (EN), Arabic (AR) with RTL support
+- **Order Status Stages**: Pending → Accepted → Processing → Order On The Way → Delivered (also: Scheduled, Cancelled, Payment Failed, Refunded)
+- **Flash Sales**: Admin-only feature. Vendors CANNOT create flash sales.
+- **Advertisements**: Vendors submit ad requests; admin approves/denies. No self-serve ads, no budget caps, no impression/click tracking.
+- **Employee Management**: There is NO employee invitation system in this version of MyJinan.
+- **Item/Inventory Management**: There is NO separate inventory/SKU/barcode module. Stock is managed per product in Product Setup.
+- **Wallet Management**: There is NO standalone admin wallet module. Admin manages vendor disbursements and withdrawal approvals via Financial Operations.
+- **Bundle Deals**: There are NO bundle deals in this system.
+- **Promotion Analytics**: There is NO dedicated promotion analytics page.
 `;
 
 // ═══════════════════════════════════════════════════════════════
-//  USER STORIES — 155 stories across 11 modules
-//  Each story: Reference ID, Module, Sub-module, Feature,
-//  Expected Outcome, Navigation Path, Business Context
+//  USER STORIES — Documentation-verified stories across all modules
+//  Source of truth: user_stories_formatted.txt
+//  All fictional features have been removed.
 // ═══════════════════════════════════════════════════════════════
 
 export const USER_STORIES = `
-## MYJINAN — USER STORIES (155 Total)
+## MYJINAN — USER STORIES (Verified Against Official Documentation)
 
-Each user story follows the format:
-- **Reference ID** (Module > Sub-Module)
-- **Feature**: What the vendor/admin wants to do
-- **Outcome**: What happens as a result
-- **Navigation**: Step-by-step path in the admin panel
-- **Business Context**: Why this matters for the business
+All stories are verified against the official MyJinan Admin Panel documentation.
+Fictional features (ad analytics, employee invitation, item/inventory SKU system, bundle deals, wallet module) have been removed.
 
 ---
 
-### Product Management (21 stories)
+### Zone & Module Setup
 
-- **PM-CAT-001** (Categories): Feature: Add a new product category with name and 1:1 image in multiple languages | Outcome: Category appears in master list for product assignment | Nav: Product Management → Categories → Add New → Enter name in Default/EN/AR → Upload 1:1 image → Save | Why: Well-organised categories help customers find products faster, increasing conversion.
+- **ZN-001**: Draw a new operational zone boundary on Google Map, give it a business zone name (Default/EN/AR) | Nav: Settings → Zone Setup → Fill Business Zone Name → Draw boundary → Submit
 
-- **PM-CAT-002** (Categories): Feature: View full category list with search and export | Outcome: Quick location and Excel export for audit | Nav: Product Management → Categories → Search → Export | Why: Regular category review keeps catalogue organised as product range grows.
+- **ZN-002**: View Zone List showing Zone Id, Business Zone Name, Vendors, Deliverymen, Status toggle, Action icons | Nav: Settings → Zone Setup → Scroll to Zone List → Search/Export
 
-- **PM-CAT-003** (Categories): Feature: Edit category name or image | Outcome: Accurate info without recreating entries | Nav: Product Management → Categories → Edit icon → Update → Save | Why: Prevents customer confusion from outdated labels.
+- **ZN-003**: Enable or disable an entire zone using the Status toggle | Nav: Settings → Zone Setup → Zone List → Toggle Status
 
-- **PM-CAT-004** (Categories): Feature: Enable/disable category via toggle | Outcome: Hidden categories stop appearing instantly | Nav: Product Management → Categories → Toggle Status | Why: Seasonal categories can be hidden temporarily without data loss.
+- **ZN-004**: Connect a business module to a zone | Nav: Settings → Zone Setup → Zone List → Click grid/Connect Module icon → Select module → Connect
 
-- **PM-CAT-005** (Categories): Feature: Delete category with no linked products | Outcome: Clean catalogue | Nav: Product Management → Categories → Delete icon → Confirm | Why: System protects by only allowing deletion when no products are linked.
+- **ZN-005**: Edit zone boundary or delete zone using the three-dot menu | Nav: Settings → Zone Setup → Zone List → Click three-dot menu
 
-- **PM-SUB-001** (Sub Categories): Feature: Add sub-category under a parent | Outcome: Finer product classification | Nav: Product Management → Sub Categories → Add New → Select parent → Name → Save | Why: Sub-categories like 'Cheese' under 'Dairy' improve shopability.
+- **ZN-MOD-001**: Create a new business module | Nav: Settings → Module Setup → Add Business Module → Fill name, desc → Select module type → Upload icon + thumbnail → Add Module
 
-- **PM-SUB-002** (Sub Categories): Feature: View sub-category list with parent | Outcome: Verify parent-child relationships | Nav: Product Management → Sub Categories → Review list | Why: Ensures products appear in correct sections.
+- **ZN-MOD-002**: View Business Module List with filter, search, export | Nav: Settings → Module Setup → Modules → Filter/Search/Export
 
-- **PM-SUB-003** (Sub Categories): Feature: Edit or reassign sub-category | Outcome: Fix mis-classified items | Nav: Product Management → Sub Categories → Edit → Change parent/name → Save | Why: Corrects hierarchy without losing linked products.
+- **ZN-MOD-003**: Enable or disable a business module | Nav: Settings → Module Setup → Modules → Toggle Status switch
 
-- **PM-BIM-001** (Bulk Import): Feature: Download category import template | Outcome: Correctly formatted file | Nav: Product Management → Bulk Import → Download Template | Why: Prevents formatting errors during uploads.
-
-- **PM-BIM-002** (Bulk Import): Feature: Upload Excel for bulk category creation | Outcome: Mass onboarding in minutes | Nav: Product Management → Bulk Import → Upload New Data → Choose file → Upload | Why: Essential for large product ranges or platform migration.
-
-- **PM-BIM-003** (Bulk Import): Feature: Upload Excel to update existing categories | Outcome: Mass corrections applied | Nav: Product Management → Bulk Import → Update Existing Data → Choose file → Upload | Why: More efficient than editing records individually.
-
-- **PM-BEX-001** (Bulk Export): Feature: Export category list to Excel | Outcome: Offline backup or bulk import base | Nav: Product Management → Bulk Export → Filter → Export | Why: Creates backup and starting file for next import.
-
-- **PM-ATT-001** (Attributes): Feature: Add product attribute (Colour, Material) | Outcome: Enriched product pages | Nav: Product Management → Attributes → Add New → Name in all languages → Save | Why: Enables customer filtering and search.
-
-- **PM-ATT-002** (Attributes): Feature: View/edit/delete attributes | Outcome: Current attribute dictionary | Nav: Product Management → Attributes → View/Edit/Delete | Why: Keeps forms relevant as product lines evolve.
-
-- **PM-UNT-001** (Units): Feature: Add unit of measurement | Outcome: Correct selling units | Nav: Product Management → Units → Add New → Name → Save | Why: Prevents confusion (kg vs piece vs litre).
-
-- **PM-UNT-002** (Units): Feature: Manage units list | Outcome: Clean, standardised options | Nav: Product Management → Units → Edit/Delete | Why: Eliminates duplicates.
-
-- **PM-BRD-001** (Brands): Feature: Add brand with logo | Outcome: Brand association for trust | Nav: Product Management → Brands → Add New → Name + Logo → Save | Why: Enables brand-based filtering.
-
-- **PM-BRD-002** (Brands): Feature: Enable/disable brand | Outcome: Hidden discontinued brands | Nav: Product Management → Brands → Toggle Status | Why: Preserves historical data.
-
-- **PM-BRD-003** (Brands): Feature: Search brand list | Outcome: Quick location | Nav: Product Management → Brands → Search | Why: Essential for large catalogues.
-
-- **PM-PRD-001** (Product Setup): Feature: Enter product name and description in 3 languages | Outcome: Fully localised product page | Nav: Product Setup → Add New → Fill Name/Description in Default/EN/AR | Why: Impacts buying confidence across markets.
-
-- **PM-PRD-002** (Product Setup): Feature: Upload product image (1:1) and thumbnail | Outcome: Professional visual presentation | Nav: Product Setup → Add New → Upload Image + Thumbnail | Why: Most influential factor in online buying decisions.
+- **ZN-MOD-004**: Edit a module's name, description, type, icon, or thumbnail | Nav: Settings → Module Setup → Modules → Click pencil Edit icon → Update → Save
 
 ---
 
-### Product Setup — Extended (21 stories)
+### Business Settings
 
-- **PM-PRD-003** (Store & Category): Feature: Assign product to store, category, sub-category, brand | Outcome: Correct storefront placement | Nav: Product Setup → Select Store → Category → Sub-Category → Brand | Why: Wrong assignments = unfindable products.
+- **BS-BIZ-001**: Set company name, email, phone, country, address, GPS coordinates, logo (3:1), favicon (1:1) | Nav: Settings → Business Settings → Business Information tab → Fill fields → Save
 
-- **PM-PRD-004** (Limits & Units): Feature: Set unit and max purchase quantity | Outcome: Controlled buying | Nav: Product Setup → Select Unit → Set Max Qty | Why: Prevents hoarding during high demand.
+- **BS-BIZ-002**: Configure Time Zone, Currency Symbol, Currency Position, Decimal Precision, Copyright Text, Cookies Text | Nav: Settings → Business Settings → Business Information → General Settings section → Save
 
-- **PM-PRD-005** (Pricing): Feature: Set price, stock, discount | Outcome: Accurate storefront display | Nav: Product Setup → Enter Price → Stock → Discount % | Why: Drives purchase decisions.
+- **BS-BIZ-003**: Activate Maintenance Mode | Nav: Settings → Business Settings → Business Information → Toggle Maintenance Mode ON
 
-- **PM-PRD-006** (Attributes): Feature: Add product attributes | Outcome: Filterable search tags | Nav: Product Setup → Attributes section → Add values | Why: Enables precise product discovery.
+- **BS-VND-001**: Configure all Vendor tab settings (cancellation, self-registration, product approval, review replies, cash-in-hand) | Nav: Settings → Business Settings → Vendor tab → Configure toggles → Save
 
-- **PM-PRD-007** (Gallery): Feature: Import from gallery | Outcome: Reuse existing assets | Nav: Product Setup → Add Info From Gallery → Select → Apply | Why: Prevents duplicate uploads.
+- **BS-DLV-001**: Configure all Deliveryman tab settings (tips, earnings, self-registration, max orders, delivery photo, cash-in-hand) | Nav: Settings → Business Settings → Deliveryman tab → Configure fields → Save
 
-- **PM-PRD-008** (Draft): Feature: Save as Draft | Outcome: Pre-publishing review | Nav: Product Setup → Fill details → Save as Draft | Why: Allows internal review before going live.
+- **BS-CUS-001**: Configure Customers tab (wallet, referral, refund to wallet, loyalty points) | Nav: Settings → Business Settings → Customers tab → Configure → Save
 
-- **PM-PRD-009** (Publish): Feature: Publish product | Outcome: Live and purchasable | Nav: Product Setup → Fill details → Publish | Why: May require admin approval for quality control.
+- **BS-REF-001**: Enable/disable Refund Request Mode and manage Refund Reasons | Nav: Settings → Business Settings → Refund Settings tab → Toggle mode → Add reasons
 
-- **PM-LST-001** (Product List): Feature: View/search/filter product list | Outcome: Find any product instantly | Nav: Product Management → Product List → Search/Filter → Paginate | Why: Daily command centre for catalogue management.
+- **BS-LNG-001**: View Language list and add new platform language | Nav: Settings → Business Settings → Languages tab → Add New Language / toggle Status
 
-- **PM-LST-002** (Product List): Feature: Edit product from list | Outcome: Quick corrections | Nav: Product Management → Product List → Edit icon → Changes → Save | Why: Saves time on minor fixes.
+- **BS-LND-001**: Edit React Landing Page content blocks | Nav: Settings → Pages & Social Media → React Landing Page → Edit sections → Save
 
-- **PM-LST-003** (Product List): Feature: Enable/disable product | Outcome: Temporarily hidden | Nav: Product Management → Product List → Toggle Status | Why: Preserves data while hiding from customers.
+- **BS-WBS-001**: Configure Websocket URL and Port | Nav: Settings → Business Settings → Websocket tab → Toggle ON → Enter URL + Port → Save
 
-- **PM-LST-004** (Product List): Feature: Delete product | Outcome: Permanent removal | Nav: Product Management → Product List → Delete → Confirm | Why: Irreversible — use toggle for temporary situations.
+- **BS-TAX-001**: Create tax by entering name and rate in slide-out modal | Nav: Settings → System Tax → Create Taxes → Click Create Tax → Enter name + rate → Submit
 
-- **PM-LOW-001** (Low Stock): Feature: View low stock items | Outcome: Proactive reordering | Nav: Product Management → Low Stock → Review list | Why: Prevents lost sales from stock-outs.
+- **BS-TAX-002**: Configure Setup Taxes calculation for Order Module and Parcel Module | Nav: Settings → System Tax → Setup Taxes → Configure tabs
 
-- **PM-LOW-002** (Low Stock): Feature: Update stock from low stock list | Outcome: Quick replenishment | Nav: Product Management → Low Stock → Click item → Enter qty → Save | Why: Immediate availability update.
+- **BS-SUB-001**: Create Subscription Package with features checklist | Nav: Settings → Subscription Management → Subscription Package → Fill info → Check features → Save
 
-- **PM-REV-001** (Reviews): Feature: View all reviews | Outcome: Product satisfaction visibility | Nav: Product Management → Reviews → View all | Why: Patterns reveal systemic issues.
+- **BS-SUB-002**: Configure Free Trial, Deadline Warning, and Return Money Restriction | Nav: Settings → Subscription Management → Settings → Configure → Submit
 
-- **PM-REV-002** (Reviews): Feature: Delete review | Outcome: Remove fake/abusive content | Nav: Product Management → Reviews → Delete → Confirm | Why: Protects rating integrity.
+- **BS-PGS-001**: Add or update Social Media links | Nav: Settings → Pages & Social Media → Social Media → Select platform → Enter link → Save
 
-- **PM-PIB-001** (Bulk Import): Feature: Download product import template | Outcome: Pre-filled base file | Nav: Product Management → Bulk Import → Download Template | Why: Correct format guaranteed.
+- **BS-PGS-002**: Edit Terms And Condition page | Nav: Settings → Pages & Social Media → Business Pages → Terms And Condition → Edit in CKEditor → Submit
 
-- **PM-PIB-002** (Bulk Import): Feature: Bulk import products via Excel | Outcome: Mass onboarding | Nav: Product Management → Bulk Import → Choose file → Upload | Why: Hundreds of SKUs in minutes.
+- **BS-PGS-003**: Edit Privacy Policy page | Nav: Settings → Pages & Social Media → Business Pages → Privacy Policy → Edit → Submit
 
-- **PM-PEX-001** (Bulk Export): Feature: Export product catalogue | Outcome: Offline backup | Nav: Product Management → Bulk Export → Export | Why: Supports audits, accounting, recovery.
+- **BS-PGS-004**: Edit About Us page | Nav: Settings → Pages & Social Media → Business Pages → About Us → Edit → Submit
 
----
+- **BS-PGS-005**: Edit Refund Policy page (with STATUS toggle) | Nav: Settings → Pages & Social Media → Business Pages → Refund Policy → Toggle STATUS → Edit → Submit
 
-### Zone & Module Setup (9 stories)
+- **BS-PGS-006**: Edit Cancellation Policy page | Nav: Settings → Pages & Social Media → Business Pages → Cancelation Policy → Toggle STATUS → Edit → Submit
 
-- **ZN-001** (Zone Setup): Feature: Draw zone boundary on Google Map | Outcome: Precise service area defined | Nav: Zone Setup → Add New → Draw polygon → Name → Save | Why: Prevents orders outside delivery radius.
+- **BS-GAL-001**: Browse Gallery Local Storage folder grid | Nav: Settings → Gallery → Browse Local Storage → Open folder
 
-- **ZN-002** (Zone Setup): Feature: View/search/export zones | Outcome: Clear coverage overview | Nav: Zone Setup → View list → Search → Export | Why: Supports expansion strategy review.
+- **BS-GAL-002**: Upload images or zip file to Gallery | Nav: Settings → Gallery → Open folder → Click Add New → Choose file(s) → Upload
 
-- **ZN-003** (Zone Setup): Feature: Enable/disable zone | Outcome: Suspend services in a region | Nav: Zone Setup → Toggle Status | Why: Emergency suspension (flooding, safety).
-
-- **ZN-004** (Zone Setup): Feature: Connect module to zone | Outcome: Activate services in area | Nav: Zone Setup → Grid action icon → Select module → Connect | Why: Zone without module = no services.
-
-- **ZN-005** (Zone Setup): Feature: Edit zone boundary | Outcome: Updated service area | Nav: Zone Setup → Edit → Drag polygon → Save | Why: Adapts to city expansion.
-
-- **ZN-MOD-001** (Module Setup): Feature: Create business module | Outcome: New vertical available | Nav: Module Setup → Create New → Type → Name → Icon → Save | Why: Opens new line of business.
-
-- **ZN-MOD-002** (Module Setup): Feature: Filter/search modules | Outcome: Quick module location | Nav: Module Setup → Filter by type → Search | Why: Essential at scale.
-
-- **ZN-MOD-003** (Module Setup): Feature: Enable/disable module | Outcome: Control visibility | Nav: Module Setup → Toggle Status | Why: Useful for soft launches.
-
-- **ZN-MOD-004** (Module Setup): Feature: Edit module details | Outcome: Updated branding | Nav: Module Setup → Edit → Update → Save | Why: Refreshes customer experience.
+- **BS-GAL-003**: Open folder contents, click image to open preview modal with Copy Path and Download | Nav: Settings → Gallery → Open folder → Click image → View Preview Modal
 
 ---
 
-### Business Settings (34 stories)
+### Financial Operations
 
-- **BS-BIZ-001**: Set company name, email, phone, address, map coordinates | Nav: Business Settings → Business Information → Fill details → Save
-- **BS-BIZ-002**: Upload logo (3:1) and favicon (1:1) | Nav: Business Settings → Business Information → Upload → Save
-- **BS-BIZ-003**: Configure timezone, currency, decimal precision | Nav: Business Settings → Business Information → Set locale → Save
-- **BS-BIZ-004**: Activate Maintenance Mode | Nav: Business Settings → Business Information → Toggle Maintenance Mode ON
-- **BS-VND-001**: Enable/disable vendor self-registration | Nav: Business Settings → Vendor Settings → Toggle Self-Registration
-- **BS-VND-002**: Enable product approval workflow | Nav: Business Settings → Vendor Settings → Enable Approval → Select scope
-- **BS-VND-003**: Allow/prevent vendor order cancellation | Nav: Business Settings → Vendor Settings → Toggle Order Cancellation
-- **BS-VND-004**: Allow vendor review replies | Nav: Business Settings → Vendor Settings → Toggle Review Replies
-- **BS-VND-005**: Configure COD cash-in-hand limits | Nav: Business Settings → Vendor Settings → Set limits → Save
-- **BS-DLV-001**: Set max simultaneous orders per driver | Nav: Business Settings → Deliveryman Settings → Set max → Save
-- **BS-DLV-002**: Enable photo proof of delivery | Nav: Business Settings → Deliveryman Settings → Toggle Photo Proof
-- **BS-DLV-003**: Enable customer tipping | Nav: Business Settings → Deliveryman Settings → Toggle Tipping
-- **BS-DLV-004**: Enable/disable driver self-registration | Nav: Business Settings → Deliveryman Settings → Toggle Self-Registration
-- **BS-CUS-001**: Enable customer wallet | Nav: Business Settings → Customer & Wallet → Toggle Wallet
-- **BS-CUS-002**: Configure loyalty points | Nav: Business Settings → Customer & Wallet → Set earning %, conversion, threshold → Save
-- **BS-CUS-003**: Enable referral program | Nav: Business Settings → Customer & Wallet → Toggle Referral
-- **BS-REF-001**: Enable/disable refund requests | Nav: Business Settings → Refund Settings → Toggle Refunds
-- **BS-REF-002**: Set refund window in days | Nav: Business Settings → Refund Settings → Set days → Save
-- **BS-REF-003**: Manage refund reason options | Nav: Business Settings → Refund Settings → Add/Edit/Delete reasons
-- **BS-LNG-001**: Add platform language | Nav: Business Settings → Language Setup → Add → ISO code → LTR/RTL → Save
-- **BS-LNG-002**: Set default language | Nav: Business Settings → Language Setup → Set as Default
-- **BS-TAX-001**: Create tax type | Nav: Business Settings → System Tax → Create → Name + % → Save
-- **BS-TAX-002**: Set inclusive/exclusive tax method | Nav: Business Settings → System Tax → Select method → Save
-- **BS-SUB-001**: Create subscription package | Nav: Business Settings → Subscription Management → Create → Details → Save
-- **BS-SUB-002**: Set package limits | Nav: Business Settings → Subscription Management → Edit → Set limits → Save
-- **BS-SUB-003**: Configure free trial | Nav: Business Settings → Subscription Management → Set trial period → Save
-- **BS-PGS-001**: Edit legal pages | Nav: Business Settings → Pages & Social → Select page → Edit → Save
-- **BS-PGS-002**: Update social media links | Nav: Business Settings → Pages & Social → Enter URLs → Save
-- **BS-GAL-001**: Browse gallery folders | Nav: Business Settings → Gallery → Browse
-- **BS-GAL-002**: Upload images or zip | Nav: Business Settings → Gallery → Upload
-- **BS-GAL-003**: Preview/copy URL/download/delete files | Nav: Business Settings → Gallery → Select → Action
-- **BS-WBS-001**: Configure websocket server | Nav: Business Settings → Websocket Config → URL + Port → Save
-- **BS-LND-001**: Edit landing page | Nav: Business Settings → Landing Page → Edit content → Save
+- **FN-WDR-001**: View all vendor withdrawal requests by status tab (Pending, Approved, Denied) | Nav: Financial Operations → Withdraw Requests → Select tab
+
+- **FN-WDR-002**: Approve a vendor withdrawal request | Nav: Financial Operations → Withdraw Requests → Pending tab → Click Approve
+
+- **FN-WDR-003**: Deny a withdrawal request with admin note | Nav: Financial Operations → Withdraw Requests → Click Deny → Add note → Confirm
+
+- **FN-DSB-001**: View store disbursement history with lifecycle stages | Nav: Financial Operations → Store Disbursement → View list → Filter by status
+
+- **FN-DLD-001**: View and process delivery driver disbursements | Nav: Financial Operations → Delivery Man Disbursement → View and process
+
+- **FN-COD-001**: Log a physical cash collection from driver or store | Nav: Financial Operations → Collect Cash → Enter amount, method, reference → Save
+
+- **FN-COD-002**: View cash collection log for reconciliation | Nav: Financial Operations → Collect Cash → View collection log
+
+- **FN-DPM-001**: Log ad hoc bonus payment to a delivery driver | Nav: Financial Operations → Delivery Man Payments → Enter details → Save
+
+- **FN-MTH-001**: Configure available withdrawal methods with required field definitions | Nav: Financial Operations → Withdraw Method → Add method → Define fields → Save
+
+- **FN-MTH-002**: Enable, disable, or set a withdrawal method as default | Nav: Financial Operations → Withdraw Method → Toggle Enable/Disable → Click Set as Default
 
 ---
 
-### Order Management (11 stories)
+### Store Management
 
-- **OM-ORD-001**: View real-time order list (ID, customer, total, status, date) | Nav: Order Management → Order List
-- **OM-ORD-002**: Filter by status (Pending/Confirmed/Packed/Dispatched/Delivered/Cancelled/Returned) | Nav: Order Management → Status tabs
-- **OM-ORD-003**: Search by order ID, customer name, date range | Nav: Order Management → Search → Filter
-- **OM-ORD-004**: Accept pending order → Confirmed | Nav: Order Management → Click Accept | Why: Fast confirmation builds trust.
-- **OM-ORD-005**: Reject order with reason | Nav: Order Management → Click Reject → Select reason → Confirm
-- **OM-ORD-006**: Update status: Confirmed → Packed → Dispatched → Delivered | Nav: Order Management → Order Details → Update stage | Why: Each update triggers customer notification.
-- **OM-ORD-007**: View complete order details | Nav: Order Management → Click order → View details
-- **OM-ORD-008**: Generate invoice/delivery note | Nav: Order Management → Order Details → Generate Invoice → Download/Print
-- **OM-RET-001**: Initiate return for eligible order | Nav: Order Management → Returns & Refunds → Initiate Return
-- **OM-RET-002**: Approve/deny refund with admin notes | Nav: Order Management → Returns & Refunds → Approve/Deny → Notes
-- **OM-RET-003**: View return list filtered by status | Nav: Order Management → Returns & Refunds → Filter by status
+- **SM-NEW-001**: View pending vendor store joining applications and denied tab | Nav: Store Management → New Store → View New Joining Requests tabs
 
----
+- **SM-NEW-002**: Approve or deny a pending store request | Nav: Store Management → New Store → Click action icon → Approve or Deny
 
-### Reports & Analytics (12 stories)
+- **SM-ADD-001**: Manually create a store with all owner and account details | Nav: Store Management → Add Store → Fill all form sections → Submit
 
-- **RA-DAS-001**: Dashboard summary (orders, revenue, stores, customers) | Nav: Reports & Analytics → Dashboard
-- **RA-SAL-001**: Sales report by date range | Nav: Reports & Analytics → Sales Report → Select range
-- **RA-SAL-002**: Revenue breakdown by module/store/category | Nav: Reports & Analytics → Sales Report → Select breakdown
-- **RA-PRD-001**: Top-selling products report | Nav: Reports & Analytics → Product Report → Top sellers
-- **RA-PRD-002**: Low-performing products report | Nav: Reports & Analytics → Product Report → Low performers
-- **RA-CUS-001**: Customer acquisition trends | Nav: Reports & Analytics → Customer Report → Registration trends
-- **RA-CUS-002**: Repeat purchase rates | Nav: Reports & Analytics → Customer Report → Repeat rates
-- **RA-STR-001**: Store performance (orders, revenue, cancellation rate) | Nav: Reports & Analytics → Store Report
-- **RA-DEL-001**: Delivery performance (time, on-time rate, driver scores) | Nav: Reports & Analytics → Delivery Report
-- **RA-TXN-001**: Full transaction log | Nav: Reports & Analytics → Transaction Report
-- **RA-EXP-001**: Export any report to Excel/CSV | Nav: Reports & Analytics → Any report → Export
+- **SM-LST-001**: View accepted stores in paginated list with actions | Nav: Store Management → Stores List → View/search stores
+
+- **SM-LST-002**: Toggle a store's Featured status | Nav: Store Management → Stores List → Toggle Featured switch
+
+- **SM-LST-003**: Enable or disable a store's active Status | Nav: Store Management → Stores List → Toggle Status switch
+
+- **SM-REC-001**: View all recommended stores | Nav: Store Management → Recommended Stores → View list
+
+- **SM-BIM-001**: Download and upload store bulk import Excel template | Nav: Store Management → Bulk Import → Download template → Fill → Upload
+
+- **SM-BEX-001**: Export all store records as Excel | Nav: Store Management → Bulk Export → Select type → Export
 
 ---
 
-### Wallet Management (8 stories)
+### Order Management
 
-- **WM-BAL-001**: View wallet balance, pending, withdrawable | Nav: Wallet Management → Balance & Overview
-- **WM-WTH-001**: Submit withdrawal request | Nav: Wallet Management → Withdraw → Amount → Method → Submit
-- **WM-WTH-002**: Track withdrawal status | Nav: Wallet Management → Withdrawal History
-- **WM-HIS-001**: View transaction history | Nav: Wallet Management → Transaction History
-- **WM-HIS-002**: Filter by transaction type | Nav: Wallet Management → Transaction History → Filter
-- **WM-AUT-001**: Auto-credit on delivery | Nav: Automatic when driver marks Delivered
-- **WM-REF-001**: See refund deductions | Nav: Automatic in Transaction History
-- **WM-MTH-001**: Add withdrawal method | Nav: Wallet Management → Payment Methods → Add → Save
+- **OM-POS-001**: Open POS, select store + category, search and add products to cart | Nav: POS Section → New Sale → Select Store → Select Category → Search → Click product
 
----
+- **OM-POS-002**: Link order to existing customer or add new customer | Nav: POS Section → New Sale → Billing Section → Select customer or Add New Customer
 
-### Advertisement Management (8 stories)
+- **OM-POS-003**: Review order summary, select payment method, place order | Nav: POS Section → New Sale → Review → Select payment → Place Order
 
-- **AD-CMP-001**: Create campaign (banner/spotlight/featured) | Nav: Advertisement → New Campaign → Select format
-- **AD-CMP-002**: Configure targeting (zone, module, segment) | Nav: Advertisement → Campaign Settings → Select targets → Save
-- **AD-BDG-001**: Set budget (daily cap / total) | Nav: Advertisement → Budget & Schedule → Set budget → Save
-- **AD-BDG-002**: Schedule campaign dates/times | Nav: Advertisement → Budget & Schedule → Set dates → Save
-- **AD-CTL-001**: Pause campaign | Nav: Advertisement → Campaign List → Pause
-- **AD-CTL-002**: Stop and archive campaign | Nav: Advertisement → Campaign List → Stop
-- **AD-ANL-001**: View impressions, clicks, CTR, conversions | Nav: Advertisement → Performance Analytics
-- **AD-ANL-002**: Compare campaigns side-by-side | Nav: Advertisement → Performance Analytics → Compare
+- **OM-ORD-001**: View all orders by status category in sidebar | Nav: Order Management → Orders → Click status category
 
----
+- **OM-ORD-002**: View separate filtered order lists for each of 9 status stages | Nav: Order Management → Orders → Click Scheduled / Pending / Accepted / Processing / On The Way / Delivered / Cancelled / Payment Failed / Refunded
 
-### Employee Management (11 stories)
+- **OM-ORD-003**: Open full order detail view by clicking Eye icon | Nav: Order Management → Orders → Click Eye Icon
 
-- **EM-INV-001**: Invite employee with role | Nav: Employee Management → Invite → Email → Role → Send
-- **EM-INV-002**: Resend invitation | Nav: Employee Management → Employee List → Resend
-- **EM-ROL-001**: Create custom role with permissions | Nav: Employee Management → Roles → Create → Permissions → Save
-- **EM-ROL-002**: Edit role permissions | Nav: Employee Management → Roles → Edit → Update → Save
-- **EM-ROL-003**: Delete unused role | Nav: Employee Management → Roles → Delete
-- **EM-LST-001**: View employee list | Nav: Employee Management → Employee List
-- **EM-LST-002**: Search employees | Nav: Employee Management → Employee List → Search
-- **EM-ACC-001**: Deactivate employee | Nav: Employee Management → Employee List → Deactivate
-- **EM-ACC-002**: Reactivate employee | Nav: Employee Management → Employee List → Reactivate
-- **EM-AUD-001**: View activity audit log | Nav: Employee Management → Activity Audit
-- **EM-AUD-002**: Filter audit log | Nav: Employee Management → Activity Audit → Filter
+- **OM-ORD-004**: Update order status and assign delivery driver | Nav: Order Management → Orders → Eye Icon → Edit → Update Status / Assign Delivery Man
+
+- **OM-ORD-005**: Print invoice by clicking Printer icon on order row | Nav: Order Management → Orders → Click Printer Icon
+
+- **OM-OFP-001**: View offline payment submissions across All / Pending / Verified / Denied tabs | Nav: Order Management → Offline Payments → Review tabs
+
+- **OM-OFP-002**: Update offline payment status to Verified or Denied | Nav: Order Management → Offline Payments → Review proof → Update status
+
+- **OM-REF-001**: View and action customer refund requests | Nav: Order Management → Order Refunds → Review request → Click Approve or Rejected
 
 ---
 
-### Item / Inventory Management (8 stories)
+### Flash Sales (Promotion Management)
 
-- **IM-CRT-001**: Create inventory item (SKU, barcode, unit, stock) | Nav: Item/Inventory → Item Creation → Fill details → Save
-- **IM-CRT-002**: Set low-stock threshold | Nav: Item/Inventory → Item Creation/Edit → Set threshold → Save
-- **IM-LNK-001**: Link inventory item to storefront product | Nav: Item/Inventory → Item Linking → Select → Link
-- **IM-STK-001**: Manual stock update | Nav: Item/Inventory → Item List → Edit → Update qty → Save
-- **IM-STK-002**: Bulk stock update via CSV/Excel | Nav: Item/Inventory → Bulk Stock Update → Upload
-- **IM-ALT-001**: Low-stock alert notifications | Nav: Automatic via in-app/email
-- **IM-HIS-001**: View stock movement history | Nav: Item/Inventory → Stock Movement History → Select item
-- **IM-HIS-002**: Filter stock history | Nav: Item/Inventory → Stock Movement History → Filter
+- **FS-CRT-001**: Create a new Flash Sale with Title, Admin/Store Discount % split, Start/End Dates | Nav: Promotion Management → Flash Sales → Fill form → Submit
+
+- **FS-PRD-001**: Add products to flash sale with stock and discount settings | Nav: Promotion Management → Flash Sales → Click Add Products → Select Item → Set Stock & Discount → Save
+
+- **FS-MGT-001**: Publish, edit, or delete flash sales from the Flash Sale List | Nav: Promotion Management → Flash Sales → Toggle Publish / Edit / Delete
 
 ---
 
-### Marketing & Promotions (8 stories)
+### Product Management
 
-- **MK-DSC-001**: Create discount code (fixed/%) | Nav: Marketing → Discount Codes → Create → Set details → Save
-- **MK-DSC-002**: Set usage limits and minimum order | Nav: Marketing → Discount Codes → Edit → Set limits → Save
-- **MK-DSC-003**: Set discount expiry date | Nav: Marketing → Discount Codes → Edit → Set expiry → Save
-- **MK-DSC-004**: View discount code performance | Nav: Marketing → Discount Codes → View list
-- **MK-FLS-001**: Schedule flash sale | Nav: Marketing → Flash Sales → Select products → Set prices → Schedule → Save
-- **MK-FLS-002**: Manage active flash sales | Nav: Marketing → Flash Sales → View → Extend/Cancel
-- **MK-BND-001**: Create bundle deal | Nav: Marketing → Bundle Deals → Create → Select products → Set price → Save
-- **MK-ANL-001**: View promotion analytics | Nav: Marketing → Promotion Analytics → View report
+- **PM-CAT-001**: Add new product category with multilingual name and 1:1 image | Nav: Product Management → Categories → Category → Fill Name (Default/EN/AR) → Upload 1:1 image → Save
+
+- **PM-CAT-002**: View full category list with search, export, status, edit, delete | Nav: Product Management → Categories → Category → View list
+
+- **PM-SUB-001**: Add sub-category under a parent main category | Nav: Product Management → Categories → Sub Category → Select parent → Enter name → Save
+
+- **PM-SUB-002**: View sub-category list with parent category shown | Nav: Product Management → Categories → Sub Category → View list
+
+- **PM-BIM-001**: Download and upload category bulk import template | Nav: Product Management → Categories → Bulk Import → Download → Fill → Upload
+
+- **PM-BEX-001**: Export category list as Excel | Nav: Product Management → Categories → Bulk Export → Select type → Export
+
+- **PM-ATT-001**: Add new product attribute | Nav: Product Management → Attributes → Fill name → Save
+
+- **PM-ATT-002**: View, edit, or delete attributes | Nav: Product Management → Attributes → View list → Edit or Delete
+
+- **PM-UNT-001**: Add new unit of measurement | Nav: Product Management → Units → Fill name → Save
+
+- **PM-UNT-002**: View, edit, or delete units | Nav: Product Management → Units → View list → Edit or Delete
+
+- **PM-BRD-001**: Add new brand with name, logo, and status | Nav: Product Management → Brands → Add New Brand → Name + logo → Save
+
+- **PM-BRD-002**: View brand list with toggle, edit, delete | Nav: Product Management → Brands → View list
+
+- **PM-PRD-001**: Enter product name and description in all languages | Nav: Product Setup → Add New → Fill Name, Short Desc, Long Desc (Default/EN/AR)
+
+- **PM-PRD-002**: Upload product image (1:1) and required thumbnail | Nav: Product Setup → Add New → Upload Product Image → Upload Thumbnail
+
+- **PM-PRD-003**: Assign product to Store, Category, Sub-Category, Brand | Nav: Product Setup → Add New → Select Store → Category → Sub-Category → Brand
+
+- **PM-PRD-004**: Set Price, Stock, and Discount Percentage | Nav: Product Setup → Add New → Enter Price → Stock → Discount %
+
+- **PM-PRD-005**: Select Unit of Measurement and set Maximum Purchase Quantity | Nav: Product Setup → Add New → Select Unit → Set Max Qty
+
+- **PM-PRD-006**: Add attributes and fill auto-generated variant price/stock table | Nav: Product Setup → Add New → Attributes section → Add values → Fill variant table
+
+- **PM-PRD-007**: Add searchable keyword tags | Nav: Product Setup → Add New → Tags section → Enter keywords
+
+- **PM-LST-001**: View product list with search and filter dropdowns | Nav: Product Management → Product Setup → List → Search / Filter
+
+- **PM-LST-002**: Edit any product from the list | Nav: Product Management → Product Setup → List → Click Edit icon → Save
+
+- **PM-LST-003**: Toggle product status to enable or disable visibility | Nav: Product Management → Product Setup → List → Toggle Status
+
+- **PM-LST-004**: Permanently delete a product | Nav: Product Management → Product Setup → List → Click Delete → Confirm
+
+- **PM-LOW-001**: View low stock product list with zone/store filter | Nav: Product Management → Product Setup → Low Stock List
+
+- **PM-REV-001**: View all customer product reviews | Nav: Product Management → Product Setup → Review → View list
+
+- **PM-REV-002**: Delete inappropriate product review | Nav: Product Management → Product Setup → Review → Click Delete
+
+- **PM-PIB-001**: Download and upload product bulk import template | Nav: Product Management → Product Setup → Bulk Import → Download → Upload
+
+- **PM-PEX-001**: Export full product catalogue to Excel | Nav: Product Management → Product Setup → Bulk Export → Select type → Export
 
 ---
 
-### Financial Operations (9 stories)
+### Promotion Management
 
-- **FN-WDR-001**: View withdrawal requests by status | Nav: Financial Operations → Withdraw Requests → Filter
-- **FN-WDR-002**: Approve withdrawal | Nav: Financial Operations → Withdraw Requests → Approve
-- **FN-WDR-003**: Deny withdrawal with reason | Nav: Financial Operations → Withdraw Requests → Deny → Add note
-- **FN-DSB-001**: View store disbursement history | Nav: Financial Operations → Store Disbursement
-- **FN-DLD-001**: Process driver disbursements | Nav: Financial Operations → Delivery Disbursement
-- **FN-COD-001**: Log cash collection (COD) | Nav: Financial Operations → Collect Cash → Enter details → Save
-- **FN-COD-002**: Reconcile cash vs digital records | Nav: Financial Operations → Collect Cash → View log → Reconcile
-- **FN-MTH-001**: Configure withdrawal methods | Nav: Financial Operations → Withdraw Methods → Add → Define fields → Save
-- **FN-MTH-002**: Enable/disable/set default method | Nav: Financial Operations → Withdraw Methods → Toggle → Set Default
+- **PM-BCM-001**: Create Basic Campaign with name, dates, time schedule, and 900×300 banner | Nav: Promotion Management → Campaigns → Basic Campaigns → Add New Campaign → Fill all fields → Save
+
+- **PM-BCM-002**: View all basic campaigns in Campaign List | Nav: Promotion Management → Campaigns → Basic Campaigns → View Campaign List
+
+- **PM-ICM-001**: Create Item Campaign with store, item, attributes, and time schedule | Nav: Promotion Management → Campaigns → Item Campaigns → Add New Campaign → Fill → Save
+
+- **PM-ICM-002**: View all item campaigns | Nav: Promotion Management → Campaigns → Item Campaigns → View Campaign List
+
+- **PM-BNR-001**: Add banner with zone, banner type, and 3:1 image | Nav: Promotion Management → Banners → Fill fields → Save
+
+- **PM-BNR-002**: View banner list with status, edit, delete | Nav: Promotion Management → Banners → View Banner List
+
+- **PM-OBN-001**: Upload Best Reviewed Items, New Arrivals, and Bottom Section banners | Nav: Promotion Management → Other Banners → Upload each section → Save
+
+- **PM-CPN-001**: Create coupon with all required fields | Nav: Promotion Management → Coupons → Fill all coupon fields → Save
+
+- **PM-CPN-002**: View coupon list with status, edit, delete | Nav: Promotion Management → Coupons → View Coupon List
+
+- **PM-NTF-001**: Send push notification to selected zone and recipients | Nav: Promotion Management → Push Notifications → Fill form → Save
+
+- **PM-NTF-002**: View notification history | Nav: Promotion Management → Push Notifications → View Notification List
+
+- **PM-ADV-001**: Create admin advertisement with title, store, validity, images, live preview | Nav: Promotion Management → Advertisements → Add New Advertisement → Fill fields → Save
+
+- **PM-ADV-002**: Review and approve/deny advertisement requests from vendors | Nav: Promotion Management → Advertisements → Ad Requests → Review tabs → Approve or Deny
+
+- **PM-ADV-003**: View the full Ads List | Nav: Promotion Management → Advertisements → Ads List
+
+---
+
+### Reports & Analytics
+
+- **RA-TXN-001**: View Transaction Report with module/zone/store/time filters and earning summary cards | Nav: Reports & Analytics → Transaction Report → Apply filters → View
+
+- **RA-TXN-002**: View and export Order Transactions detail table | Nav: Reports & Analytics → Transaction Report → View table → Export
+
+- **RA-ITM-001**: View Item Report with product performance per item | Nav: Reports & Analytics → Item Report → Apply filters → View table → Export
+
+- **RA-STW-001**: View Store Wise Report with Summary, Sales, and Order sections | Nav: Reports & Analytics → Store Wise Report
+
+- **RA-EXP-001**: View Expense Report by expense type | Nav: Reports & Analytics → Expense Report → Apply filters → View table → Export
+
+- **RA-DSB-001**: View Disbursement Report for Stores and Delivery Men | Nav: Reports & Analytics → Disbursement Report → Select tab → Apply filters
+
+- **RA-ORD-001**: View Order Report with full statistics and order table | Nav: Reports & Analytics → Order Report → Apply filters → View stats + table → Export
+
+- **RA-ATX-001**: Generate Admin Tax Report with income source breakdown | Nav: Reports & Analytics → Admin Tax Report → Select date range → Choose method → Enter rate → Submit
+
+- **RA-VTX-001**: View Vendor Tax Report filtered by date and store | Nav: Reports & Analytics → Vendor Tax Report → Select filter → Filter → View results
+
+- **RA-PTX-001**: View Parcel Tax Report for parcel delivery services | Nav: Reports & Analytics → Parcel Tax Report → Select date range → Filter → View table → Export
 `;

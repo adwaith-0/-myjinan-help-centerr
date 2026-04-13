@@ -1,11 +1,10 @@
-import { KNOWLEDGE_BASE, USER_STORIES } from "./knowledge";
+import { KNOWLEDGE_BASE } from "./knowledge";
 import { findRelevantImages, type DocImage } from "./image-registry";
 
 const CONFIG = {
   GEMINI_API_KEY: import.meta.env.VITE_GEMINI_API_KEY || "",
   MODEL: "gemini-2.5-flash",
   MAX_TOKENS: 16384,
-  THINKING_BUDGET: 8192,
 };
 
 // ── API Key Management (localStorage > env var) ──
@@ -129,9 +128,7 @@ When a user asks "show me all stories for [module]":
 
 ═══ DOCUMENTATION ═══
 ${KNOWLEDGE_BASE}
-
-═══ USER STORIES ═══
-${USER_STORIES}`;
+`;
 
 // ── Conversation history ──
 export interface ConversationMessage {
@@ -178,10 +175,7 @@ export async function sendToGemini(userQuestion: string): Promise<GeminiResponse
       maxOutputTokens: CONFIG.MAX_TOKENS,
       temperature: 0.3,
       topP: 0.95,
-      // Enable thinking mode for higher quality, more structured responses
-      thinkingConfig: {
-        thinkingBudget: CONFIG.THINKING_BUDGET,
-      },
+      thinkingConfig: { thinkingBudget: 0 },
     },
   };
 
@@ -193,9 +187,18 @@ export async function sendToGemini(userQuestion: string): Promise<GeminiResponse
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
-    const errMsg =
+    const rawMsg =
       (errorData as { error?: { message?: string } })?.error?.message ||
       "API request failed (" + res.status + ")";
+    // Provide friendly messages for common errors
+    let errMsg = rawMsg;
+    if (res.status === 503 || rawMsg.toLowerCase().includes("overloaded") || rawMsg.toLowerCase().includes("unavailable")) {
+      errMsg = "The AI model is temporarily busy. Please wait a few seconds and try again.";
+    } else if (res.status === 429 || rawMsg.toLowerCase().includes("quota") || rawMsg.toLowerCase().includes("rate limit")) {
+      errMsg = "API quota reached. Please wait a moment or check your API key limits at aistudio.google.com.";
+    } else if (res.status === 400 && rawMsg.toLowerCase().includes("api key")) {
+      errMsg = "Invalid API key. Please click the ⚙️ API Key button and re-enter your key.";
+    }
     throw new Error(errMsg);
   }
 

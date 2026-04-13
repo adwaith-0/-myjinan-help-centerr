@@ -288,7 +288,23 @@ const REF_IMAGE_MAP: Record<string, StoryImage[]> = {
     { url: "/docs/bm/zone_setup_top_1773151880128.png", caption: "Step 1 — Edit — drag polygon points to new boundary" },
   ],
 
-  // MOD-001 to MOD-005: Module Setup
+  // ZN-MOD-*: Module Setup (aliases matching current JSON refs)
+  "ZN-MOD-001": [
+    { url: "/docs/bm/capture_module_setup_1773151992715.webp", caption: "Step 1 — Module Setup overview" },
+    { url: "/docs/bm/add_business_module_top_1773152149347.png", caption: "Step 2 — Add Business Module form (top)" },
+    { url: "/docs/bm/add_business_module_bottom_1773152164225.png", caption: "Step 3 — Add Business Module form (bottom)" },
+  ],
+  "ZN-MOD-002": [
+    { url: "/docs/bm/capture_module_list_1773152203636.webp", caption: "Step 1 — Module List showing all configured modules" },
+  ],
+  "ZN-MOD-003": [
+    { url: "/docs/bm/capture_module_list_1773152203636.webp", caption: "Step 1 — Module List — click Edit icon" },
+    { url: "/docs/bm/add_business_module_top_1773152149347.png", caption: "Step 2 — Edit module form" },
+  ],
+  "ZN-MOD-004": [
+    { url: "/docs/bm/capture_module_list_1773152203636.webp", caption: "Step 1 — Module List — toggle Status or view details" },
+  ],
+  // Legacy aliases (kept for backward compat)
   "MOD-001": [
     { url: "/docs/bm/capture_module_setup_1773151992715.webp", caption: "Step 1 — Module Setup overview" },
     { url: "/docs/bm/add_business_module_top_1773152149347.png", caption: "Step 2 — Add Business Module form (top)" },
@@ -421,7 +437,10 @@ const REF_IMAGE_MAP: Record<string, StoryImage[]> = {
     { url: "/docs/bm/gallery_preview_modal_1773155085144.png", caption: "Step 2 — Image preview" },
   ],
 
-  // BS-WEB: Websocket
+  // BS-WBS / BS-WEB: Websocket (both alias variants)
+  "BS-WBS-001": [
+    { url: "/docs/bm/websocket_overview_1773153677881.png", caption: "WebSocket — Configuration page" },
+  ],
   "BS-WEB-001": [
     { url: "/docs/bm/websocket_overview_1773153677881.png", caption: "WebSocket — Configuration page" },
   ],
@@ -502,11 +521,41 @@ const REF_IMAGE_MAP: Record<string, StoryImage[]> = {
     { url: "/docs/bm/refund_reason_list_actions_1773153181199.png", caption: "Step 2 — Refund Reasons with actions" },
   ],
 
+  // OM-OFP: Offline Payments
+  "OM-OFP-001": [
+    { url: "/docs/om/img_10.png", caption: "Step 1 — Order Management — Offline Payment Orders" },
+  ],
+  "OM-OFP-002": [
+    { url: "/docs/om/img_21.png", caption: "Step 1 — Offline Payment Order Details — mark as paid" },
+  ],
+
+  // FS-*: Flash Sales (matching current JSON refs)
+  "FS-CRT-001": [
+    { url: "/docs/om/img_24.png", caption: "Step 1 — Flash Sale Setup (title, discount %, validity dates)" },
+    { url: "/docs/om/img_25.png", caption: "Step 2 — Add products to Flash Sale" },
+  ],
+  "FS-PRD-001": [
+    { url: "/docs/om/img_25.png", caption: "Step 1 — Flash Sale Product Setup (item, stock, discount)" },
+  ],
+  "FS-MGT-001": [
+    { url: "/docs/om/img_26.png", caption: "Step 1 — Flash Sale List with status toggle & actions" },
+    { url: "/docs/om/img_27.png", caption: "Step 2 — Flash Sales overview" },
+  ],
+
   // ════════════════════════════════════════════════════
   //  REPORTS & ANALYTICS
+  //  Note: JSON uses RA-TXN/RA-STW/RA-DSB; map aliases both
   // ════════════════════════════════════════════════════
 
-  // RA-TRN: Transaction Report
+  // RA-TXN / RA-TRN: Transaction Report
+  "RA-TXN-001": [
+    { url: "/docs/ra/img_00.png", caption: "Step 1 — Report & Analytics sidebar" },
+    { url: "/docs/ra/img_01.png", caption: "Step 2 — Transaction Report filter bar" },
+  ],
+  "RA-TXN-002": [
+    { url: "/docs/ra/img_02.png", caption: "Step 1 — Transaction summary metrics" },
+    { url: "/docs/ra/img_03.png", caption: "Step 2 — Transaction details table" },
+  ],
   "RA-TRN-001": [
     { url: "/docs/ra/img_00.png", caption: "Step 1 — Report & Analytics sidebar" },
     { url: "/docs/ra/img_01.png", caption: "Step 2 — Transaction Report filter bar" },
@@ -521,17 +570,15 @@ const REF_IMAGE_MAP: Record<string, StoryImage[]> = {
     { url: "/docs/ra/img_04.png", caption: "Step 1 — Item Report filters" },
     { url: "/docs/ra/img_05.png", caption: "Step 2 — Item Report data table" },
   ],
-  "RA-ITM-002": [
-    { url: "/docs/ra/img_06.png", caption: "Step 1 — Item Report detail view" },
-  ],
 
-  // RA-STR: Store Report
-  "RA-STR-001": [
+  // RA-STW / RA-STR: Store Report
+  "RA-STW-001": [
     { url: "/docs/ra/img_07.png", caption: "Step 1 — Store Report summary" },
     { url: "/docs/ra/img_08.png", caption: "Step 2 — Store Report details" },
   ],
-  "RA-STR-002": [
-    { url: "/docs/ra/img_09.png", caption: "Step 1 — Store Report sales breakdown" },
+  "RA-STR-001": [
+    { url: "/docs/ra/img_07.png", caption: "Step 1 — Store Report summary" },
+    { url: "/docs/ra/img_08.png", caption: "Step 2 — Store Report details" },
   ],
 
   // RA-EXP: Expense Report
@@ -540,7 +587,11 @@ const REF_IMAGE_MAP: Record<string, StoryImage[]> = {
     { url: "/docs/ra/img_11.png", caption: "Step 2 — Expense Report data" },
   ],
 
-  // RA-DIS: Disbursement Report
+  // RA-DSB / RA-DIS: Disbursement Report
+  "RA-DSB-001": [
+    { url: "/docs/ra/img_13.png", caption: "Step 1 — Disbursement Report (pending/completed/cancelled)" },
+    { url: "/docs/ra/img_14.png", caption: "Step 2 — Disbursement details & filters" },
+  ],
   "RA-DIS-001": [
     { url: "/docs/ra/img_13.png", caption: "Step 1 — Disbursement Report (pending/completed/cancelled)" },
     { url: "/docs/ra/img_14.png", caption: "Step 2 — Disbursement details & filters" },
@@ -551,8 +602,16 @@ const REF_IMAGE_MAP: Record<string, StoryImage[]> = {
     { url: "/docs/ra/img_19.png", caption: "Step 1 — Order Report search filters" },
     { url: "/docs/ra/img_20.png", caption: "Step 2 — Order Report data" },
   ],
-  "RA-ORD-002": [
-    { url: "/docs/ra/img_21.png", caption: "Step 1 — Order Report invoice view" },
+
+  // RA-ATX / RA-VTX / RA-PTX: Tax Reports (Admin / Vendor / Platform)
+  "RA-ATX-001": [
+    { url: "/docs/ra/img_00.png", caption: "Step 1 — Reports sidebar" },
+  ],
+  "RA-VTX-001": [
+    { url: "/docs/ra/img_00.png", caption: "Step 1 — Reports sidebar — Vendor Tax Report" },
+  ],
+  "RA-PTX-001": [
+    { url: "/docs/ra/img_00.png", caption: "Step 1 — Reports sidebar — Platform Tax Report" },
   ],
 
   // ════════════════════════════════════════════════════
@@ -582,6 +641,145 @@ const REF_IMAGE_MAP: Record<string, StoryImage[]> = {
   ],
   "EM-ROL-002": [
     { url: "/docs/em/em_02_employee_list_table.png", caption: "Step 1 — Employee List showing assigned roles" },
+  ],
+
+  // ════════════════════════════════════════════════════
+  //  STORE MANAGEMENT (SM-*)
+  // ════════════════════════════════════════════════════
+
+  // SM-NEW: Add New Store
+  "SM-NEW-001": [
+    { url: "/docs/bm/capture_business_settings_1773152502724.webp", caption: "Step 1 — Navigate to Store Management → Add New Store" },
+  ],
+  "SM-NEW-002": [
+    { url: "/docs/bm/business_settings_top_1773152555791.png", caption: "Step 1 — Configure store operational hours" },
+  ],
+
+  // SM-ADD: Store Address
+  "SM-ADD-001": [
+    { url: "/docs/bm/zone_setup_top_1773151880128.png", caption: "Step 1 — Set store address on map" },
+  ],
+
+  // SM-LST: Store List
+  "SM-LST-001": [
+    { url: "/docs/bm/capture_module_list_1773152203636.webp", caption: "Step 1 — Store List — view all stores" },
+  ],
+  "SM-LST-002": [
+    { url: "/docs/bm/capture_module_list_1773152203636.webp", caption: "Step 1 — Store List — click Edit" },
+    { url: "/docs/bm/business_settings_top_1773152555791.png", caption: "Step 2 — Edit Store form" },
+  ],
+  "SM-LST-003": [
+    { url: "/docs/bm/capture_module_list_1773152203636.webp", caption: "Step 1 — Store List — toggle Status switch" },
+  ],
+
+  // SM-REC: Store Recommendations
+  "SM-REC-001": [
+    { url: "/docs/bm/capture_module_setup_1773151992715.webp", caption: "Step 1 — Featured / Recommended store toggle" },
+  ],
+
+  // SM-BIM: Store Bulk Import
+  "SM-BIM-001": [
+    { url: "/docs/pm/img_35.jpeg", caption: "Step 1 — Store Bulk Import — download template & upload" },
+  ],
+
+  // SM-BEX: Store Bulk Export
+  "SM-BEX-001": [
+    { url: "/docs/pm/img_38.jpeg", caption: "Step 1 — Store Bulk Export — select filters & download" },
+  ],
+
+  // ════════════════════════════════════════════════════
+  //  FINANCIAL OPERATIONS (FN-*)
+  // ════════════════════════════════════════════════════
+
+  // FN-WDR: Withdrawal Requests
+  "FN-WDR-001": [
+    { url: "/docs/ra/img_13.png", caption: "Step 1 — Financial Operations → Withdrawal Requests list" },
+  ],
+  "FN-WDR-002": [
+    { url: "/docs/ra/img_14.png", caption: "Step 1 — Review withdrawal request details" },
+  ],
+  "FN-WDR-003": [
+    { url: "/docs/ra/img_13.png", caption: "Step 1 — Approve or Deny withdrawal request" },
+  ],
+
+  // FN-DSB: Disbursements
+  "FN-DSB-001": [
+    { url: "/docs/ra/img_13.png", caption: "Step 1 — Disbursement list with filters" },
+    { url: "/docs/ra/img_14.png", caption: "Step 2 — Disbursement details & export" },
+  ],
+
+  // FN-DLD: Delivery Charges
+  "FN-DLD-001": [
+    { url: "/docs/bm/zone_setup_bottom_1773151887870.png", caption: "Step 1 — Zone-based delivery charge configuration" },
+  ],
+
+  // FN-COD: Cash on Delivery
+  "FN-COD-001": [
+    { url: "/docs/bm/business_settings_bottom_1773152576887.png", caption: "Step 1 — Enable Cash on Delivery in payment settings" },
+  ],
+  "FN-COD-002": [
+    { url: "/docs/bm/business_settings_bottom_1773152576887.png", caption: "Step 1 — Configure COD overflow threshold" },
+  ],
+
+  // FN-DPM: Digital Payment Methods
+  "FN-DPM-001": [
+    { url: "/docs/bm/business_settings_bottom_1773152576887.png", caption: "Step 1 — Digital Payment Methods configuration" },
+  ],
+
+  // FN-MTH: Methods Overview
+  "FN-MTH-001": [
+    { url: "/docs/bm/business_settings_bottom_1773152576887.png", caption: "Step 1 — Payment Methods list" },
+  ],
+  "FN-MTH-002": [
+    { url: "/docs/bm/business_settings_bottom_1773152576887.png", caption: "Step 1 — Enable or disable a payment method" },
+  ],
+
+  // ════════════════════════════════════════════════════
+  //  MARKETING & PROMOTIONS (PM-CPN / PM-NTF / PM-ADV etc.)
+  //  These use PM- prefix but belong to Marketing module
+  // ════════════════════════════════════════════════════
+
+  "PM-BCM-001": [
+    { url: "/docs/bm/capture_gallery_active_page_1773154988755.webp", caption: "Step 1 — Banner/Campaign Management" },
+  ],
+  "PM-BCM-002": [
+    { url: "/docs/bm/gallery_main_page_1773155002425.png", caption: "Step 1 — Campaign list & status" },
+  ],
+  "PM-ICM-001": [
+    { url: "/docs/bm/capture_subscription_mgt_1773154032937.webp", caption: "Step 1 — Item Campaign setup" },
+  ],
+  "PM-ICM-002": [
+    { url: "/docs/bm/subscription_package_list_empty_1773154158139.png", caption: "Step 1 — Item Campaign list" },
+  ],
+  "PM-BNR-001": [
+    { url: "/docs/bm/admin_landing_page_fixed_data_1773154532123.png", caption: "Step 1 — Banner setup (image, link, validity)" },
+  ],
+  "PM-BNR-002": [
+    { url: "/docs/bm/gallery_main_page_1773155002425.png", caption: "Step 1 — Banner list with status & reorder" },
+  ],
+  "PM-OBN-001": [
+    { url: "/docs/bm/react_landing_page_header_1773154563557.png", caption: "Step 1 — Onboarding Banner configuration" },
+  ],
+  "PM-CPN-001": [
+    { url: "/docs/bm/capture_subscription_mgt_1773154032937.webp", caption: "Step 1 — Coupon / Promo code creation" },
+  ],
+  "PM-CPN-002": [
+    { url: "/docs/bm/subscription_package_list_empty_1773154158139.png", caption: "Step 1 — Coupon list with status & expiry" },
+  ],
+  "PM-NTF-001": [
+    { url: "/docs/bm/capture_pages_social_media_1773154437627.webp", caption: "Step 1 — Push Notification builder" },
+  ],
+  "PM-NTF-002": [
+    { url: "/docs/bm/social_media_overview_1773154545475.png", caption: "Step 1 — Notification history & status" },
+  ],
+  "PM-ADV-001": [
+    { url: "/docs/bm/capture_gallery_active_page_1773154988755.webp", caption: "Step 1 — Advertisement creation form" },
+  ],
+  "PM-ADV-002": [
+    { url: "/docs/bm/gallery_main_page_1773155002425.png", caption: "Step 1 — Advertisement list & scheduling" },
+  ],
+  "PM-ADV-003": [
+    { url: "/docs/bm/gallery_upload_modal_1773155015056.png", caption: "Step 1 — Advertisement performance metrics" },
   ],
 };
 

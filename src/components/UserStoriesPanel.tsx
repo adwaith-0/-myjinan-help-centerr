@@ -1,5 +1,7 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ref as dbRef, onValue, update, remove, off } from "firebase/database";
+import { db } from "@/lib/firebase";
 import { useNavigate } from "react-router-dom";
 import {
   ChevronDown, ChevronRight, Search, XCircle, Circle,
@@ -22,11 +24,38 @@ interface UserStory {
 type Status = "pending" | "working" | "not-working";
 
 // ─── Constants ─────────────────────────────────────────────────
-const STORAGE_KEY = "myjinan-stories-v3";
-const load = (): Record<string, Status> => {
-  try { const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : {}; } catch { return {}; }
-};
-const save = (d: Record<string, Status>) => localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+// Firebase RTDB path where all statuses are stored
+const STATUSES_PATH = "statuses";
+
+// ─── Live-Sync Indicator ────────────────────────────────────────
+type SyncState = "connecting" | "live" | "error";
+function SyncDot({ state }: { state: SyncState }) {
+  const colors: Record<SyncState, string> = {
+    connecting: "#ffd200",
+    live: "#00f5a0",
+    error: "#ef4444",
+  };
+  const labels: Record<SyncState, string> = {
+    connecting: "Syncing…",
+    live: "Live",
+    error: "Offline",
+  };
+  const c = colors[state];
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 5, padding: "4px 10px",
+      borderRadius: 8, background: `${c}14`, border: `1px solid ${c}35`, flexShrink: 0 }}>
+      <motion.div
+        style={{ width: 7, height: 7, borderRadius: "50%", background: c,
+          boxShadow: `0 0 8px ${c}` }}
+        animate={state === "live" ? { scale: [1, 1.35, 1], opacity: [1, 0.7, 1] } : {}}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <span style={{ fontSize: 10.5, fontWeight: 700, color: c, letterSpacing: "0.04em" }}>
+        {labels[state]}
+      </span>
+    </div>
+  );
+}
 
 const MOD_GRAD: Record<string, [string, string]> = {
   "Product Management":       ["#f59e0b","#f97316"],
@@ -677,18 +706,51 @@ export default function UserStoriesPage() {
   const navigate = useNavigate();
   const stories: UserStory[] = useMemo(() => userStoriesData as UserStory[], []);
 
-  const [statuses, setStatuses] = useState<Record<string,Status>>(load);
+  const [statuses, setStatuses] = useState<Record<string,Status>>({});
+  const [syncState, setSyncState] = useState<SyncState>("connecting");
   const [search, setSearch]     = useState("");
   const [fStatus, setFStatus]   = useState<Status|"all">("all");
   const [showF, setShowF]       = useState(false);
   const [zoom, setZoom]         = useState(100);
   const [view, setView]         = useState("overview"); // "overview"|"all"|roleId
 
-  useEffect(()=>{ save(statuses); },[statuses]);
+  // ── Firebase real-time subscription ─────────────────────────
+  const statusesRef = useRef(dbRef(db, STATUSES_PATH));
 
-  const upStatus = useCallback((ref:string,s:Status)=>{
-    setStatuses(prev=>{ const n={...prev}; s==="pending"?delete n[ref]:n[ref]=s; return n; });
-  },[]);
+  useEffect(() => {
+    const r = statusesRef.current;
+    setSyncState("connecting");
+
+    const unsub = onValue(
+      r,
+      (snapshot) => {
+        const data = snapshot.val() as Record<string, Status> | null;
+        setStatuses(data ?? {});
+        setSyncState("live");
+      },
+      () => {
+        // error callback — Firebase will keep retrying automatically
+        setSyncState("error");
+      }
+    );
+
+    return () => off(r, "value", unsub);
+  }, []);
+
+  // ── Push a single status update to Firebase ─────────────────
+  const upStatus = useCallback((storyRef: string, s: Status) => {
+    const r = dbRef(db, `${STATUSES_PATH}/${storyRef}`);
+    if (s === "pending") {
+      remove(r);
+    } else {
+      update(dbRef(db, STATUSES_PATH), { [storyRef]: s });
+    }
+  }, []);
+
+  // ── Reset All — wipe the entire statuses node ──────────────
+  const resetAll = useCallback(() => {
+    remove(dbRef(db, STATUSES_PATH));
+  }, []);
 
   const activeRole = useMemo(()=>{
     if(view==="overview"||view==="all") return null;
@@ -807,6 +869,8 @@ export default function UserStoriesPage() {
 
             {/* Right controls */}
             <div style={{ display:"flex",alignItems:"center",gap:7,flexShrink:0 }}>
+              {/* Live sync indicator */}
+              <SyncDot state={syncState} />
               {/* Zoom */}
               <div style={{ display:"flex",alignItems:"center",gap:3 }}>
                 <button className="us-btn" onClick={()=>setZoom(z=>Math.max(75,z-10))} style={{ padding:"7px 10px" }}>
@@ -851,7 +915,7 @@ export default function UserStoriesPage() {
                         <strong style={{ color:"rgba(255,255,255,0.75)" }}>{ROLES.length}</strong> roles.<br/>
                         Click a role below to begin verification.
                       </p>
-                      <button className="us-btn" onClick={()=>setStatuses({})} style={{ fontSize:12 }}>
+                      <button className="us-btn" onClick={resetAll} style={{ fontSize:12 }}>
                         <RotateCcw style={{ width:12,height:12 }} /> Reset All
                       </button>
                     </div>
@@ -925,7 +989,7 @@ export default function UserStoriesPage() {
                       <strong style={{ color:"rgba(255,255,255,0.6)" }}>{sTotal}</strong> stories
                       {activeRole&&<> · <strong style={{ color:"rgba(255,255,255,0.6)" }}>{activeRole.modules.length}</strong> module{activeRole.modules.length>1?"s":""}</>}
                     </p>
-                    <button className="us-btn" onClick={()=>setStatuses({})} style={{ fontSize:12 }}>
+                    <button className="us-btn" onClick={resetAll} style={{ fontSize:12 }}>
                       <RotateCcw style={{ width:12,height:12 }} /> Reset All
                     </button>
                   </div>
