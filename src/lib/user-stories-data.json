@@ -1970,7 +1970,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Reports & Analytics → Transaction Report → Apply filters → View metric cards",
+    "navigation": "Report and Analytics → Transaction Report → Apply filters → View metric cards",
     "navigationPath": "Reports & Analytics → Transaction Report → Apply filters → View metric cards",
     "trainingLink": "",
     "rowNumber": 104
@@ -1989,7 +1989,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Reports & Analytics → Transaction Report → View table → Export",
+    "navigation": "Report and Analytics → Transaction Report → View table → Export",
     "navigationPath": "Reports & Analytics → Transaction Report → View table → Export",
     "trainingLink": "",
     "rowNumber": 105
@@ -2008,7 +2008,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Reports & Analytics → Item Report → Apply filters → View table → Export",
+    "navigation": "Report and Analytics → Item Report → Apply filters → View table → Export",
     "navigationPath": "Reports & Analytics → Item Report → Apply filters → View table → Export",
     "trainingLink": "",
     "rowNumber": 106
@@ -2027,7 +2027,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Reports & Analytics → Store Wise Report → View Summary / Sales / Order sections",
+    "navigation": "Report and Analytics → Store Wise Report → View Summary / Sales / Order sections",
     "navigationPath": "Reports & Analytics → Store Wise Report → View Summary / Sales / Order sections",
     "trainingLink": "",
     "rowNumber": 107
@@ -2046,7 +2046,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Reports & Analytics → Expense Report → Apply filters → View table → Export",
+    "navigation": "Report and Analytics → Expense Report → Apply filters → View table → Export",
     "navigationPath": "Reports & Analytics → Expense Report → Apply filters → View table → Export",
     "trainingLink": "",
     "rowNumber": 108
@@ -2065,7 +2065,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Reports & Analytics → Disbursement Report → Select Store or Delivery Man tab → Apply filters",
+    "navigation": "Report and Analytics → Disbursement Report → Select Store or Delivery Man tab → Apply filters",
     "navigationPath": "Reports & Analytics → Disbursement Report → Select Store or Delivery Man tab → Apply filters",
     "trainingLink": "",
     "rowNumber": 109
@@ -2084,7 +2084,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Reports & Analytics → Order Report → Apply filters → View stats and table → Export",
+    "navigation": "Report and Analytics → Order Report → Apply filters → View stats and table → Export",
     "navigationPath": "Reports & Analytics → Order Report → Apply filters → View stats and table → Export",
     "trainingLink": "",
     "rowNumber": 110
@@ -2103,7 +2103,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Reports & Analytics → Admin Tax Report → Select date range → Choose method → Enter rate(s) → Submit",
+    "navigation": "Report and Analytics → Admin Tax Report → Select date range → Choose method → Enter rate(s) → Submit",
     "navigationPath": "Reports & Analytics → Admin Tax Report → Select date range → Choose method → Enter rate(s) → Submit",
     "trainingLink": "",
     "rowNumber": 111
@@ -2122,7 +2122,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Reports & Analytics → Vendor Tax Report → Select filter → Click Filter → View results",
+    "navigation": "Report and Analytics → Vendor Tax Report → Select filter → Click Filter → View results",
     "navigationPath": "Reports & Analytics → Vendor Tax Report → Select filter → Click Filter → View results",
     "trainingLink": "",
     "rowNumber": 112
@@ -2141,7 +2141,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Reports & Analytics → Parcel Tax Report → Select date range → Filter → View table → Export",
+    "navigation": "Report and Analytics → Parcel Tax Report → Select date range → Filter → View table → Export",
     "navigationPath": "Reports & Analytics → Parcel Tax Report → Select date range → Filter → View table → Export",
     "trainingLink": "",
     "rowNumber": 113
@@ -2160,7 +2160,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Financial Operations → Withdraw Requests → Select tab (Pending / Approved / Denied)",
+    "navigation": "Transactions & Reports → Business Management → Withdraw Requests → Select tab (Pending / Approved / Denied)",
     "navigationPath": "Financial Operations → Withdraw Requests → Select tab (Pending / Approved / Denied)",
     "trainingLink": "",
     "rowNumber": 114
@@ -2179,7 +2179,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Financial Operations → Withdraw Requests → Pending tab → Click Approve",
+    "navigation": "Transactions & Reports → Business Management → Withdraw Requests → Pending tab → Click Approve",
     "navigationPath": "Financial Operations → Withdraw Requests → Pending tab → Click Approve",
     "trainingLink": "",
     "rowNumber": 115
@@ -2198,7 +2198,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Financial Operations → Withdraw Requests → Click Deny → Add admin note → Confirm",
+    "navigation": "Transactions & Reports → Business Management → Withdraw Requests → Click Deny → Add admin note → Confirm",
     "navigationPath": "Financial Operations → Withdraw Requests → Click Deny → Add admin note → Confirm",
     "trainingLink": "",
     "rowNumber": 116
@@ -2217,7 +2217,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Financial Operations → Store Disbursement → View list → Filter by status",
+    "navigation": "Transactions & Reports → Business Management → Store Disbursement → View list → Filter by status",
     "navigationPath": "Financial Operations → Store Disbursement → View list → Filter by status",
     "trainingLink": "",
     "rowNumber": 117
@@ -2236,7 +2236,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Financial Operations → Delivery Man Disbursement → View and process driver payouts",
+    "navigation": "Transactions & Reports → Business Management → Delivery Man Disbursement → View and process driver payouts",
     "navigationPath": "Financial Operations → Delivery Man Disbursement → View and process driver payouts",
     "trainingLink": "",
     "rowNumber": 118
@@ -2255,7 +2255,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Financial Operations → Collect Cash → Enter amount, payment method, reference → Save",
+    "navigation": "Transactions & Reports → Business Management → Collect Cash → Enter amount, payment method, reference → Save",
     "navigationPath": "Financial Operations → Collect Cash → Enter amount, payment method, reference → Save",
     "trainingLink": "",
     "rowNumber": 119
@@ -2274,7 +2274,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Financial Operations → Collect Cash → View collection log",
+    "navigation": "Transactions & Reports → Business Management → Collect Cash → View collection log",
     "navigationPath": "Financial Operations → Collect Cash → View collection log",
     "trainingLink": "",
     "rowNumber": 120
@@ -2293,7 +2293,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Financial Operations → Delivery Man Payments → Enter driver, amount, type → Save",
+    "navigation": "Transactions & Reports → Business Management → Delivery Man Payments → Enter driver, amount, type → Save",
     "navigationPath": "Financial Operations → Delivery Man Payments → Enter driver, amount, type → Save",
     "trainingLink": "",
     "rowNumber": 121
@@ -2312,7 +2312,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Financial Operations → Withdraw Method → Add method → Define required fields → Save",
+    "navigation": "Transactions & Reports → Business Management → Withdraw Method → Add method → Define required fields → Save",
     "navigationPath": "Financial Operations → Withdraw Method → Add method → Define required fields → Save",
     "trainingLink": "",
     "rowNumber": 122
@@ -2331,7 +2331,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Financial Operations → Withdraw Method → Toggle Enable/Disable → Click Set as Default",
+    "navigation": "Transactions & Reports → Business Management → Withdraw Method → Toggle Enable/Disable → Click Set as Default",
     "navigationPath": "Financial Operations → Withdraw Method → Toggle Enable/Disable → Click Set as Default",
     "trainingLink": "",
     "rowNumber": 123
