@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ref as dbRef, onValue, update, remove, off } from "firebase/database";
 import { db } from "@/lib/firebase";
@@ -244,13 +245,14 @@ const CSS = `
 .us-stat:hover { transform: translateY(-3px) scale(1.03); }
 
 /* ── Navigation path ── */
-.us-nav-step { font-size: 11px; padding: 4px 10px; border-radius: 7px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+.us-nav-step { font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 8px; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.9); box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.2s; }
+.us-nav-step:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
 
 /* ── Image thumbnail ── */
-.us-thumb { flex-shrink: 0; cursor: pointer; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: all 0.2s; }
-.us-thumb:hover { border-color: rgba(255,255,255,0.25); transform: scale(1.03); }
-.us-thumb img { display: block; width: 180px; height: 110px; object-fit: cover; object-position: top; }
-.us-thumb-cap { font-size: 9px; color: rgba(255,255,255,0.4); padding: 5px 7px; background: rgba(0,0,0,0.65); margin: 0; }
+.us-thumb { flex-shrink: 0; cursor: pointer; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.15); transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 6px 16px rgba(0,0,0,0.25); background: #fff; }
+.us-thumb:hover { border-color: rgba(255,255,255,0.4); transform: scale(1.04) translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.4); }
+.us-thumb img { display: block; width: 280px; height: 160px; object-fit: contain; object-position: center; border-bottom: 1px solid rgba(0,0,0,0.1); background: #fff; }
+.us-thumb-cap { font-size: 11.5px; font-weight: 500; color: rgba(255,255,255,0.85); padding: 8px 12px; background: rgba(15,15,20,0.95); margin: 0; }
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -258,7 +260,7 @@ const CSS = `
 ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.5); border-radius: 99px; }
 
 /* ── Label above section ── */
-.us-label { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
+.us-label { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); }
 
 @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
 .us-fadein { animation: fadeUp 0.4s cubic-bezier(.4,0,.2,1) both; }
@@ -303,16 +305,27 @@ function Ring({ value, size = 128, stroke = 9 }: { value: number; size?: number;
 // ═══════════════════════════════════════════════════════════════
 //  Lightbox image gallery
 // ═══════════════════════════════════════════════════════════════
-function Gallery({ images, accent }: { images: StoryImage[]; accent: string }) {
+function Gallery({ images, accent, navSteps = [] }: { images: StoryImage[]; accent: string; navSteps?: string[] }) {
   const [lb, setLb] = useState<number | null>(null);
+  
+  // Prevent body scroll when lightbox is open
+  useEffect(() => {
+    if (lb !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => { document.body.style.overflow = "auto"; };
+  }, [lb]);
+
   if (!images.length) return null;
   return (
     <>
-      <div style={{ display:"flex",alignItems:"center",gap:6,marginBottom:8 }}>
-        <ImageIcon style={{ width:12,height:12,color:accent }} />
+      <div style={{ display:"flex",alignItems:"center",gap:8,marginBottom:12 }}>
+        <ImageIcon style={{ width:14,height:14,color:accent }} />
         <span className="us-label" style={{ color:`${accent}cc` }}>Screenshots</span>
       </div>
-      <div style={{ display:"flex",gap:8,overflowX:"auto",paddingBottom:4 }}>
+      <div style={{ display:"flex",gap:12,overflowX:"auto",paddingBottom:8 }}>
         {images.map((img, i) => (
           <div key={i} className="us-thumb" onClick={() => setLb(i)}>
             <img src={img.url} alt={img.caption} loading="lazy" />
@@ -320,33 +333,58 @@ function Gallery({ images, accent }: { images: StoryImage[]; accent: string }) {
           </div>
         ))}
       </div>
-      <AnimatePresence>
-        {lb !== null && (
-          <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
-            style={{ position:"fixed",inset:0,zIndex:999,background:"rgba(0,0,0,0.93)",display:"flex",alignItems:"center",justifyContent:"center",padding:32 }}
-            onClick={() => setLb(null)}>
-            <motion.div initial={{scale:0.85,opacity:0}} animate={{scale:1,opacity:1}} exit={{scale:0.85,opacity:0}}
-              style={{ position:"relative",maxWidth:920,width:"100%" }} onClick={e=>e.stopPropagation()}>
-              <img src={images[lb].url} alt={images[lb].caption}
-                style={{ width:"100%",maxHeight:"80vh",objectFit:"contain",borderRadius:14,border:"1px solid rgba(255,255,255,0.1)" }} />
-              <p style={{ textAlign:"center",fontSize:12,color:"rgba(255,255,255,0.45)",marginTop:10 }}>{images[lb].caption} · {lb+1}/{images.length}</p>
-              <button onClick={()=>setLb(null)} style={{ position:"absolute",top:-10,right:-10,width:30,height:30,borderRadius:"50%",background:"rgba(255,255,255,0.12)",border:"1px solid rgba(255,255,255,0.18)",color:"#fff",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>
-                <X style={{ width:14,height:14 }} />
-              </button>
-              {lb > 0 && (
-                <button onClick={()=>setLb(lb-1)} style={{ position:"absolute",left:10,top:"50%",transform:"translateY(-50%)",width:38,height:38,borderRadius:"50%",background:"rgba(0,0,0,0.6)",border:"1px solid rgba(255,255,255,0.12)",color:"#fff",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>
-                  <ArrowLeft style={{ width:18,height:18 }} />
-                </button>
-              )}
-              {lb < images.length-1 && (
-                <button onClick={()=>setLb(lb+1)} style={{ position:"absolute",right:10,top:"50%",transform:"translateY(-50%)",width:38,height:38,borderRadius:"50%",background:"rgba(0,0,0,0.6)",border:"1px solid rgba(255,255,255,0.12)",color:"#fff",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>
-                  <ArrowRight style={{ width:18,height:18 }} />
-                </button>
-              )}
+      {createPortal(
+        <AnimatePresence>
+          {lb !== null && (
+            <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
+              style={{ position:"fixed",top:0,left:0,right:0,bottom:0,zIndex:99999,background:"rgba(0,0,0,0.95)",backdropFilter:"blur(8px)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:24 }}
+              onClick={() => setLb(null)}>
+              
+              <motion.div initial={{scale:0.9,opacity:0,y:15}} animate={{scale:1,opacity:1,y:0}} exit={{scale:0.9,opacity:0,y:15}}
+                style={{ position:"relative",maxWidth:1000,width:"100%",display:"flex",flexDirection:"column",alignItems:"center",maxHeight:"95vh" }} onClick={e=>e.stopPropagation()}>
+                
+                {/* Fullscreen Navigation Breadcrumbs */}
+                {navSteps.length > 0 && (
+                  <div style={{ display:"flex",flexWrap:"wrap",alignItems:"center",justifyContent:"center",gap:8,marginBottom:20,background:"rgba(20,20,25,0.7)",padding:"12px 20px",borderRadius:12,border:"1px solid rgba(255,255,255,0.15)",boxShadow:"0 8px 32px rgba(0,0,0,0.5)" }}>
+                    <Compass style={{ width:18,height:18,color:accent }} />
+                    {navSteps.map((step, k) => (
+                      <span key={k} style={{ display:"flex",alignItems:"center",gap:8 }}>
+                        <span className="us-nav-step" style={{ background:"rgba(0,0,0,0.6)",fontSize:"13.5px" }}>{step}</span>
+                        {k < navSteps.length-1 && <ArrowRight style={{ width:14,height:14,color:"rgba(255,255,255,0.4)" }} />}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* The Image */}
+                <div style={{ position:"relative",width:"100%",display:"flex",justifyContent:"center",alignItems:"center" }}>
+                  <img src={images[lb].url} alt={images[lb].caption}
+                    style={{ width:"auto",maxWidth:"100%",height:"auto",maxHeight:"calc(95vh - 140px)",objectFit:"contain",borderRadius:16,border:"1px solid rgba(255,255,255,0.15)",boxShadow:"0 12px 40px rgba(0,0,0,0.6)",background:"#fff" }} />
+                  
+                  {/* Controls */}
+                  <button onClick={()=>setLb(null)} style={{ position:"absolute",top:-15,right:-15,width:36,height:36,borderRadius:"50%",background:"rgba(239,68,68,0.9)",border:"2px solid rgba(255,255,255,0.2)",color:"#fff",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 4px 12px rgba(0,0,0,0.5)",transition:"all 0.2s" }} className="hover:scale-110">
+                    <X style={{ width:18,height:18,strokeWidth:3 }} />
+                  </button>
+                  {lb > 0 && (
+                    <button onClick={()=>setLb(lb-1)} style={{ position:"absolute",left:-20,top:"50%",transform:"translateY(-50%)",width:48,height:48,borderRadius:"50%",background:"rgba(0,0,0,0.75)",backdropFilter:"blur(4px)",border:"1px solid rgba(255,255,255,0.25)",color:"#fff",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 4px 15px rgba(0,0,0,0.4)",transition:"all 0.2s" }} className="hover:scale-110 hover:bg-black">
+                      <ArrowLeft style={{ width:24,height:24 }} />
+                    </button>
+                  )}
+                  {lb < images.length-1 && (
+                    <button onClick={()=>setLb(lb+1)} style={{ position:"absolute",right:-20,top:"50%",transform:"translateY(-50%)",width:48,height:48,borderRadius:"50%",background:"rgba(0,0,0,0.75)",backdropFilter:"blur(4px)",border:"1px solid rgba(255,255,255,0.25)",color:"#fff",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 4px 15px rgba(0,0,0,0.4)",transition:"all 0.2s" }} className="hover:scale-110 hover:bg-black">
+                      <ArrowRight style={{ width:24,height:24 }} />
+                    </button>
+                  )}
+                </div>
+                <div style={{ marginTop:16,padding:"8px 16px",background:"rgba(0,0,0,0.7)",borderRadius:20,border:"1px solid rgba(255,255,255,0.1)" }}>
+                  <p style={{ textAlign:"center",fontSize:14,fontWeight:600,color:"#fff",margin:0 }}>{images[lb].caption} <span style={{ opacity:0.5,fontWeight:400,marginLeft:8 }}>({lb+1} of {images.length})</span></p>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 }
@@ -468,15 +506,15 @@ function StoryCard({ story, status, onSet, g, c }: {
 
               {/* Navigation Path */}
               {navSteps.length > 0 && (
-                <div style={{ display:"flex",gap:10 }}>
-                  <Compass style={{ width:14,height:14,color:"#00d9f5",marginTop:2,flexShrink:0 }} />
+                <div style={{ display:"flex",gap:12,background:"rgba(20,20,25,0.4)",padding:"16px",borderRadius:12,border:"1px solid rgba(255,255,255,0.06)",boxShadow:"inset 0 2px 10px rgba(0,0,0,0.2)" }}>
+                  <Compass style={{ width:18,height:18,color:"#00d9f5",flexShrink:0 }} />
                   <div>
-                    <p className="us-label" style={{ color:"#00d9f5",marginBottom:8 }}>Navigation Path</p>
-                    <div style={{ display:"flex",flexWrap:"wrap",alignItems:"center",gap:6 }}>
+                    <p className="us-label" style={{ color:"#00d9f5",marginBottom:10 }}>Navigation Path</p>
+                    <div style={{ display:"flex",flexWrap:"wrap",alignItems:"center",gap:8 }}>
                       {navSteps.map((step, i) => (
-                        <span key={i} style={{ display:"flex",alignItems:"center",gap:6 }}>
+                        <span key={i} style={{ display:"flex",alignItems:"center",gap:8 }}>
                           <span className="us-nav-step">{step}</span>
-                          {i < navSteps.length-1 && <ArrowRight style={{ width:11,height:11,color:"rgba(255,255,255,0.2)" }} />}
+                          {i < navSteps.length-1 && <ArrowRight style={{ width:14,height:14,color:"rgba(255,255,255,0.3)" }} />}
                         </span>
                       ))}
                     </div>
@@ -508,8 +546,8 @@ function StoryCard({ story, status, onSet, g, c }: {
 
               {/* Screenshots */}
               {imgs.length > 0 && (
-                <div style={{ paddingTop:10,borderTop:"1px solid rgba(255,255,255,0.05)" }}>
-                  <Gallery images={imgs} accent={c} />
+                <div style={{ paddingTop:16,borderTop:"1px solid rgba(255,255,255,0.08)" }}>
+                  <Gallery images={imgs} accent={c} navSteps={navSteps} />
                 </div>
               )}
             </div>

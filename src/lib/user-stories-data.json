@@ -431,8 +431,8 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Product Setup → Add New → Enter Price → Enter Stock → Set Discount %",
-    "navigationPath": "Product Setup → Add New → Enter Price → Enter Stock → Set Discount %",
+    "navigation": "Product Setup → Add New → Select Unit of Measurement → Set Max Purchase Quantity",
+    "navigationPath": "Product Setup → Add New → Select Unit of Measurement → Set Max Purchase Quantity",
     "trainingLink": "",
     "rowNumber": 23
   },
@@ -450,8 +450,8 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Product Setup → Add New → Select Unit of Measurement → Set Max Purchase Quantity",
-    "navigationPath": "Product Setup → Add New → Select Unit of Measurement → Set Max Purchase Quantity",
+    "navigation": "Product Setup → Add New → Enter Price → Enter Stock → Set Discount %",
+    "navigationPath": "Product Setup → Add New → Enter Price → Enter Stock → Set Discount %",
     "trainingLink": "",
     "rowNumber": 24
   },
@@ -488,8 +488,8 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Product Setup → Add New → Tags section → Enter and add keywords",
-    "navigationPath": "Product Setup → Add New → Tags section → Enter and add keywords",
+    "navigation": "Product Setup → Add New → Click Add Info From Gallery → Select images",
+    "navigationPath": "Product Setup → Add New → Click Add Info From Gallery → Select images",
     "trainingLink": "",
     "rowNumber": 26
   },
@@ -1647,7 +1647,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Promotion Management → Flash Sales → Fill Title, Admin Discount %, Store Discount %, Start Date, End Date → Submit",
+    "navigation": "Order Management → Flash Sales → Fill Title, Admin Discount %, Store Discount %, Start Date, End Date → Submit",
     "navigationPath": "Promotion Management → Flash Sales → Fill Title, Admin Discount %, Store Discount %, Start Date, End Date → Submit",
     "trainingLink": "",
     "rowNumber": 87
@@ -1666,7 +1666,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Promotion Management → Flash Sales → Click Add Products → Select Item → Set Stock & Discount → Save",
+    "navigation": "Order Management → Flash Sales → Click Add Products → Select Item → Set Stock & Discount → Save",
     "navigationPath": "Promotion Management → Flash Sales → Click Add Products → Select Item → Set Stock & Discount → Save",
     "trainingLink": "",
     "rowNumber": 88
@@ -1685,7 +1685,7 @@
     "status": "Open",
     "verificationStatus": "Not Working",
     "userComments": "",
-    "navigation": "Promotion Management → Flash Sales → View list → Toggle Publish / Click Edit or Delete",
+    "navigation": "Order Management → Flash Sales → View list → Toggle Publish / Click Edit or Delete",
     "navigationPath": "Promotion Management → Flash Sales → View list → Toggle Publish / Click Edit or Delete",
     "trainingLink": "",
     "rowNumber": 89

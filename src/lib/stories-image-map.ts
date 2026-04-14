@@ -19,247 +19,319 @@ const REF_IMAGE_MAP: Record<string, StoryImage[]> = {
 
   // ════════════════════════════════════════════════════
   //  PRODUCT MANAGEMENT — Categories
+  //  Source: pm_fresh/img_00–img_07 (verified from PDF)
   // ════════════════════════════════════════════════════
 
   // PM-CAT-001: Add a new product category
   "PM-CAT-001": [
-    { url: "/docs/pm/img_26.jpeg", caption: "Step 1 — Open Product Management in left sidebar" },
-    { url: "/docs/pm/img_27.jpeg", caption: "Step 2 — Expand Categories → Click 'Category'" },
-    { url: "/docs/pm/img_29.jpeg", caption: "Step 3 — Add New Category form (Name + Image Upload)" },
-    { url: "/docs/pm/img_30.jpeg", caption: "Step 4 — Upload category image (1:1 ratio)" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar — Categories expanded" },
+    { url: "/docs/pm_fresh/img_04.jpeg", caption: "Step 2 — Categories → Category selected in sidebar" },
+    { url: "/docs/pm_fresh/img_06.jpeg", caption: "Step 3 — Add New Category form (Name + Image upload)" },
+    { url: "/docs/pm_fresh/img_07.jpeg", caption: "Step 4 — Category image upload widget (1:1 ratio)" },
   ],
   // PM-CAT-002: View the full category list with search/export
   "PM-CAT-002": [
-    { url: "/docs/pm/img_26.jpeg", caption: "Step 1 — Open Product Management sidebar" },
-    { url: "/docs/pm/img_27.jpeg", caption: "Step 2 — Navigate to Categories → Category" },
-    { url: "/docs/pm/img_31.jpeg", caption: "Step 3 — Category List with search, pagination & export" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar — Categories expanded" },
+    { url: "/docs/pm_fresh/img_04.jpeg", caption: "Step 2 — Categories → Category selected in sidebar" },
+    { url: "/docs/pm_fresh/img_08.jpeg", caption: "Step 3 — Category List (search, pagination, export, status toggles)" },
   ],
   // PM-CAT-003: Edit an existing category's name or image
   "PM-CAT-003": [
-    { url: "/docs/pm/img_31.jpeg", caption: "Step 1 — Category List — click the Edit (pencil) icon" },
-    { url: "/docs/pm/img_29.jpeg", caption: "Step 2 — Edit Category form — update name or image" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar — Categories expanded" },
+    { url: "/docs/pm_fresh/img_08.jpeg", caption: "Step 2 — Category List — click the Edit (pencil) icon" },
+    { url: "/docs/pm_fresh/img_06.jpeg", caption: "Step 3 — Edit Category form — update name or image" },
   ],
   // PM-CAT-004: Enable/disable category status toggle
   "PM-CAT-004": [
-    { url: "/docs/pm/img_31.jpeg", caption: "Step 1 — Category List — toggle the Status switch to Enable/Disable" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar — Categories expanded" },
+    { url: "/docs/pm_fresh/img_08.jpeg", caption: "Step 2 — Category List — toggle the Status switch to Enable/Disable" },
   ],
   // PM-CAT-005: Delete a category
   "PM-CAT-005": [
-    { url: "/docs/pm/img_31.jpeg", caption: "Step 1 — Category List — click the Delete (trash) icon" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar — Categories expanded" },
+    { url: "/docs/pm_fresh/img_08.jpeg", caption: "Step 2 — Category List — click the Delete (trash) icon" },
   ],
 
   // ════════════════════════════════════════════════════
   //  PRODUCT MANAGEMENT — Sub Categories
+  //  Source: pm_fresh/img_07–img_10
   // ════════════════════════════════════════════════════
 
   // PM-SUB-001: Add a new sub-category
   "PM-SUB-001": [
-    { url: "/docs/pm/img_27.jpeg", caption: "Step 1 — Navigate to Categories → Sub Category" },
-    { url: "/docs/pm/img_32.jpeg", caption: "Step 2 — Add New Sub Category (select parent + enter name)" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar — Categories expanded" },
+    { url: "/docs/pm_fresh/img_05.jpeg", caption: "Step 2 — Categories → Sub Category selected in sidebar" },
+    { url: "/docs/pm_fresh/img_09.jpeg", caption: "Step 3 — Add New Sub Category form (select parent + name)" },
   ],
   // PM-SUB-002: View sub-category list alongside parent
   "PM-SUB-002": [
-    { url: "/docs/pm/img_33.jpeg", caption: "Step 1 — Sub Category List showing parent-child mapping" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar — Categories expanded" },
+    { url: "/docs/pm_fresh/img_05.jpeg", caption: "Step 2 — Categories → Sub Category in sidebar" },
+    { url: "/docs/pm_fresh/img_10.jpeg", caption: "Step 3 — Sub Category List showing parent-child mapping" },
   ],
   // PM-SUB-003: Edit a sub-category
   "PM-SUB-003": [
-    { url: "/docs/pm/img_33.jpeg", caption: "Step 1 — Sub Category List — click Edit icon" },
-    { url: "/docs/pm/img_32.jpeg", caption: "Step 2 — Edit sub-category name or reassign parent" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar — Categories expanded" },
+    { url: "/docs/pm_fresh/img_10.jpeg", caption: "Step 2 — Sub Category List — click Edit icon" },
+    { url: "/docs/pm_fresh/img_09.jpeg", caption: "Step 3 — Edit sub-category name or reassign parent" },
+  ],
+  // PM-SUB-004: Delete a sub-category
+  "PM-SUB-004": [
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar — Categories expanded" },
+    { url: "/docs/pm_fresh/img_10.jpeg", caption: "Step 2 — Sub Category List — click Delete (trash) icon" },
   ],
 
   // ════════════════════════════════════════════════════
   //  PRODUCT MANAGEMENT — Bulk Import (Categories)
+  //  Source: pm_fresh/img_10–img_13
   // ════════════════════════════════════════════════════
 
   // PM-BIM-001: Download bulk import template
   "PM-BIM-001": [
-    { url: "/docs/pm/img_34.jpeg", caption: "Step 1 — Navigate to Categories → Bulk Import" },
-    { url: "/docs/pm/img_35.jpeg", caption: "Step 2 — Category Bulk Import — download template" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar — Categories expanded" },
+    { url: "/docs/pm_fresh/img_11.jpeg", caption: "Step 2 — Categories → Bulk Import selected in sidebar" },
+    { url: "/docs/pm_fresh/img_12.jpeg", caption: "Step 3 — Category Bulk Import — 3-step instructions" },
+    { url: "/docs/pm_fresh/img_13.jpeg", caption: "Step 4 — Download template (With Current Data / Without Any Data)" },
   ],
   // PM-BIM-002: Upload new categories via Excel
   "PM-BIM-002": [
-    { url: "/docs/pm/img_35.jpeg", caption: "Step 1 — Category Bulk Import instructions (3 steps)" },
-    { url: "/docs/pm/img_36.jpeg", caption: "Step 2 — Select 'Upload New Data' → choose Excel → Upload" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar — Categories expanded" },
+    { url: "/docs/pm_fresh/img_11.jpeg", caption: "Step 2 — Categories → Bulk Import in sidebar" },
+    { url: "/docs/pm_fresh/img_13.jpeg", caption: "Step 3 — Select 'Upload New Data' → choose Excel → Upload" },
   ],
   // PM-BIM-003: Update existing categories via Excel
   "PM-BIM-003": [
-    { url: "/docs/pm/img_36.jpeg", caption: "Step 1 — Select 'Update Existing Data' → upload corrected file" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar — Categories expanded" },
+    { url: "/docs/pm_fresh/img_11.jpeg", caption: "Step 2 — Categories → Bulk Import in sidebar" },
+    { url: "/docs/pm_fresh/img_13.jpeg", caption: "Step 3 — Select 'Update Existing Data' → upload corrected file" },
   ],
 
   // ════════════════════════════════════════════════════
   //  PRODUCT MANAGEMENT — Bulk Export (Categories)
+  //  Source: pm_fresh/img_13–img_15
   // ════════════════════════════════════════════════════
 
   // PM-BEX-001: Export categories to Excel
   "PM-BEX-001": [
-    { url: "/docs/pm/img_37.jpeg", caption: "Step 1 — Navigate to Categories → Bulk Export" },
-    { url: "/docs/pm/img_38.jpeg", caption: "Step 2 — Export Categories with filters & download" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar — Categories expanded" },
+    { url: "/docs/pm_fresh/img_14.jpeg", caption: "Step 2 — Categories → Bulk Export selected in sidebar" },
+    { url: "/docs/pm_fresh/img_15.jpeg", caption: "Step 3 — Category Bulk Export — 2-step guide & Export button" },
   ],
 
   // ════════════════════════════════════════════════════
   //  PRODUCT MANAGEMENT — Attributes
+  //  Source: pm_fresh/img_16–img_18
   // ════════════════════════════════════════════════════
 
   // PM-ATT-001: Add a new attribute
   "PM-ATT-001": [
-    { url: "/docs/pm/img_40.jpeg", caption: "Step 1 — Navigate to Attributes in sidebar" },
-    { url: "/docs/pm/img_41.jpeg", caption: "Step 2 — Add New Attribute form (multilingual name)" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar navigation" },
+    { url: "/docs/pm_fresh/img_16.jpeg", caption: "Step 2 — Attributes selected in sidebar" },
+    { url: "/docs/pm_fresh/img_17.jpeg", caption: "Step 3 — Add New Attribute form (multilingual name)" },
   ],
-  // PM-ATT-002: View/edit/delete attributes
+  // PM-ATT-002: View/search/export attribute list
   "PM-ATT-002": [
-    { url: "/docs/pm/img_42.jpeg", caption: "Step 1 — Attribute List with edit & delete actions" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar navigation" },
+    { url: "/docs/pm_fresh/img_16.jpeg", caption: "Step 2 — Attributes selected in sidebar" },
+    { url: "/docs/pm_fresh/img_18.jpeg", caption: "Step 3 — Attribute List (search, export, edit/delete actions)" },
+  ],
+  // PM-ATT-003: Edit/delete an attribute
+  "PM-ATT-003": [
+    { url: "/docs/pm_fresh/img_16.jpeg", caption: "Step 1 — Attributes selected in sidebar" },
+    { url: "/docs/pm_fresh/img_18.jpeg", caption: "Step 2 — Attribute List — click Edit or Delete icon" },
+    { url: "/docs/pm_fresh/img_17.jpeg", caption: "Step 3 — Edit Attribute form" },
   ],
 
   // ════════════════════════════════════════════════════
   //  PRODUCT MANAGEMENT — Units
+  //  Source: pm_fresh/img_19–img_21
   // ════════════════════════════════════════════════════
 
   // PM-UNT-001: Add a new unit
   "PM-UNT-001": [
-    { url: "/docs/pm/img_43.jpeg", caption: "Step 1 — Navigate to Units in sidebar" },
-    { url: "/docs/pm/img_44.jpeg", caption: "Step 2 — Add New Unit form" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar navigation" },
+    { url: "/docs/pm_fresh/img_19.jpeg", caption: "Step 2 — Units selected in sidebar" },
+    { url: "/docs/pm_fresh/img_20.jpeg", caption: "Step 3 — Add New Unit form (multilingual name)" },
   ],
-  // PM-UNT-002: View/edit/delete units
+  // PM-UNT-002: View/search/export unit list
   "PM-UNT-002": [
-    { url: "/docs/pm/img_45.jpeg", caption: "Step 1 — Unit List with edit & delete actions" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar navigation" },
+    { url: "/docs/pm_fresh/img_19.jpeg", caption: "Step 2 — Units selected in sidebar" },
+    { url: "/docs/pm_fresh/img_21.jpeg", caption: "Step 3 — Unit List (20 units, search, export, edit/delete)" },
+  ],
+  // PM-UNT-003: Edit/delete a unit
+  "PM-UNT-003": [
+    { url: "/docs/pm_fresh/img_19.jpeg", caption: "Step 1 — Units selected in sidebar" },
+    { url: "/docs/pm_fresh/img_21.jpeg", caption: "Step 2 — Unit List — click Edit or Delete icon" },
+    { url: "/docs/pm_fresh/img_20.jpeg", caption: "Step 3 — Edit Unit form" },
   ],
 
   // ════════════════════════════════════════════════════
   //  PRODUCT MANAGEMENT — Brands
+  //  Source: pm_fresh/img_22–img_23
   // ════════════════════════════════════════════════════
 
   // PM-BRD-001: Add a new brand
   "PM-BRD-001": [
-    { url: "/docs/pm/img_46.jpeg", caption: "Step 1 — Brand Setup — click '+ Add new brand'" },
-    { url: "/docs/pm/img_47.jpeg", caption: "Step 2 — Add New Brand form (name, status, logo)" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar navigation" },
+    { url: "/docs/pm_fresh/img_22.jpeg", caption: "Step 2 — Brand Setup — click '+ Add new brand'" },
+    { url: "/docs/pm_fresh/img_23.jpeg", caption: "Step 3 — Add New Brand modal (Status, Name, Logo upload)" },
   ],
-  // PM-BRD-002: View brand list and manage
+  // PM-BRD-002: Enable or disable a brand using status toggle
   "PM-BRD-002": [
-    { url: "/docs/pm/img_46.jpeg", caption: "Step 1 — Brand List with search, status toggles & actions" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar navigation" },
+    { url: "/docs/pm_fresh/img_22.jpeg", caption: "Step 2 — Brand Setup list — toggle the Status switch on the brand row" },
   ],
-  // PM-BRD-003: Edit/delete brand
+  // PM-BRD-003: View and search the full brand list
   "PM-BRD-003": [
-    { url: "/docs/pm/img_46.jpeg", caption: "Step 1 — Brand List — click Edit or Delete" },
-    { url: "/docs/pm/img_47.jpeg", caption: "Step 2 — Edit Brand form" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar navigation" },
+    { url: "/docs/pm_fresh/img_22.jpeg", caption: "Step 2 — Brand Setup list (254 brands, search bar, export, pagination)" },
   ],
 
   // ════════════════════════════════════════════════════
   //  PRODUCT MANAGEMENT — Product Setup (Add New)
+  //  Source: pm_fresh/img_24–img_29
+  //  ⚠ IDs aligned to user-stories-data.ts features
   // ════════════════════════════════════════════════════
 
-  // PM-PRD-001: Add product with multilingual name
+  // PM-PRD-001: Enter product name & description in Default, English, Arabic
   "PM-PRD-001": [
-    { url: "/docs/pm/img_02.jpeg", caption: "Step 1 — Product Setup → Add New in sidebar" },
-    { url: "/docs/pm/img_04.jpeg", caption: "Step 2 — Add New Item — name & description fields" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar navigation" },
+    { url: "/docs/pm_fresh/img_24.jpeg", caption: "Step 2 — Product Setup expanded — Add New in sidebar" },
+    { url: "/docs/pm_fresh/img_25.jpeg", caption: "Step 3 — Add New Item form — name, description (Default/EN/AR tabs)" },
   ],
-  // PM-PRD-002: Upload product images
+  // PM-PRD-002: Upload 1:1 product image and thumbnail
   "PM-PRD-002": [
-    { url: "/docs/pm/img_05.jpeg", caption: "Step 1 — Product image & thumbnail upload (1:1 ratio)" },
+    { url: "/docs/pm_fresh/img_24.jpeg", caption: "Step 1 — Product Setup → Add New in sidebar" },
+    { url: "/docs/pm_fresh/img_25.jpeg", caption: "Step 2 — Item image & thumbnail upload section" },
+    { url: "/docs/pm_fresh/img_26.jpeg", caption: "Step 3 — Image upload widgets close-up (1:1 ratio)" },
   ],
-  // PM-PRD-003: Assign store, category, brand
+  // PM-PRD-003: Assign store, category, sub-category, brand
   "PM-PRD-003": [
-    { url: "/docs/pm/img_06.jpeg", caption: "Step 1 — Select store, category & set price" },
+    { url: "/docs/pm_fresh/img_24.jpeg", caption: "Step 1 — Product Setup → Add New in sidebar" },
+    { url: "/docs/pm_fresh/img_27.jpeg", caption: "Step 2 — Store & Category Info (Store, Category, Sub category, Brand)" },
   ],
-  // PM-PRD-004: Set price, stock, discount
+  // PM-PRD-004: Select unit of measurement and set maximum purchase quantity
   "PM-PRD-004": [
-    { url: "/docs/pm/img_06.jpeg", caption: "Step 1 — Price, stock & discount fields" },
+    { url: "/docs/pm_fresh/img_24.jpeg", caption: "Step 1 — Product Setup → Add New in sidebar" },
+    { url: "/docs/pm_fresh/img_27.jpeg", caption: "Step 2 — Unit selector & Maximum Purchase Quantity Limit field" },
   ],
-  // PM-PRD-005: Same as above
+  // PM-PRD-005: Set price, stock quantity, and discount percentage
   "PM-PRD-005": [
-    { url: "/docs/pm/img_06.jpeg", caption: "Step 1 — Price, stock & discount configuration" },
+    { url: "/docs/pm_fresh/img_24.jpeg", caption: "Step 1 — Product Setup → Add New in sidebar" },
+    { url: "/docs/pm_fresh/img_27.jpeg", caption: "Step 2 — Price Information (Price, Total stock, Discount type, Discount %)" },
   ],
-  // PM-PRD-006: Add attributes and tags
+  // PM-PRD-006: Add product attributes and fill variant price/stock table
   "PM-PRD-006": [
-    { url: "/docs/pm/img_07.jpeg", caption: "Step 1 — Attribute selection & tags input" },
+    { url: "/docs/pm_fresh/img_24.jpeg", caption: "Step 1 — Product Setup → Add New in sidebar" },
+    { url: "/docs/pm_fresh/img_28.jpeg", caption: "Step 2 — Attribute selector (e.g. COLORS, SIZE)" },
+    { url: "/docs/pm_fresh/img_29.jpeg", caption: "Step 3 — Variant table (combination price & stock for each variant)" },
   ],
-  // PM-PRD-007: Configure product variants
+  // PM-PRD-007: Import product info from platform gallery
   "PM-PRD-007": [
-    { url: "/docs/pm/img_08.jpeg", caption: "Step 1 — Variant pricing (colours & sizes)" },
+    { url: "/docs/pm_fresh/img_24.jpeg", caption: "Step 1 — Product Setup → Add New in sidebar" },
+    { url: "/docs/pm_fresh/img_25.jpeg", caption: "Step 2 — Add New Item form — Add Info From Gallery feature" },
   ],
-  // PM-PRD-008: Save as draft
+  // PM-PRD-008: Add searchable keyword tags to the product
   "PM-PRD-008": [
-    { url: "/docs/pm/img_04.jpeg", caption: "Step 1 — Add New Item form — use Save as Draft" },
-  ],
-  // PM-PRD-009: Publish product
-  "PM-PRD-009": [
-    { url: "/docs/pm/img_04.jpeg", caption: "Step 1 — Add New Item form — click Submit to publish" },
+    { url: "/docs/pm_fresh/img_24.jpeg", caption: "Step 1 — Product Setup → Add New in sidebar" },
+    { url: "/docs/pm_fresh/img_28.jpeg", caption: "Step 2 — Tags section — enter keywords and add" },
   ],
 
   // ════════════════════════════════════════════════════
   //  PRODUCT MANAGEMENT — Product Setup (List)
+  //  Source: pm_fresh/img_30–img_34
+  //  ⚠ IDs aligned to user-stories-data.ts features
   // ════════════════════════════════════════════════════
 
-  // PM-LST-001: View product list
+  // PM-LST-001: View product list with search, filter, paginate
   "PM-LST-001": [
-    { url: "/docs/pm/img_09.jpeg", caption: "Step 1 — Product Setup → List in sidebar" },
-    { url: "/docs/pm/img_10.jpeg", caption: "Step 2 — Full product list with search & export" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar navigation" },
+    { url: "/docs/pm_fresh/img_30.jpeg", caption: "Step 2 — Product Setup → List selected in sidebar" },
+    { url: "/docs/pm_fresh/img_31.jpeg", caption: "Step 3 — Item List (318 items, filters, search, export)" },
   ],
-  // PM-LST-002: Filter by store
+  // PM-LST-002: Edit any field of an existing product from the list
   "PM-LST-002": [
-    { url: "/docs/pm/img_11.jpeg", caption: "Step 1 — Store selection dropdown" },
-    { url: "/docs/pm/img_12.jpeg", caption: "Step 2 — Filtered product list" },
+    { url: "/docs/pm_fresh/img_30.jpeg", caption: "Step 1 — Product Setup → List in sidebar" },
+    { url: "/docs/pm_fresh/img_31.jpeg", caption: "Step 2 — Item List — locate product" },
+    { url: "/docs/pm_fresh/img_34.jpeg", caption: "Step 3 — Click Edit (pencil) icon to modify product" },
   ],
-  // PM-LST-003: Edit existing product
+  // PM-LST-003: Enable or disable a product using the status toggle
   "PM-LST-003": [
-    { url: "/docs/pm/img_13.jpeg", caption: "Step 1 — Product table — click Edit icon" },
+    { url: "/docs/pm_fresh/img_30.jpeg", caption: "Step 1 — Product Setup → List in sidebar" },
+    { url: "/docs/pm_fresh/img_31.jpeg", caption: "Step 2 — Item List — toggle the Status switch on the product row" },
   ],
-  // PM-LST-004: Delete product
+  // PM-LST-004: Delete a product permanently from the catalogue
   "PM-LST-004": [
-    { url: "/docs/pm/img_13.jpeg", caption: "Step 1 — Product table — click Delete icon & confirm" },
+    { url: "/docs/pm_fresh/img_30.jpeg", caption: "Step 1 — Product Setup → List in sidebar" },
+    { url: "/docs/pm_fresh/img_34.jpeg", caption: "Step 2 — Item List — click Delete (trash) icon" },
   ],
 
   // ════════════════════════════════════════════════════
-  //  PRODUCT MANAGEMENT — Low Stock
+  //  PRODUCT MANAGEMENT — Low Stock List
+  //  Source: pm_fresh/img_35–img_37
+  //  ⚠ IDs aligned to user-stories-data.ts features
   // ════════════════════════════════════════════════════
 
-  // PM-LOW-001: Monitor low-stock items
+  // PM-LOW-001: View low-stock products, filter by zone or store
   "PM-LOW-001": [
-    { url: "/docs/pm/img_14.jpeg", caption: "Step 1 — Navigate to Low Stock List" },
-    { url: "/docs/pm/img_15.jpeg", caption: "Step 2 — Low Stock List showing zero-stock items" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar navigation" },
+    { url: "/docs/pm_fresh/img_35.jpeg", caption: "Step 2 — Product Setup → Low Stock List in sidebar" },
+    { url: "/docs/pm_fresh/img_36.jpeg", caption: "Step 3 — Low Stock List (21 items, Current Stock = 0)" },
+    { url: "/docs/pm_fresh/img_37.jpeg", caption: "Step 4 — Zone filter dropdown (All Zones / Bahrain)" },
   ],
-  // PM-LOW-002: Update stock from low stock list
+  // PM-LOW-002: Update stock quantity from low-stock list
   "PM-LOW-002": [
-    { url: "/docs/pm/img_15.jpeg", caption: "Step 1 — Low Stock List — locate item" },
-    { url: "/docs/pm/img_16.jpeg", caption: "Step 2 — Update stock count via quick action" },
+    { url: "/docs/pm_fresh/img_35.jpeg", caption: "Step 1 — Low Stock List in sidebar" },
+    { url: "/docs/pm_fresh/img_36.jpeg", caption: "Step 2 — Low Stock List — click Edit (pencil) icon to update stock" },
   ],
 
   // ════════════════════════════════════════════════════
   //  PRODUCT MANAGEMENT — Reviews
+  //  Source: pm_fresh/img_38–img_39
   // ════════════════════════════════════════════════════
 
   // PM-REV-001: View product reviews
   "PM-REV-001": [
-    { url: "/docs/pm/img_17.jpeg", caption: "Step 1 — Navigate to Reviews" },
-    { url: "/docs/pm/img_18.jpeg", caption: "Step 2 — Item Reviews list with ratings" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar navigation" },
+    { url: "/docs/pm_fresh/img_38.jpeg", caption: "Step 2 — Product Setup → Review selected in sidebar" },
+    { url: "/docs/pm_fresh/img_39.jpeg", caption: "Step 3 — Item Reviews page (Review Id, Item, Customer, Review, Date, Store Reply)" },
   ],
-  // PM-REV-002: Manage reviews
+  // PM-REV-002: Delete an inappropriate or fraudulent review
   "PM-REV-002": [
-    { url: "/docs/pm/img_18.jpeg", caption: "Step 1 — Reviews list — manage & export" },
+    { url: "/docs/pm_fresh/img_38.jpeg", caption: "Step 1 — Review selected in sidebar" },
+    { url: "/docs/pm_fresh/img_39.jpeg", caption: "Step 2 — Item Reviews — click action button to delete review" },
   ],
 
   // ════════════════════════════════════════════════════
   //  PRODUCT MANAGEMENT — Bulk Import (Products)
+  //  Source: pm_fresh/img_40–img_42
   // ════════════════════════════════════════════════════
 
   // PM-PIB-001: Download product import template
   "PM-PIB-001": [
-    { url: "/docs/pm/img_19.jpeg", caption: "Step 1 — Navigate to Product Setup → Bulk Import" },
-    { url: "/docs/pm/img_20.jpeg", caption: "Step 2 — Items Bulk Import 3-step guide" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar navigation" },
+    { url: "/docs/pm_fresh/img_40.jpeg", caption: "Step 2 — Product Setup → Bulk Import selected in sidebar" },
+    { url: "/docs/pm_fresh/img_41.jpeg", caption: "Step 3 — Items Bulk Import 3-step instructions" },
+    { url: "/docs/pm_fresh/img_42.jpeg", caption: "Step 4 — Download template & upload section" },
   ],
-  // PM-PIB-002: Upload product Excel
+  // PM-PIB-002: Upload products via Excel
   "PM-PIB-002": [
-    { url: "/docs/pm/img_20.jpeg", caption: "Step 1 — Items Bulk Import instructions" },
-    { url: "/docs/pm/img_21.jpeg", caption: "Step 2 — Download template, select type & upload" },
+    { url: "/docs/pm_fresh/img_40.jpeg", caption: "Step 1 — Bulk Import selected in sidebar" },
+    { url: "/docs/pm_fresh/img_41.jpeg", caption: "Step 2 — Items Bulk Import instructions (3 steps)" },
+    { url: "/docs/pm_fresh/img_42.jpeg", caption: "Step 3 — Select upload type → choose Excel → Upload" },
   ],
 
   // ════════════════════════════════════════════════════
   //  PRODUCT MANAGEMENT — Bulk Export (Products)
+  //  Source: pm_fresh/img_43–img_44
   // ════════════════════════════════════════════════════
 
-  // PM-PEX-001: Export product catalogue
+  // PM-PEX-001: Export product catalogue to Excel
   "PM-PEX-001": [
-    { url: "/docs/pm/img_22.jpeg", caption: "Step 1 — Navigate to Product Setup → Bulk Export" },
-    { url: "/docs/pm/img_23.jpeg", caption: "Step 2 — Items Bulk Export — filter & download" },
+    { url: "/docs/pm_fresh/img_01.jpeg", caption: "Step 1 — Product Management sidebar navigation" },
+    { url: "/docs/pm_fresh/img_43.jpeg", caption: "Step 2 — Product Setup → Bulk Export selected in sidebar" },
+    { url: "/docs/pm_fresh/img_44.jpeg", caption: "Step 3 — Items Bulk Export — select type, Clear/Export" },
   ],
 
   // ════════════════════════════════════════════════════
@@ -463,155 +535,214 @@ const REF_IMAGE_MAP: Record<string, StoryImage[]> = {
 
   // OM-ORD: Order List
   "OM-ORD-001": [
-    { url: "/docs/om/img_08.png", caption: "Step 1 — Order Management sidebar" },
-    { url: "/docs/om/img_10.png", caption: "Step 2 — All Orders list with filters" },
+    { url: "/docs/om2/img_08.png", caption: "Order Management → Orders — full order list" },
+    { url: "/docs/om2/img_10.png", caption: "Order status categories and filters" },
   ],
   "OM-ORD-002": [
-    { url: "/docs/om/img_09.png", caption: "Step 1 — Order categories (Pending, Confirmed…)" },
-    { url: "/docs/om/img_11.png", caption: "Step 2 — Pending Orders list" },
-  ],
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Orders — navigation" },
+    { url: "/docs/om2/img_09.png", caption: "Order Management → Orders — status filter tabs (Pending, Confirmed, etc.)" },
+    { url: "/docs/om2/img_11.png", caption: "Scheduled orders view" },
+    ],
   "OM-ORD-003": [
-    { url: "/docs/om/img_10.png", caption: "Step 1 — All Orders — use search & filters" },
-  ],
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Orders — navigation" },
+    { url: "/docs/om2/img_12.png", caption: "Order Management → Orders — search & filter by date, store, status" },
+    { url: "/docs/om2/img_13.png", caption: "Filtered order results table" },
+    ],
   "OM-ORD-004": [
-    { url: "/docs/om/img_14.png", caption: "Step 1 — Accepted Orders list" },
-  ],
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Orders — navigation" },
+    { url: "/docs/om2/img_14.png", caption: "Accepted Orders list" },
+    { url: "/docs/om2/img_15.png", caption: "Processing orders" },
+    ],
   "OM-ORD-005": [
-    { url: "/docs/om/img_16.png", caption: "Step 1 — Delivered Orders history" },
-  ],
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Orders — navigation" },
+    { url: "/docs/om2/img_16.png", caption: "Delivered Orders history" },
+    { url: "/docs/om2/img_17.png", caption: "Order completion summary" },
+    ],
 
   // OM-DET: Order Details
   "OM-DET-001": [
-    { url: "/docs/om/img_21.png", caption: "Step 1 — Order Details view" },
-  ],
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Orders — navigation" },
+    { url: "/docs/om2/img_20.png", caption: "Order Management → Orders → Click order — Order Details page" },
+    ],
   "OM-DET-002": [
-    { url: "/docs/om/img_23.png", caption: "Step 1 — Print Invoice" },
-  ],
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Orders — navigation" },
+    { url: "/docs/om2/img_19.png", caption: "Order Management → Orders → Order Details — Update status dropdown" },
+    { url: "/docs/om2/img_20.png", caption: "Order Details with action buttons (Confirm, Cancel, Invoice)" },
+    ],
 
   // OM-POS: POS Section
   "OM-POS-001": [
-    { url: "/docs/om/img_00.png", caption: "Step 1 — POS Section in sidebar" },
-    { url: "/docs/om/img_03.png", caption: "Step 2 — POS product selection" },
+    { url: "/docs/om2/img_01.png", caption: "POS — Select Store" },
+    { url: "/docs/om2/img_02.png", caption: "POS — Product Search and Selection" },
   ],
   "OM-POS-002": [
-    { url: "/docs/om/img_04.png", caption: "Step 1 — POS product search" },
-    { url: "/docs/om/img_05.png", caption: "Step 2 — POS customer details" },
-  ],
+    { url: "/docs/om2/img_03.png", caption: "POS → Add Customer Details — form fields" },
+    { url: "/docs/om2/img_04.png", caption: "POS customer name and phone fields" },
+    ],
   "OM-POS-003": [
-    { url: "/docs/om/img_07.png", caption: "Step 1 — POS review & checkout" },
-  ],
-
-  // OM-FLS: Flash Sales
-  "OM-FLS-001": [
-    { url: "/docs/om/img_24.png", caption: "Step 1 — Flash Sale Setup (title, discount, validity)" },
-  ],
-  "OM-FLS-002": [
-    { url: "/docs/om/img_25.png", caption: "Step 1 — Flash Sale Product Setup (item, stock, discount)" },
-  ],
-  "OM-FLS-003": [
-    { url: "/docs/om/img_26.png", caption: "Step 1 — Flash Sale List with status & actions" },
-  ],
-  "OM-FLS-004": [
-    { url: "/docs/om/img_27.png", caption: "Step 1 — Flash Sales overview" },
-  ],
-
-  // OM-REF: Returns & Refunds
-  "OM-REF-001": [
-    { url: "/docs/bm/refund_settings_tab_1773152858972.png", caption: "Step 1 — Refund Settings tab" },
-    { url: "/docs/bm/refund_reason_list_actions_1773153181199.png", caption: "Step 2 — Refund Reasons with actions" },
-  ],
+    { url: "/docs/om2/img_07.png", caption: "POS → Review & Checkout — order summary" },
+    ],
 
   // OM-OFP: Offline Payments
   "OM-OFP-001": [
-    { url: "/docs/om/img_10.png", caption: "Step 1 — Order Management — Offline Payment Orders" },
-  ],
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Offline Payments — navigation" },
+    { url: "/docs/om2/img_08.png", caption: "Order Management → Offline Payments — navigation" },
+    { url: "/docs/om2/img_21.png", caption: "Offline Payments — pending verification list" },
+    ],
   "OM-OFP-002": [
-    { url: "/docs/om/img_21.png", caption: "Step 1 — Offline Payment Order Details — mark as paid" },
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Offline Payments — navigation" },
+    { url: "/docs/om2/img_21.png", caption: "Order Management → Offline Payments — click order to verify payment" },
+    ],
+
+  // OM-REF: Returns & Refunds
+  "OM-REF-001": [
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Order Refunds — navigation" },
+    { url: "/docs/om2/img_08.png", caption: "Order Management → Order Refunds — navigation" },
+    { url: "/docs/bm/refund_settings_tab_1773152858972.png", caption: "Refund request list — Approve or Reject" },
+    ],
+
+  // OM-FLS: Flash Sales (under Order Management)
+  "OM-FLS-001": [
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Flash Sales section" },
+    { url: "/docs/om2/img_22.png", caption: "Step 3 — Order Management → Flash Sales — Create flash sale form (title, discount %, validity dates)" },
+  ],
+  "OM-FLS-002": [
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Flash Sales section" },
+    { url: "/docs/om2/img_22.png", caption: "Step 3 — Order Management → Flash Sales → Add Products — select item, set stock limit & discount" },
+    { url: "/docs/om2/img_23.png", caption: "Step 4 — Product promotion fields (original price, discounted price, max qty)" },
+  ],
+  "OM-FLS-003": [
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Flash Sales section" },
+    { url: "/docs/om2/img_23.png", caption: "Step 3 — Order Management → Flash Sales → Manage — flash sale list with status & actions" },
+    { url: "/docs/om2/img_24.png", caption: "Step 4 — Flash sale controls (enable/disable, edit, delete)" },
+  ],
+  "OM-FLS-004": [
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Flash Sales active overview" },
+    { url: "/docs/om2/img_23.png", caption: "Step 3 — Flash Sales list with status toggles" },
+    { url: "/docs/om2/img_24.png", caption: "Step 4 — Flash sale management actions" },
   ],
 
-  // FS-*: Flash Sales (matching current JSON refs)
+  // FS-*: Flash Sales (JSON ref aliases — Order Management module)
   "FS-CRT-001": [
-    { url: "/docs/om/img_24.png", caption: "Step 1 — Flash Sale Setup (title, discount %, validity dates)" },
-    { url: "/docs/om/img_25.png", caption: "Step 2 — Add products to Flash Sale" },
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Flash Sales section" },
+    { url: "/docs/om2/img_22.png", caption: "Step 3 — Order Management → Flash Sales — Create flash sale form (title, Admin Discount %, Store Discount %, Start Date, End Date)" },
+    { url: "/docs/om2/img_23.png", caption: "Step 4 — Flash Sales — Add Products to the event after saving" },
   ],
   "FS-PRD-001": [
-    { url: "/docs/om/img_25.png", caption: "Step 1 — Flash Sale Product Setup (item, stock, discount)" },
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Flash Sales section" },
+    { url: "/docs/om2/img_22.png", caption: "Step 3 — Order Management → Flash Sales → Click Add Products — select item, original price & discount %" },
+    { url: "/docs/om2/img_23.png", caption: "Step 4 — Set sale stock quantity and discounted price → Save" },
   ],
   "FS-MGT-001": [
-    { url: "/docs/om/img_26.png", caption: "Step 1 — Flash Sale List with status toggle & actions" },
-    { url: "/docs/om/img_27.png", caption: "Step 2 — Flash Sales overview" },
+    { url: "/docs/om2/img_08.png", caption: "Step 2 — Order Management → Flash Sales section" },
+    { url: "/docs/om2/img_23.png", caption: "Step 3 — Order Management → Flash Sales → Manage — list with status toggle & actions" },
+    { url: "/docs/om2/img_24.png", caption: "Step 4 — Flash sale controls (Publish toggle, Edit, Delete, Duplicate)" },
   ],
 
   // ════════════════════════════════════════════════════
   //  REPORTS & ANALYTICS
-  //  Note: JSON uses RA-TXN/RA-STW/RA-DSB; map aliases both
+  //  All 35 images: img_00 (sidebar) through img_34
   // ════════════════════════════════════════════════════
 
-  // RA-TXN / RA-TRN: Transaction Report
+  // RA-TXN: Transaction Report (img_00, img_01, img_02, img_03)
   "RA-TXN-001": [
-    { url: "/docs/ra/img_00.png", caption: "Step 1 — Report & Analytics sidebar" },
-    { url: "/docs/ra/img_01.png", caption: "Step 2 — Transaction Report filter bar" },
+    { url: "/docs/ra2/img_00.png", caption: "Step 1 — Report & Analytics sidebar navigation" },
+    { url: "/docs/ra2/img_01.png", caption: "Step 2 — Transaction Report — filter bar (module, zone, store, time range)" },
+    { url: "/docs/ra2/img_02.png", caption: "Step 3 — Transaction Report — summary cards (Admin Earning, Store Earning, Deliveryman Earning, Completed & Refunded) + Order Transactions table" },
   ],
   "RA-TXN-002": [
-    { url: "/docs/ra/img_02.png", caption: "Step 1 — Transaction summary metrics" },
-    { url: "/docs/ra/img_03.png", caption: "Step 2 — Transaction details table" },
+    { url: "/docs/ra2/img_00.png", caption: "Step 1 — Report & Analytics sidebar navigation" },
+    { url: "/docs/ra2/img_02.png", caption: "Step 2 — Transaction Report — Order Transactions detail table" },
+    { url: "/docs/ra2/img_03.png", caption: "Step 3 — Export dropdown — download as Excel or CSV" },
   ],
+  // Aliases
   "RA-TRN-001": [
-    { url: "/docs/ra/img_00.png", caption: "Step 1 — Report & Analytics sidebar" },
-    { url: "/docs/ra/img_01.png", caption: "Step 2 — Transaction Report filter bar" },
+    { url: "/docs/ra2/img_00.png", caption: "Report & Analytics sidebar navigation" },
+    { url: "/docs/ra2/img_01.png", caption: "Transaction Report — filter bar" },
+    { url: "/docs/ra2/img_02.png", caption: "Transaction Report — summary metrics & table" },
   ],
   "RA-TRN-002": [
-    { url: "/docs/ra/img_02.png", caption: "Step 1 — Transaction summary metrics" },
-    { url: "/docs/ra/img_03.png", caption: "Step 2 — Transaction details" },
+    { url: "/docs/ra2/img_02.png", caption: "Transaction Report — detail table" },
+    { url: "/docs/ra2/img_03.png", caption: "Transaction Report — export options" },
   ],
 
-  // RA-ITM: Item Report
+  // RA-ITM: Item Report (img_04, img_05, img_06)
   "RA-ITM-001": [
-    { url: "/docs/ra/img_04.png", caption: "Step 1 — Item Report filters" },
-    { url: "/docs/ra/img_05.png", caption: "Step 2 — Item Report data table" },
+    { url: "/docs/ra2/img_00.png", caption: "Step 1 — Report & Analytics sidebar navigation" },
+    { url: "/docs/ra2/img_04.png", caption: "Step 2 — Item Report — filter by module, store, zone, time, category" },
+    { url: "/docs/ra2/img_05.png", caption: "Step 3 — Item Report — product sales table (sell count, revenue, discount, avg sale, ratings)" },
+    { url: "/docs/ra2/img_06.png", caption: "Step 4 — Item Report — export options (Excel, CSV)" },
   ],
 
-  // RA-STW / RA-STR: Store Report
+  // RA-STW / RA-STR: Store Wise Report (img_07, img_08, img_09, img_10)
   "RA-STW-001": [
-    { url: "/docs/ra/img_07.png", caption: "Step 1 — Store Report summary" },
-    { url: "/docs/ra/img_08.png", caption: "Step 2 — Store Report details" },
+    { url: "/docs/ra2/img_00.png", caption: "Step 1 — Report & Analytics sidebar navigation" },
+    { url: "/docs/ra2/img_07.png", caption: "Step 2 — Store Wise Report → Summary Report tab (total orders, avg value, payment chart)" },
+    { url: "/docs/ra2/img_08.png", caption: "Step 3 — Store Wise Report → Sales Report tab (gross sale, tax, commission totals)" },
+    { url: "/docs/ra2/img_09.png", caption: "Step 4 — Store Wise Report → Order Report tab (order stats, chart, Total Sales table)" },
+    { url: "/docs/ra2/img_10.png", caption: "Step 5 — All Orders table with export, filter & column settings" },
   ],
   "RA-STR-001": [
-    { url: "/docs/ra/img_07.png", caption: "Step 1 — Store Report summary" },
-    { url: "/docs/ra/img_08.png", caption: "Step 2 — Store Report details" },
+    { url: "/docs/ra2/img_00.png", caption: "Report & Analytics sidebar navigation" },
+    { url: "/docs/ra2/img_07.png", caption: "Store Wise Report — Summary Report" },
+    { url: "/docs/ra2/img_08.png", caption: "Store Wise Report — Sales Report" },
   ],
 
-  // RA-EXP: Expense Report
+  // RA-EXP: Expense Report (img_11, img_12)
   "RA-EXP-001": [
-    { url: "/docs/ra/img_10.png", caption: "Step 1 — Expense Report filters" },
-    { url: "/docs/ra/img_11.png", caption: "Step 2 — Expense Report data" },
+    { url: "/docs/ra2/img_00.png", caption: "Step 1 — Report & Analytics sidebar navigation" },
+    { url: "/docs/ra2/img_11.png", caption: "Step 2 — Expense Report — filter by module, zone, vendor, customer, type, time" },
+    { url: "/docs/ra2/img_12.png", caption: "Step 3 — Expense Report — admin discount expense list table" },
   ],
 
-  // RA-DSB / RA-DIS: Disbursement Report
+  // RA-DSB: Disbursement Report (img_13, img_14, img_15, img_16, img_17, img_18)
   "RA-DSB-001": [
-    { url: "/docs/ra/img_13.png", caption: "Step 1 — Disbursement Report (pending/completed/cancelled)" },
-    { url: "/docs/ra/img_14.png", caption: "Step 2 — Disbursement details & filters" },
+    { url: "/docs/ra2/img_00.png", caption: "Step 1 — Report & Analytics sidebar navigation" },
+    { url: "/docs/ra2/img_13.png", caption: "Step 2 — Disbursement Report → Store Disbursements tab — summary cards (Pending, Completed, Cancelled) & filter" },
+    { url: "/docs/ra2/img_14.png", caption: "Step 3 — Disbursement Report → Delivery Man Disbursements tab — Total Disbursements table" },
+    { url: "/docs/ra2/img_15.png", caption: "Step 4 — Store Disbursement — detail filter (zone, module, store, payment method, status, time)" },
+    { url: "/docs/ra2/img_16.png", caption: "Step 5 — Delivery Man Disbursement — detail filter (zone, delivery man, payment method, status, time)" },
+    { url: "/docs/ra2/img_17.png", caption: "Step 6 — Total Disbursements table with search & export" },
+    { url: "/docs/ra2/img_18.png", caption: "Step 7 — Export dropdown — download as Excel or CSV" },
   ],
   "RA-DIS-001": [
-    { url: "/docs/ra/img_13.png", caption: "Step 1 — Disbursement Report (pending/completed/cancelled)" },
-    { url: "/docs/ra/img_14.png", caption: "Step 2 — Disbursement details & filters" },
+    { url: "/docs/ra2/img_00.png", caption: "Report & Analytics sidebar navigation" },
+    { url: "/docs/ra2/img_13.png", caption: "Disbursement Report — Store Disbursements" },
+    { url: "/docs/ra2/img_14.png", caption: "Disbursement Report — Delivery Man Disbursements" },
   ],
 
-  // RA-ORD: Order Report
+  // RA-ORD: Order Report (img_19, img_20, img_21)
   "RA-ORD-001": [
-    { url: "/docs/ra/img_19.png", caption: "Step 1 — Order Report search filters" },
-    { url: "/docs/ra/img_20.png", caption: "Step 2 — Order Report data" },
+    { url: "/docs/ra2/img_00.png", caption: "Step 1 — Report & Analytics sidebar navigation" },
+    { url: "/docs/ra2/img_19.png", caption: "Step 2 — Order Report — filter bar (modules, zones, stores, customers, time)" },
+    { url: "/docs/ra2/img_20.png", caption: "Step 3 — Order Report — statistics cards (Total, In Progress, On The Way, Delivered, Failed, Refunded, Cancelled) & full order table" },
+    { url: "/docs/ra2/img_21.png", caption: "Step 4 — Order Report — export dropdown with order details (Excel, CSV)" },
   ],
 
-  // RA-ATX / RA-VTX / RA-PTX: Tax Reports (Admin / Vendor / Platform)
+  // RA-ATX: Admin Tax Report (img_22, img_23, img_24)
   "RA-ATX-001": [
-    { url: "/docs/ra/img_00.png", caption: "Step 1 — Reports sidebar" },
+    { url: "/docs/ra2/img_00.png", caption: "Step 1 — Report & Analytics sidebar navigation" },
+    { url: "/docs/ra2/img_22.png", caption: "Step 2 — Admin Tax Report — select Date Range Type" },
+    { url: "/docs/ra2/img_23.png", caption: "Step 3 — Admin Tax Report — choose income source tax & enter tax rate" },
+    { url: "/docs/ra2/img_24.png", caption: "Step 4 — Admin Tax Report — generated report with total income & total tax breakdown" },
   ],
+
+  // RA-VTX: Vendor Tax Report (img_25, img_26, img_27, img_28, img_29, img_30)
   "RA-VTX-001": [
-    { url: "/docs/ra/img_00.png", caption: "Step 1 — Reports sidebar — Vendor Tax Report" },
+    { url: "/docs/ra2/img_00.png", caption: "Step 1 — Report & Analytics sidebar navigation" },
+    { url: "/docs/ra2/img_25.png", caption: "Step 2 — Vendor Tax Report — filter by Date Range & Select Vendor" },
+    { url: "/docs/ra2/img_26.png", caption: "Step 3 — Vendor Tax Report — summary metrics (Total Orders, Total Order Amount, Total Tax Amount)" },
+    { url: "/docs/ra2/img_27.png", caption: "Step 4 — Vendor Tax Report — vendor earnings tax summary table" },
+    { url: "/docs/ra2/img_28.png", caption: "Step 5 — Vendor Tax Report — export dropdown (Excel, CSV)" },
+    { url: "/docs/ra2/img_30.png", caption: "Step 6 — All Vendor Taxes — detailed tax table per order" },
   ],
+
+  // RA-PTX: Parcel Tax Report (img_31, img_32, img_34)
   "RA-PTX-001": [
-    { url: "/docs/ra/img_00.png", caption: "Step 1 — Reports sidebar — Platform Tax Report" },
+    { url: "/docs/ra2/img_00.png", caption: "Step 1 — Report & Analytics sidebar navigation" },
+    { url: "/docs/ra2/img_31.png", caption: "Step 2 — Parcel Tax Report — filter by date range" },
+    { url: "/docs/ra2/img_32.png", caption: "Step 3 — Parcel Tax Report — delivery tax breakdown table" },
+    { url: "/docs/ra2/img_34.png", caption: "Step 4 — Parcel Tax Report — export dropdown (Excel, CSV)" },
   ],
 
   // ════════════════════════════════════════════════════
@@ -649,138 +780,289 @@ const REF_IMAGE_MAP: Record<string, StoryImage[]> = {
 
   // SM-NEW: Add New Store
   "SM-NEW-001": [
+    { url: "/docs/sm2/img_02.png", caption: "Step 2 — Store Management — accessing the module" },
     { url: "/docs/bm/capture_business_settings_1773152502724.webp", caption: "Step 1 — Navigate to Store Management → Add New Store" },
-  ],
+    ],
   "SM-NEW-002": [
+    { url: "/docs/sm2/img_02.png", caption: "Step 2 — Store Management — accessing the module" },
     { url: "/docs/bm/business_settings_top_1773152555791.png", caption: "Step 1 — Configure store operational hours" },
-  ],
+    ],
 
   // SM-ADD: Store Address
   "SM-ADD-001": [
     { url: "/docs/bm/zone_setup_top_1773151880128.png", caption: "Step 1 — Set store address on map" },
-  ],
+    ],
 
   // SM-LST: Store List
   "SM-LST-001": [
+    { url: "/docs/sm2/img_09.png", caption: "Step 2 — Store Management → Stores List — navigation" },
     { url: "/docs/bm/capture_module_list_1773152203636.webp", caption: "Step 1 — Store List — view all stores" },
-  ],
+    ],
   "SM-LST-002": [
+    { url: "/docs/sm2/img_09.png", caption: "Step 2 — Store Management → Stores List — navigation" },
     { url: "/docs/bm/capture_module_list_1773152203636.webp", caption: "Step 1 — Store List — click Edit" },
     { url: "/docs/bm/business_settings_top_1773152555791.png", caption: "Step 2 — Edit Store form" },
-  ],
+    ],
   "SM-LST-003": [
+    { url: "/docs/sm2/img_09.png", caption: "Step 2 — Store Management → Stores List — navigation" },
     { url: "/docs/bm/capture_module_list_1773152203636.webp", caption: "Step 1 — Store List — toggle Status switch" },
-  ],
+    ],
 
   // SM-REC: Store Recommendations
   "SM-REC-001": [
+    { url: "/docs/sm2/img_11.png", caption: "Step 2 — Store Management → Recommended Store — navigation" },
     { url: "/docs/bm/capture_module_setup_1773151992715.webp", caption: "Step 1 — Featured / Recommended store toggle" },
-  ],
+    ],
 
   // SM-BIM: Store Bulk Import
   "SM-BIM-001": [
+    { url: "/docs/sm2/img_13.png", caption: "Step 2 — Store Management → Bulk Import — navigation" },
     { url: "/docs/pm/img_35.jpeg", caption: "Step 1 — Store Bulk Import — download template & upload" },
-  ],
+    ],
 
   // SM-BEX: Store Bulk Export
   "SM-BEX-001": [
+    { url: "/docs/sm2/img_16.png", caption: "Step 2 — Store Management → Bulk Export — navigation" },
     { url: "/docs/pm/img_38.jpeg", caption: "Step 1 — Store Bulk Export — select filters & download" },
-  ],
+    ],
 
   // ════════════════════════════════════════════════════
   //  FINANCIAL OPERATIONS (FN-*)
+  //  Note: Business Management manual Section 8 covers Financial Operations.
+  //  Images are drawn from Business Management (bm2) screens.
   // ════════════════════════════════════════════════════
 
   // FN-WDR: Withdrawal Requests
   "FN-WDR-001": [
-    { url: "/docs/ra/img_13.png", caption: "Step 1 — Financial Operations → Withdrawal Requests list" },
+    { url: "/docs/bm2/img_05.png", caption: "Transactions & Reports → Business Management — sidebar navigation" },
+    { url: "/docs/ra2/img_13.png", caption: "Business Management → Withdraw Requests — Pending / Approved / Denied tabs" },
+    { url: "/docs/ra2/img_14.png", caption: "Withdraw Requests — request list with store name, amount & status" },
   ],
   "FN-WDR-002": [
-    { url: "/docs/ra/img_14.png", caption: "Step 1 — Review withdrawal request details" },
-  ],
+    { url: "/docs/bm2/img_05.png", caption: "Step 1 — Business Management — sidebar navigation" },
+    { url: "/docs/ra2/img_13.png", caption: "Transactions & Reports → Business Management → Withdraw Requests — Pending tab" },
+    { url: "/docs/ra2/img_14.png", caption: "Withdraw Requests — click eye icon to review details → click Approve" },
+    ],
   "FN-WDR-003": [
-    { url: "/docs/ra/img_13.png", caption: "Step 1 — Approve or Deny withdrawal request" },
-  ],
+    { url: "/docs/bm2/img_05.png", caption: "Step 1 — Business Management — sidebar navigation" },
+    { url: "/docs/ra2/img_13.png", caption: "Transactions & Reports → Business Management → Withdraw Requests — Pending tab" },
+    { url: "/docs/ra2/img_14.png", caption: "Withdraw Requests — click Deny → enter admin note → Confirm" },
+    ],
 
-  // FN-DSB: Disbursements
+  // FN-DSB: Store Disbursement
   "FN-DSB-001": [
-    { url: "/docs/ra/img_13.png", caption: "Step 1 — Disbursement list with filters" },
-    { url: "/docs/ra/img_14.png", caption: "Step 2 — Disbursement details & export" },
+    { url: "/docs/bm2/img_05.png", caption: "Transactions & Reports → Business Management — sidebar navigation" },
+    { url: "/docs/ra2/img_13.png", caption: "Business Management → Store Disbursement — filter by status (Pending / Completed)" },
+    { url: "/docs/ra2/img_14.png", caption: "Store Disbursement — disbursement list with store name, amount & date" },
   ],
 
-  // FN-DLD: Delivery Charges
+  // FN-DLD: Delivery Man Disbursement
   "FN-DLD-001": [
-    { url: "/docs/bm/zone_setup_bottom_1773151887870.png", caption: "Step 1 — Zone-based delivery charge configuration" },
+    { url: "/docs/bm2/img_05.png", caption: "Transactions & Reports → Business Management — sidebar navigation" },
+    { url: "/docs/ra2/img_13.png", caption: "Business Management → Delivery Man Disbursement — driver payout list" },
   ],
 
-  // FN-COD: Cash on Delivery
+  // FN-COD: Collect Cash
   "FN-COD-001": [
-    { url: "/docs/bm/business_settings_bottom_1773152576887.png", caption: "Step 1 — Enable Cash on Delivery in payment settings" },
-  ],
+    { url: "/docs/bm2/img_05.png", caption: "Step 1 — Business Management — sidebar navigation" },
+    { url: "/docs/bm2/img_06.png", caption: "Transactions & Reports → Business Management → Collect Cash — enter amount, payment method & reference" },
+    { url: "/docs/bm2/img_07.png", caption: "Collect Cash — payment method selector & submit" },
+    ],
   "FN-COD-002": [
-    { url: "/docs/bm/business_settings_bottom_1773152576887.png", caption: "Step 1 — Configure COD overflow threshold" },
-  ],
+    { url: "/docs/bm2/img_05.png", caption: "Step 1 — Business Management — sidebar navigation" },
+    { url: "/docs/bm2/img_06.png", caption: "Transactions & Reports → Business Management → Collect Cash — view collection log" },
+    ],
 
-  // FN-DPM: Digital Payment Methods
+  // FN-DPM: Delivery Man Payments
   "FN-DPM-001": [
-    { url: "/docs/bm/business_settings_bottom_1773152576887.png", caption: "Step 1 — Digital Payment Methods configuration" },
-  ],
+    { url: "/docs/bm2/img_05.png", caption: "Step 1 — Business Management — sidebar navigation" },
+    { url: "/docs/bm2/img_08.png", caption: "Transactions & Reports → Business Management → Delivery Man Payments — enter driver, amount, payment type → Save" },
+    ],
 
-  // FN-MTH: Methods Overview
+  // FN-MTH: Withdraw Method
   "FN-MTH-001": [
-    { url: "/docs/bm/business_settings_bottom_1773152576887.png", caption: "Step 1 — Payment Methods list" },
-  ],
+    { url: "/docs/bm2/img_05.png", caption: "Step 1 — Business Management — sidebar navigation" },
+    { url: "/docs/bm2/img_09.png", caption: "Transactions & Reports → Business Management → Withdraw Method — method list" },
+    { url: "/docs/bm2/img_10.png", caption: "Withdraw Method → Add New Method — define name & required fields → Save" },
+    ],
   "FN-MTH-002": [
-    { url: "/docs/bm/business_settings_bottom_1773152576887.png", caption: "Step 1 — Enable or disable a payment method" },
-  ],
+    { url: "/docs/bm2/img_05.png", caption: "Step 1 — Business Management — sidebar navigation" },
+    { url: "/docs/bm2/img_09.png", caption: "Transactions & Reports → Business Management → Withdraw Method — Toggle Enable/Disable → Click Set as Default" },
+    ],
 
   // ════════════════════════════════════════════════════
-  //  MARKETING & PROMOTIONS (PM-CPN / PM-NTF / PM-ADV etc.)
-  //  These use PM- prefix but belong to Marketing module
+  //  FLASH SALES (Order Management → Flash Sales)
   // ════════════════════════════════════════════════════
 
+  // FS-CRT-001: Create a new Flash Sale
+  "FS-CRT-001": [
+    { url: "/docs/om2/img_08.png", caption: "Step 1 — Order Management → Flash Sales — sidebar navigation" },
+    { url: "/docs/om2/img_21.png", caption: "Step 2 — Flash Sale Setup — Fill Title, Admin %, Store %, Start Date, End Date → Submit" },
+    { url: "/docs/om2/img_23.png", caption: "Step 3 — Flash Sale List — verify the new sale appears" },
+    ],
+  // FS-PRD-001: Add Products to a Flash Sale
+  "FS-PRD-001": [
+    { url: "/docs/om2/img_08.png", caption: "Step 1 — Order Management → Flash Sales — sidebar navigation" },
+    { url: "/docs/om2/img_23.png", caption: "Step 2 — Flash Sale List — click '+ Add New Product' on the sale" },
+    { url: "/docs/om2/img_22.png", caption: "Step 3 — Flash Sale Product Setup — select item, set stock, discount type & amount → Submit" },
+    ],
+  // FS-MGT-001: Manage Flash Sales (publish, edit, delete)
+  "FS-MGT-001": [
+    { url: "/docs/om2/img_08.png", caption: "Step 1 — Order Management → Flash Sales — sidebar navigation" },
+    { url: "/docs/om2/img_23.png", caption: "Step 2 — Flash Sale List — toggle Publish, click Edit or Delete" },
+    ],
+
+  // ════════════════════════════════════════════════════
+  //  PROMOTION MANAGEMENT (PR-* / PM-BCM / PM-CPN etc.)
+  // ════════════════════════════════════════════════════
+
+  // PR-BCM: Basic Campaigns
+  "PR-BCM-001": [
+    { url: "/docs/pr2/img_02.png", caption: "Step 2 — Promotion Management — accessing the module" },
+    { url: "/docs/pr2/img_01.png", caption: "Promotion Management — module overview" },
+    { url: "/docs/pr2/img_03.png", caption: "Promotion Management → Campaigns — navigation" },
+    { url: "/docs/pr2/img_04.png", caption: "Promotion Management → Campaigns → Add New Basic Campaign — form (name, dates, discount type)" },
+    ],
+  "PR-BCM-002": [
+    { url: "/docs/pr2/img_02.png", caption: "Step 2 — Promotion Management — accessing the module" },
+    { url: "/docs/pr2/img_05.png", caption: "Campaigns → Add Basic Campaign — form fields (title, image, validity, stores)" },
+    { url: "/docs/pr2/img_06.png", caption: "Promotion Management → Campaigns — Basic Campaign list with status toggle" },
+    ],
   "PM-BCM-001": [
-    { url: "/docs/bm/capture_gallery_active_page_1773154988755.webp", caption: "Step 1 — Banner/Campaign Management" },
-  ],
+    { url: "/docs/pr2/img_02.png", caption: "Step 2 — Promotion Management → Campaigns — navigation" },
+    { url: "/docs/pr2/img_03.png", caption: "Promotion Management → Campaigns — navigation" },
+    { url: "/docs/pr2/img_04.png", caption: "Add New Basic Campaign — form" },
+    ],
   "PM-BCM-002": [
-    { url: "/docs/bm/gallery_main_page_1773155002425.png", caption: "Step 1 — Campaign list & status" },
-  ],
+    { url: "/docs/pr2/img_02.png", caption: "Step 2 — Promotion Management → Campaigns — navigation" },
+    { url: "/docs/pr2/img_06.png", caption: "Campaigns — Basic Campaign list & status" },
+    ],
+
+  // PR-ICM: Item Campaigns
+  "PR-ICM-001": [
+    { url: "/docs/pr2/img_02.png", caption: "Step 2 — Promotion Management — accessing the module" },
+    { url: "/docs/pr2/img_07.png", caption: "Promotion Management → Campaigns → Add New Item Campaign — select store & products" },
+    { url: "/docs/pr2/img_08.png", caption: "Item Campaign — product selection and discount % fields" },
+    { url: "/docs/pr2/img_09.png", caption: "Item Campaign — campaign validity and confirmation" },
+    ],
+  "PR-ICM-002": [
+    { url: "/docs/pr2/img_02.png", caption: "Step 2 — Promotion Management — accessing the module" },
+    { url: "/docs/pr2/img_02.png", caption: "Promotion Management — sidebar navigation" },
+    { url: "/docs/pr2/img_03.png", caption: "Promotion Management → Campaigns — navigation" },
+    { url: "/docs/pr2/img_10.png", caption: "Promotion Management → Campaigns → Item Campaigns — campaign list with status & actions" },
+    ],
   "PM-ICM-001": [
-    { url: "/docs/bm/capture_subscription_mgt_1773154032937.webp", caption: "Step 1 — Item Campaign setup" },
-  ],
+    { url: "/docs/pr2/img_02.png", caption: "Step 2 — Promotion Management → Campaigns — navigation" },
+    { url: "/docs/pr2/img_02.png", caption: "Promotion Management — sidebar navigation" },
+    { url: "/docs/pr2/img_03.png", caption: "Promotion Management → Campaigns — navigation" },
+    { url: "/docs/pr2/img_07.png", caption: "Promotion Management → Campaigns → Add Item Campaign — select store & products" },
+    { url: "/docs/pr2/img_08.png", caption: "Item Campaign — product selection and discount % fields" },
+    { url: "/docs/pr2/img_09.png", caption: "Item Campaign — set validity and confirm" },
+    ],
   "PM-ICM-002": [
-    { url: "/docs/bm/subscription_package_list_empty_1773154158139.png", caption: "Step 1 — Item Campaign list" },
-  ],
+    { url: "/docs/pr2/img_02.png", caption: "Step 2 — Promotion Management → Campaigns — navigation" },
+    { url: "/docs/pr2/img_02.png", caption: "Promotion Management — sidebar navigation" },
+    { url: "/docs/pr2/img_03.png", caption: "Promotion Management → Campaigns — navigation" },
+    { url: "/docs/pr2/img_10.png", caption: "Promotion Management → Campaigns → Item Campaigns — campaign list with status toggle & actions" },
+    ],
+
+  // PR-BNR: Banners
+  "PR-BNR-001": [
+    { url: "/docs/pr2/img_11.png", caption: "Step 2 — Promotion Management → Banners — navigation" },
+    { url: "/docs/pr2/img_11.png", caption: "Promotion Management → Banners — navigation" },
+    { url: "/docs/pr2/img_12.png", caption: "Promotion Management → Banners → Add New Banner — image, link, validity & zone" },
+    ],
+  "PR-BNR-002": [
+    { url: "/docs/pr2/img_11.png", caption: "Step 2 — Promotion Management → Banners — navigation" },
+    { url: "/docs/pr2/img_13.png", caption: "Promotion Management → Banners — Banner list with status toggle & reorder" },
+    ],
   "PM-BNR-001": [
-    { url: "/docs/bm/admin_landing_page_fixed_data_1773154532123.png", caption: "Step 1 — Banner setup (image, link, validity)" },
-  ],
+    { url: "/docs/pr2/img_11.png", caption: "Step 2 — Promotion Management → Banners — navigation" },
+    { url: "/docs/pr2/img_12.png", caption: "Promotion Management → Banners — Add New Banner" },
+    ],
   "PM-BNR-002": [
-    { url: "/docs/bm/gallery_main_page_1773155002425.png", caption: "Step 1 — Banner list with status & reorder" },
-  ],
+    { url: "/docs/pr2/img_11.png", caption: "Step 2 — Promotion Management → Banners — navigation" },
+    { url: "/docs/pr2/img_13.png", caption: "Banner list with status & reorder" },
+    ],
+
+  // PR-OBN: Other Banners
+  "PR-OBN-001": [
+    { url: "/docs/pr2/img_14.png", caption: "Step 2 — Promotion Management → Other Banners — navigation" },
+    { url: "/docs/pr2/img_14.png", caption: "Promotion Management → Other Banners — navigation" },
+    { url: "/docs/pr2/img_16.png", caption: "Other Banners — block configuration (Popup, Category, Module banners)" },
+    { url: "/docs/pr2/img_17.png", caption: "Other Banners — banner block reference" },
+    { url: "/docs/pr2/img_18.png", caption: "Other Banners — upload image to banner block" },
+    ],
   "PM-OBN-001": [
-    { url: "/docs/bm/react_landing_page_header_1773154563557.png", caption: "Step 1 — Onboarding Banner configuration" },
-  ],
+    { url: "/docs/pr2/img_14.png", caption: "Step 2 — Promotion Management → Other Banners — navigation" },
+    { url: "/docs/pr2/img_16.png", caption: "Promotion Management → Other Banners — block configuration" },
+    ],
+
+  // PR-CPN: Coupons
+  "PR-CPN-001": [
+    { url: "/docs/pr2/img_19.png", caption: "Step 2 — Promotion Management → Coupons — navigation" },
+    { url: "/docs/pr2/img_19.png", caption: "Promotion Management → Coupons — navigation" },
+    { url: "/docs/pr2/img_20.png", caption: "Promotion Management → Coupons → Add New Coupon — code, type, discount, validity" },
+    ],
+  "PR-CPN-002": [
+    { url: "/docs/pr2/img_19.png", caption: "Step 2 — Promotion Management → Coupons — navigation" },
+    { url: "/docs/pr2/img_21.png", caption: "Promotion Management → Coupons — Coupon list with status toggle & expiry date" },
+    ],
   "PM-CPN-001": [
-    { url: "/docs/bm/capture_subscription_mgt_1773154032937.webp", caption: "Step 1 — Coupon / Promo code creation" },
-  ],
+    { url: "/docs/pr2/img_19.png", caption: "Step 2 — Promotion Management → Coupons — navigation" },
+    { url: "/docs/pr2/img_20.png", caption: "Promotion Management → Coupons — Add New Coupon" },
+    ],
   "PM-CPN-002": [
-    { url: "/docs/bm/subscription_package_list_empty_1773154158139.png", caption: "Step 1 — Coupon list with status & expiry" },
-  ],
+    { url: "/docs/pr2/img_19.png", caption: "Step 2 — Promotion Management → Coupons — navigation" },
+    { url: "/docs/pr2/img_21.png", caption: "Coupon list with status & expiry" },
+    ],
+
+  // PR-NTF: Push Notifications
+  "PR-NTF-001": [
+    { url: "/docs/pr2/img_22.png", caption: "Step 2 — Promotion Management → Push Notification — navigation" },
+    { url: "/docs/pr2/img_22.png", caption: "Promotion Management → Push Notification — navigation" },
+    { url: "/docs/pr2/img_23.png", caption: "Push Notification → Add New — title, body, image & target audience" },
+    ],
+  "PR-NTF-002": [
+    { url: "/docs/pr2/img_22.png", caption: "Step 2 — Promotion Management → Push Notification — navigation" },
+    { url: "/docs/pr2/img_24.png", caption: "Promotion Management → Push Notification — notification history & status" },
+    ],
   "PM-NTF-001": [
-    { url: "/docs/bm/capture_pages_social_media_1773154437627.webp", caption: "Step 1 — Push Notification builder" },
-  ],
+    { url: "/docs/pr2/img_22.png", caption: "Step 2 — Promotion Management → Push Notification — navigation" },
+    { url: "/docs/pr2/img_23.png", caption: "Promotion Management → Push Notification — Add New" },
+    ],
   "PM-NTF-002": [
-    { url: "/docs/bm/social_media_overview_1773154545475.png", caption: "Step 1 — Notification history & status" },
-  ],
+    { url: "/docs/pr2/img_22.png", caption: "Step 2 — Promotion Management → Push Notification — navigation" },
+    { url: "/docs/pr2/img_24.png", caption: "Notification history & delivery status" },
+    ],
+
+  // PR-ADV: Advertisements
+  "PR-ADV-001": [
+    { url: "/docs/pr2/img_25.png", caption: "Step 2 — Promotion Management → Advertisements — navigation" },
+    { url: "/docs/pr2/img_25.png", caption: "Promotion Management → Advertisements — navigation" },
+    { url: "/docs/pr2/img_26.png", caption: "Promotion Management → Advertisements → Add New Advertisement — title, image, link, dates" },
+    { url: "/docs/pr2/img_27.png", caption: "Advertisement form — zone, module and store targeting" },
+    ],
+  "PR-ADV-002": [
+    { url: "/docs/pr2/img_25.png", caption: "Step 2 — Promotion Management → Advertisements — navigation" },
+    { url: "/docs/pr2/img_28.png", caption: "Promotion Management → Advertisements → Advertisement Requests — review pending requests" },
+    ],
+  "PR-ADV-003": [
+    { url: "/docs/pr2/img_25.png", caption: "Step 2 — Promotion Management → Advertisements — navigation" },
+    { url: "/docs/pr2/img_29.png", caption: "Promotion Management → Advertisements — Advertisement list with status & actions" },
+    ],
   "PM-ADV-001": [
-    { url: "/docs/bm/capture_gallery_active_page_1773154988755.webp", caption: "Step 1 — Advertisement creation form" },
-  ],
+    { url: "/docs/pr2/img_25.png", caption: "Step 2 — Promotion Management → Advertisements — navigation" },
+    { url: "/docs/pr2/img_26.png", caption: "Promotion Management → Advertisements — Add New Advertisement" },
+    ],
   "PM-ADV-002": [
-    { url: "/docs/bm/gallery_main_page_1773155002425.png", caption: "Step 1 — Advertisement list & scheduling" },
-  ],
+    { url: "/docs/pr2/img_25.png", caption: "Step 2 — Promotion Management → Advertisements — navigation" },
+    { url: "/docs/pr2/img_28.png", caption: "Advertisement Requests — review New/Update/Denied tabs" },
+    ],
   "PM-ADV-003": [
-    { url: "/docs/bm/gallery_upload_modal_1773155015056.png", caption: "Step 1 — Advertisement performance metrics" },
-  ],
+    { url: "/docs/pr2/img_25.png", caption: "Step 2 — Promotion Management → Advertisements — navigation" },
+    { url: "/docs/pr2/img_29.png", caption: "Ads List — all active advertisements" },
+    ],
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -789,44 +1071,44 @@ const REF_IMAGE_MAP: Record<string, StoryImage[]> = {
 const SUBMODULE_IMAGE_MAP: Record<string, Record<string, StoryImage[]>> = {
   "Product Management": {
     "Categories": [
-      { url: "/docs/pm/img_26.jpeg", caption: "Product Management sidebar" },
-      { url: "/docs/pm/img_31.jpeg", caption: "Category List with status toggles" },
+      { url: "/docs/pm_fresh/img_01.jpeg", caption: "Product Management sidebar" },
+      { url: "/docs/pm_fresh/img_08.jpeg", caption: "Category List with status toggles" },
     ],
     "Sub Categories": [
-      { url: "/docs/pm/img_33.jpeg", caption: "Sub Category List" },
+      { url: "/docs/pm_fresh/img_10.jpeg", caption: "Sub Category List" },
     ],
-    "Categories – Bulk Import": [
-      { url: "/docs/pm/img_35.jpeg", caption: "Category Bulk Import" },
+    "Categories \u2013 Bulk Import": [
+      { url: "/docs/pm_fresh/img_12.jpeg", caption: "Category Bulk Import" },
     ],
-    "Categories – Bulk Export": [
-      { url: "/docs/pm/img_38.jpeg", caption: "Export Categories" },
+    "Categories \u2013 Bulk Export": [
+      { url: "/docs/pm_fresh/img_15.jpeg", caption: "Export Categories" },
     ],
     "Attributes": [
-      { url: "/docs/pm/img_42.jpeg", caption: "Attribute List" },
+      { url: "/docs/pm_fresh/img_18.jpeg", caption: "Attribute List" },
     ],
     "Units": [
-      { url: "/docs/pm/img_45.jpeg", caption: "Units List" },
+      { url: "/docs/pm_fresh/img_21.jpeg", caption: "Unit List" },
     ],
     "Brands": [
-      { url: "/docs/pm/img_46.jpeg", caption: "Brand Setup" },
+      { url: "/docs/pm_fresh/img_22.jpeg", caption: "Brand Setup" },
     ],
-    "Product Setup – Add New": [
-      { url: "/docs/pm/img_04.jpeg", caption: "Add New Item form" },
+    "Product Setup \u2013 Add New": [
+      { url: "/docs/pm_fresh/img_25.jpeg", caption: "Add New Item form" },
     ],
-    "Product Setup – List": [
-      { url: "/docs/pm/img_10.jpeg", caption: "Product List" },
+    "Product Setup \u2013 List": [
+      { url: "/docs/pm_fresh/img_31.jpeg", caption: "Item List" },
     ],
-    "Product Setup – Low Stock": [
-      { url: "/docs/pm/img_15.jpeg", caption: "Low Stock List" },
+    "Product Setup \u2013 Low Stock": [
+      { url: "/docs/pm_fresh/img_36.jpeg", caption: "Low Stock List" },
     ],
-    "Product Setup – Reviews": [
-      { url: "/docs/pm/img_18.jpeg", caption: "Item Reviews" },
+    "Product Setup \u2013 Reviews": [
+      { url: "/docs/pm_fresh/img_39.jpeg", caption: "Item Reviews" },
     ],
-    "Product Setup – Bulk Import": [
-      { url: "/docs/pm/img_20.jpeg", caption: "Items Bulk Import" },
+    "Product Setup \u2013 Bulk Import": [
+      { url: "/docs/pm_fresh/img_41.jpeg", caption: "Items Bulk Import" },
     ],
-    "Product Setup – Bulk Export": [
-      { url: "/docs/pm/img_23.jpeg", caption: "Items Bulk Export" },
+    "Product Setup \u2013 Bulk Export": [
+      { url: "/docs/pm_fresh/img_44.jpeg", caption: "Items Bulk Export" },
     ],
   },
   "Employee Management": {
@@ -838,6 +1120,95 @@ const SUBMODULE_IMAGE_MAP: Record<string, Record<string, StoryImage[]>> = {
     ],
     "Role Management": [
       { url: "/docs/em/em_01_add_new_form.png", caption: "Role selection" },
+    ],
+  },
+  "Flash Sales": {
+    "Flash Sale Creation": [
+      { url: "/docs/om2/img_08.png", caption: "Order Management → Flash Sales — sidebar navigation" },
+      { url: "/docs/om2/img_21.png", caption: "Flash Sale Setup — creation form" },
+    ],
+    "Flash Sale Products": [
+      { url: "/docs/om2/img_22.png", caption: "Flash Sale Product Setup" },
+    ],
+    "Flash Sale Management": [
+      { url: "/docs/om2/img_23.png", caption: "Flash Sale List" },
+    ],
+  },
+  "Promotion Management": {
+    "Basic Campaigns": [
+      { url: "/docs/pr2/img_03.png", caption: "Campaigns — Basic & Item navigation" },
+      { url: "/docs/pr2/img_04.png", caption: "Add New Basic Campaign form" },
+    ],
+    "Item Campaigns": [
+      { url: "/docs/pr2/img_07.png", caption: "Add New Item Campaign form" },
+    ],
+    "Banners": [
+      { url: "/docs/pr2/img_12.png", caption: "Add New Banner form" },
+    ],
+    "Other Banners": [
+      { url: "/docs/pr2/img_16.png", caption: "Other Banners — block configuration" },
+    ],
+    "Coupons": [
+      { url: "/docs/pr2/img_20.png", caption: "Add New Coupon form" },
+    ],
+    "Push Notifications": [
+      { url: "/docs/pr2/img_23.png", caption: "Send Push Notification form" },
+    ],
+    "Advertisements": [
+      { url: "/docs/pr2/img_26.png", caption: "Add New Advertisement form" },
+    ],
+  },
+  "Reports & Analytics": {
+    "Transaction Report": [
+      { url: "/docs/ra2/img_00.png", caption: "Report & Analytics sidebar navigation" },
+      { url: "/docs/ra2/img_01.png", caption: "Transaction Report — filter bar" },
+      { url: "/docs/ra2/img_02.png", caption: "Transaction Report — summary & table" },
+      { url: "/docs/ra2/img_03.png", caption: "Transaction Report — export" },
+    ],
+    "Item Report": [
+      { url: "/docs/ra2/img_04.png", caption: "Item Report — filter" },
+      { url: "/docs/ra2/img_05.png", caption: "Item Report — product sales table" },
+      { url: "/docs/ra2/img_06.png", caption: "Item Report — export" },
+    ],
+    "Store Wise Report": [
+      { url: "/docs/ra2/img_07.png", caption: "Store Wise Report — Summary tab" },
+      { url: "/docs/ra2/img_08.png", caption: "Store Wise Report — Sales tab" },
+      { url: "/docs/ra2/img_09.png", caption: "Store Wise Report — Order tab" },
+      { url: "/docs/ra2/img_10.png", caption: "All Orders table" },
+    ],
+    "Expense Report": [
+      { url: "/docs/ra2/img_11.png", caption: "Expense Report — filter" },
+      { url: "/docs/ra2/img_12.png", caption: "Expense Report — expense list" },
+    ],
+    "Disbursement Report": [
+      { url: "/docs/ra2/img_13.png", caption: "Disbursement — Store Disbursements" },
+      { url: "/docs/ra2/img_14.png", caption: "Disbursement — Delivery Man" },
+      { url: "/docs/ra2/img_15.png", caption: "Store Disbursement detail filter" },
+      { url: "/docs/ra2/img_16.png", caption: "Delivery Man Disbursement detail filter" },
+      { url: "/docs/ra2/img_17.png", caption: "Total Disbursements table" },
+      { url: "/docs/ra2/img_18.png", caption: "Export dropdown" },
+    ],
+    "Order Report": [
+      { url: "/docs/ra2/img_19.png", caption: "Order Report — filter bar" },
+      { url: "/docs/ra2/img_20.png", caption: "Order Report — stats & order table" },
+      { url: "/docs/ra2/img_21.png", caption: "Order Report — export" },
+    ],
+    "Admin Tax Report": [
+      { url: "/docs/ra2/img_22.png", caption: "Admin Tax — date range selector" },
+      { url: "/docs/ra2/img_23.png", caption: "Admin Tax — tax rate entry" },
+      { url: "/docs/ra2/img_24.png", caption: "Admin Tax — generated report" },
+    ],
+    "Vendor Tax Report": [
+      { url: "/docs/ra2/img_25.png", caption: "Vendor Tax — filter bar" },
+      { url: "/docs/ra2/img_26.png", caption: "Vendor Tax — summary metrics" },
+      { url: "/docs/ra2/img_27.png", caption: "Vendor Tax — summary table" },
+      { url: "/docs/ra2/img_28.png", caption: "Vendor Tax — export" },
+      { url: "/docs/ra2/img_30.png", caption: "All Vendor Taxes table" },
+    ],
+    "Parcel Tax Report": [
+      { url: "/docs/ra2/img_31.png", caption: "Parcel Tax — date filter" },
+      { url: "/docs/ra2/img_32.png", caption: "Parcel Tax — breakdown table" },
+      { url: "/docs/ra2/img_34.png", caption: "Parcel Tax — export" },
     ],
   },
 };
