@@ -890,27 +890,6 @@ const REF_IMAGE_MAP: Record<string, StoryImage[]> = {
     { url: "/docs/bm2/img_09.png", caption: "Transactions & Reports → Business Management → Withdraw Method — Toggle Enable/Disable → Click Set as Default" },
     ],
 
-  // ════════════════════════════════════════════════════
-  //  FLASH SALES (Order Management → Flash Sales)
-  // ════════════════════════════════════════════════════
-
-  // FS-CRT-001: Create a new Flash Sale
-  "FS-CRT-001": [
-    { url: "/docs/om2/img_08.png", caption: "Step 1 — Order Management → Flash Sales — sidebar navigation" },
-    { url: "/docs/om2/img_21.png", caption: "Step 2 — Flash Sale Setup — Fill Title, Admin %, Store %, Start Date, End Date → Submit" },
-    { url: "/docs/om2/img_23.png", caption: "Step 3 — Flash Sale List — verify the new sale appears" },
-    ],
-  // FS-PRD-001: Add Products to a Flash Sale
-  "FS-PRD-001": [
-    { url: "/docs/om2/img_08.png", caption: "Step 1 — Order Management → Flash Sales — sidebar navigation" },
-    { url: "/docs/om2/img_23.png", caption: "Step 2 — Flash Sale List — click '+ Add New Product' on the sale" },
-    { url: "/docs/om2/img_22.png", caption: "Step 3 — Flash Sale Product Setup — select item, set stock, discount type & amount → Submit" },
-    ],
-  // FS-MGT-001: Manage Flash Sales (publish, edit, delete)
-  "FS-MGT-001": [
-    { url: "/docs/om2/img_08.png", caption: "Step 1 — Order Management → Flash Sales — sidebar navigation" },
-    { url: "/docs/om2/img_23.png", caption: "Step 2 — Flash Sale List — toggle Publish, click Edit or Delete" },
-    ],
 
   // ════════════════════════════════════════════════════
   //  PROMOTION MANAGEMENT (PR-* / PM-BCM / PM-CPN etc.)
